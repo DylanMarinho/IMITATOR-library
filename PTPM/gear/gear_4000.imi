@@ -1,21 +1,25 @@
-(************************************************************
- *                      IMITATOR MODEL                      
- *
- * Parametric timed pattern matching benchmark: gear
- *
- * Description     : Parametric timed pattern matching benchmark: gear
- * Correctness     : N/A
- * Source          : Benchmarks for Temporal Logic Requirements for Automotive Systems (ARCH@CPSWeek 2014) + Masaki Waga / Étienne André, Ichiro Husuo, Masaki Waga "Offline timed pattern matching under uncertainty" (ICECCS 2018)
- * Author          : The same
- * Modeling        : Étienne André
- * Input by        : Étienne André
- * License         : Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
- *
- * Created         : 2018/04/06
- * Last modified   : 2020/08/18
- *
- * IMITATOR version: 3
- ************************************************************)
+(*******************************************************************************
+ *                                IMITATOR MODEL                               
+ * 
+ * Title            : gear_4000
+ * Description      : Parametric timed pattern matching benchmark
+ * Scalable         : 
+ * Generated        : yes
+ * Categories       : 
+ * Source           : Benchmarks for Temporal Logic Requirements for Automotive Systems (ARCH@CPSWeek 2014) + Masaki Waga / Étienne André, Ichiro Husuo, Masaki Waga "Offline timed pattern matching under uncertainty" (ICECCS 2018)
+ * bibkey           : HAF14 
+ * Author           :  AHW18
+ * Modeling         : The same
+ * Input by         : Étienne André
+ * License          : Étienne André
+ * 
+ * Created          : Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+ * Last modified    : 2018/04/06
+ * Model version    : 2020/08/18
+ * 
+ * IMITATOR version : 
+ ******************************************************************************)
+
 
 var
 

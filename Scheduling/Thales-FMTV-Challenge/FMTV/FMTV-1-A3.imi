@@ -1,16 +1,25 @@
-(************************************************************
- *                         IMITATOR
- *
- * Modeling the FMTV challenge, problem 1A for n=3
- * References      : "Verification of Two Real-Time Systems Using Parametric Timed Automata" (2015) by 
- *                      Youcheng Sun, Étienne André and Giuseppe Lipari
- * Author          : Étienne André and Youcheng Sun
- *
- * Created         : 2015/03/19
- * Last modified   : 2020/08/18
- *
- * IMITATOR version: 3
- ************************************************************)
+(*******************************************************************************
+ *                                IMITATOR MODEL                               
+ * 
+ * Title            : FMTV-1-A3
+ * Description      : 
+ * Scalable         : 
+ * Generated        : 
+ * Categories       : 
+ * Source           : 
+ * bibkey           : SAL15
+ * Author           : Étienne André and Youcheng Sun
+ * Modeling         : 
+ * Input by         : 
+ * License          : 
+ * 
+ * Created          : 2015/03/19
+ * Last modified    : 2020/08/18
+ * Model version    : 
+ * 
+ * IMITATOR version : 3
+ ******************************************************************************)
+
 
 var
 
