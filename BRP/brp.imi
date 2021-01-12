@@ -6,7 +6,7 @@
  * Correctness      : V[] ((S.error ^ x = SYNC) => R.new_file)
  * Scalable         : 
  * Generated        : 
- * Categories       : 
+ * Categories       : Academic ; Industrial ; Protocol ; RTS
  * Source           : "The Bounded Retransmission Protocol Must Be on Time!"
  * bibkey           : DKRT97
  * Author           : Pedro R. D'Argenio , Joost-Pieter Katoen , Theo C. Ruys , G. Jan Tretmans

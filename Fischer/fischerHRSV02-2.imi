@@ -6,7 +6,7 @@
  * Correctness      : No two processes in the mutual exclusion
  * Scalable         : 
  * Generated        : 
- * Categories       : 
+ * Categories       : Academic ; Protocol ; RTS
  * Source           : From "Linear Parametric Model Checking of Timed Automata" Hune, Romijn, Stoelinga, Vaandrager, 2002
  * bibkey           : 
  * Author           : Hune, Romijn, Stoelinga, Vaandrager

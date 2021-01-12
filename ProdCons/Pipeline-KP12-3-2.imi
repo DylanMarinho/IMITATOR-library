@@ -6,7 +6,7 @@
  * Correctness      : φ2 = ConsWaiting ∧ ProdReady ∧ xtotal ≥ 5
  * Scalable         : 
  * Generated        : 
- * Categories       : 
+ * Categories       : Academic ; ProdCons
  * Source           : SMT-based Parameter Synthesis for L/U Automata, Michał Knapik and Wojciech Penczek
  * bibkey           : KP12
  * Author           : Michał Knapik and Wojciech Penczek
