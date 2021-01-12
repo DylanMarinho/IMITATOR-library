@@ -6,7 +6,7 @@
  * Correctness      : Not 2 processes together in the critical section (location obs_violation unreachable)
  * Scalable         : 
  * Generated        : 
- * Categories       : Academic ; Protocol ; RTS
+ * Categories       : Academic ; Protocol ; RTS
  * Source           : PAT library of benchmarks
  * bibkey           : 
  * Author           : ?

@@ -6,7 +6,7 @@
  * Correctness      : Q should raise before CK falls
  * Scalable         : 
  * Generated        : 
- * Categories       : Academic ; Hardware
+ * Categories       : Academic ; Hardware
  * Source           : "Verification of timed circuits with symbolic delays" (Clariso -- Cortadella); Design Automation Conference, 2004. Proceedings of the ASP-DAC 2004. Asia and South Pacific; DOI
  * bibkey           : CC07
  * Author           : Roberto Clariso and Jordi Cortadella

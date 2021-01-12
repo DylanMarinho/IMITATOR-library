@@ -6,7 +6,7 @@
  * Correctness      : No two processes in the critical section (i.e., in P1_4 and P2_4 at the same time)
  * Scalable         : 
  * Generated        : 
- * Categories       : Academic ; Protocol ; RTS
+ * Categories       : Academic ; Protocol ; RTS
  * Source           : Model described in "Parametric Real-Time Reasoning" (fig. 2) Alur, Henzinger, Vardi (STOC 1993)
  * bibkey           : AHV93
  * Author           : Alur, Henzinger, Vardi
