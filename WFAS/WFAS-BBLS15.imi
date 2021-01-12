@@ -3,6 +3,7 @@
  * 
  * Title            : WFAS-BBLS15
  * Description      : wireless fire alarm system. Note that [BBLS15] only synthesize point valuations, and not the most general constraint satisfying correctness.
+ * Correctness      : No failure and no timeout (safety property)
  * Scalable         : 
  * Generated        : 
  * Categories       : 
@@ -19,6 +20,8 @@
  * 
  * IMITATOR version : 3
  ******************************************************************************)
+
+
 
 
 var

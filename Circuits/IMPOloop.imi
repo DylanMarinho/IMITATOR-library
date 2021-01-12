@@ -3,6 +3,7 @@
  * 
  * Title            : IMPOloop
  * Description      : Model of a small acyclic asynchronous circuit
+ * Correctness      : Q must not rise
  * Scalable         : 
  * Generated        : 
  * Categories       : 
@@ -19,6 +20,8 @@
  * 
  * IMITATOR version : 3
  ******************************************************************************)
+
+
 
 
 var 	ckNot1, ckNot2, ckNot3, ckAnd, ckEnv

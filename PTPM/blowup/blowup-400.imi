@@ -3,6 +3,7 @@
  * 
  * Title            : blowup-400
  * Description      : Template of a timed word alternating between a and c
+ * Correctness      : N/A
  * Scalable         : 
  * Generated        : yes
  * Categories       : 
@@ -19,6 +20,8 @@
  * 
  * IMITATOR version : 3
  ******************************************************************************)
+
+
 
 
 var

@@ -3,6 +3,7 @@
  * 
  * Title            : coffeeDrinker
  * Description      : Coffee vending machine; a single button is used to wake the machine up, and to add sugar. Then a cup, and coffee are delivered after a (parametric) time.
+ * Correctness      : The scientist never gets mad
  * Scalable         : 
  * Generated        : 
  * Categories       : 
@@ -19,6 +20,8 @@
  * 
  * IMITATOR version : 3
  ******************************************************************************)
+
+
 
 
 var

@@ -3,6 +3,7 @@
  * 
  * Title            : NoodlesCooking
  * Description      : Toy example to cook noodles
+ * Correctness      : The water must not boil over [in fact, no parameter valuation can prevent this, because the timer is not necessarily set from the beginning!]
  * Scalable         : 
  * Generated        : 
  * Categories       : 
@@ -19,6 +20,8 @@
  * 
  * IMITATOR version : 3
  ******************************************************************************)
+
+
 
 
 var 	xPot, xTimer

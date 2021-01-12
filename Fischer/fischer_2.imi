@@ -3,6 +3,7 @@
  * 
  * Title            : fischer_2
  * Description      : Fischer's mutual exclusion protocol with 2 processes
+ * Correctness      : The mutual exclusion is ensured
  * Scalable         : 
  * Generated        : 
  * Categories       : 
@@ -19,6 +20,8 @@
  * 
  * IMITATOR version : 3
  ******************************************************************************)
+
+
 
  
 var 

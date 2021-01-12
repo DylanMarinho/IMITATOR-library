@@ -3,6 +3,7 @@
  * 
  * Title            : TrainAHV93
  * Description      : Classical Railroad Gate Controller
+ * Correctness      : "Whenever the train is inside the gate, the gate should be closed"
  * Scalable         : 
  * Generated        : 
  * Categories       : 
@@ -19,6 +20,8 @@
  * 
  * IMITATOR version : 3
  ******************************************************************************)
+
+
 
  
 

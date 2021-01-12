@@ -3,6 +3,7 @@
  * 
  * Title            : fischerHRSV02-2
  * Description      : Fischer's mutual exclusion protocol. Version with 2 processes.
+ * Correctness      : No two processes in the mutual exclusion
  * Scalable         : 
  * Generated        : 
  * Categories       : 
@@ -19,6 +20,8 @@
  * 
  * IMITATOR version : 3
  ******************************************************************************)
+
+
 
 
 var 

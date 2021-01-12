@@ -3,6 +3,7 @@
  * 
  * Title            : FischerAHV93
  * Description      : Fischer protocol for mutual exclusion (parametric timed version). Modeled exactly as in [AHV93] although smarter modeling could have been done thanks to the IMITATOR syntax.
+ * Correctness      : No two processes in the critical section (i.e., in P1_4 and P2_4 at the same time)
  * Scalable         : 
  * Generated        : 
  * Categories       : 
@@ -19,6 +20,8 @@
  * 
  * IMITATOR version : 3
  ******************************************************************************)
+
+
 
 
 

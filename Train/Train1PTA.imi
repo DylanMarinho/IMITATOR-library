@@ -3,6 +3,7 @@
  * 
  * Title            : Train1PTA
  * Description      : Simple model with 1 PTA only
+ * Correctness      : "Crash" cannot happen
  * Scalable         : 
  * Generated        : 
  * Categories       : 
@@ -19,6 +20,8 @@
  * 
  * IMITATOR version : 3
  ******************************************************************************)
+
+
 
 
 var

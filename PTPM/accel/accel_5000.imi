@@ -3,6 +3,7 @@
  * 
  * Title            : accel_5000
  * Description      : Parametric timed pattern matching benchmark
+ * Correctness      : N/A
  * Scalable         : 
  * Generated        : yes
  * Categories       : 
@@ -19,6 +20,8 @@
  * 
  * IMITATOR version : 
  ******************************************************************************)
+
+
 
 
 var

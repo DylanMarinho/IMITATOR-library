@@ -3,6 +3,7 @@
  * 
  * Title            : RCP-CS01
  * Description      : Protocol described in "Parameterized Reachability Analysis of the IEEE 1394 Root Contention Protocol using TReX" Collomb-Annichini, Sighireanu (RTTOOLS 2001)
+ * Correctness      : see paper
  * Scalable         : 
  * Generated        : 
  * Categories       : 
@@ -19,6 +20,8 @@
  * 
  * IMITATOR version : 3
  ******************************************************************************)
+
+
 
 
 
