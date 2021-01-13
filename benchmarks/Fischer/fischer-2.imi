@@ -1,7 +1,7 @@
 (*******************************************************************************
  *                                IMITATOR MODEL                               
  * 
- * Title            : fischer_2
+ * Title            : fischer-2
  * Description      : Fischer's mutual exclusion protocol with 2 processes
  * Correctness      : The mutual exclusion is ensured
  * Scalable         : 

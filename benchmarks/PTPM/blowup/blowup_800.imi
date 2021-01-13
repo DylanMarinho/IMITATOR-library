@@ -1,7 +1,7 @@
 (*******************************************************************************
  *                                IMITATOR MODEL                               
  * 
- * Title            : blowup-800
+ * Title            : blowup_800
  * Description      : Template of a timed word alternating between a and c
  * Correctness      : N/A
  * Scalable         : 

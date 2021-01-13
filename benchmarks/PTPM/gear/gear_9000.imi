@@ -8,17 +8,17 @@
  * Generated        : yes
  * Categories       : Automative ; Industrial
  * Source           : Benchmarks for Temporal Logic Requirements for Automotive Systems (ARCH@CPSWeek 2014) + Masaki Waga / Étienne André, Ichiro Husuo, Masaki Waga "Offline timed pattern matching under uncertainty" (ICECCS 2018)
- * bibkey           : HAF14 
- * Author           :  AHW18
- * Modeling         : The same
+ * bibkey           : HAF14 ; AHW18
+ * Author           : The same
+ * Modeling         : Étienne André
  * Input by         : Étienne André
- * License          : Étienne André
+ * License          : Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
  * 
- * Created          : Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
- * Last modified    : 2018/04/06
- * Model version    : 2020/08/18
+ * Created          : 2018/04/06
+ * Last modified    : 2020/08/18
+ * Model version    : 
  * 
- * IMITATOR version : 
+ * IMITATOR version : 3
  ******************************************************************************)
 
 
