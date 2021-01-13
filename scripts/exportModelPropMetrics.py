@@ -101,7 +101,10 @@ def exportModelPropMetrics(listOfModelsProps):
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=csvSep)
         writer.writeheader()
 
+        print(" * Begin export of Model and Property metrics with {} couples".format(len(listOfModelsProps)))
         for couple in listOfModelsProps:
+            index = listOfModelsProps.index(couple)
+            print("   ** Run of model {} ({}/{})".format(couple, index + 1, len(listOfModelsProps)))
             model = couple[0]
             prop = couple[1]
             resFile = executeModelPropRun(model, prop)
