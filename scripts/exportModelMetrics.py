@@ -15,7 +15,7 @@ csvSep = ";"
 
 # for imitator run
 imitatorCmd = "/home/dylan/.apps/imitator/bin/imitator"
-imitatorTimeout = 1  # timeout for imitator in second, 0 disables it
+imitatorTimeout = 5  # timeout for imitator in second, 0 disables it
 
 # scripts params
 modelExtension = ".imi"
@@ -107,7 +107,10 @@ def exportModelMetrics(listOfModels):
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=csvSep)
         writer.writeheader()
 
+        print(" * Begin export of Model metrics with {} models".format(len(listOfModels)))
         for model in listOfModels:
+            index = listOfModels.index(model)
+            print("   ** Run of model {} ({}/{})".format(model, index+1, len(listOfModels)))
             resFile = executeModelRun(model)
             metrics = parseRes(resFile)
             metrics["Name"] = os.path.basename(os.path.splitext(model)[0])
