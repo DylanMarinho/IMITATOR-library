@@ -11,6 +11,7 @@ enteringHeadImi = "(" + "*"*(sizeMax-1)
 modelIntroduction = "IMITATOR MODEL"
 beginLine = " * "
 exitingHeadImi = " " + "*"*(sizeMax-2) + ")"
+exitingHeadImiLarge = " " + "*"*60 + ")"  # to consider previous headering models
 
 keys = ["Title",
         "Description",
@@ -49,11 +50,14 @@ def contentModel(imiFile):
     try:
         f = open(imiFile, "r")
         content = f.read()
-        parts = content.split(exitingHeadImi + "\n")
+        parts = content.split(exitingHeadImiLarge + "\n")
+        if len(parts)<2:  # if not two parts, try with "new" headering
+            parts = content.split(exitingHeadImi + "\n")
         if len(parts)>2:
             print("More than two parts")
             return ""
         elif len(parts)<2:
+            # Not find with previous split, try the new
             print("Not have two parts")
             return ""
         content = parts[1]

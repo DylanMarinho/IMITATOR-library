@@ -10,8 +10,13 @@ files = os.path.join(root, "files")
 
 sizeMax = 80
 
-enteringHeadImi = "(" + "*"*(sizeMax-1)
-exitingHeadImi = " " + "*"*(sizeMax-2) + ")" + "\n"
+#Ok if we only want to parse "new headering" models
+#enteringHeadImi = "(" + "*"*(sizeMax-1)
+#exitingHeadImi = " " + "*"*(sizeMax-2) + ")" + "\n"
+
+#"Bad" way, but ok if we want to parse "old headering" models
+enteringHeadImi = "(" + "*"*60
+exitingHeadImi = "*"*60 + ")"
 
 headProps = [
             "Description",
