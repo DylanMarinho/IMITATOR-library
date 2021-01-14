@@ -26,7 +26,9 @@ libraryFile = os.path.join(files, "library.csv")
 
 # metrics in the res file to keep. Same name as in the res file!
 metricsToKeep = [
- "Total computation time"
+    "Total computation time",
+    "Number of states",
+    "Number of computed states"
 ]
 
 
@@ -54,19 +56,35 @@ def executeModelPropRun(model, property, timeout=imitatorTimeout, extra=""):
     resDirectory = os.path.join(resFiles, directory)
     resFile = os.path.join(resDirectory, modelName + resNameSep + propName)  # TODO improve? as model is in prop ...
 
-    cmd = "{} {} {} -output-prefix {} {} {} > /dev/null".format(
+    cmd = "{} {} {} -output-prefix {} {}{}".format(
         imitatorCmd,
         modelFile,
         propFile,
         resFile,
-        "-time-limit {} ".format(timeout) if timeout != 0 else "",
-        extra
+        "-time-limit {}".format(timeout) if timeout != 0 else "",
+        " " + extra if extra != "" else ""
     )
 
-    print(" * Running imitator with model {} and property {}".format(modelName, propName))
+    # look if we already have do the run
+    try:
+        f = open(resFile + resExtension, "r")
+        lines = f.read().split("\n")
+        resCommand = ""
+        for line in lines:
+            if "Command" in line:
+                resCommand = line.split(": ")[1]
+                break
+        toCompareCmd = cmd.replace(benchmarks, "").replace(resFiles, "").replace(imitatorCmd, "imitator")
+        if toCompareCmd == resCommand:
+            print("     *** Res file exist for model {}".format(modelName))
+            return resFile + resExtension
+    except FileNotFoundError:
+        pass
+
+    print("     *** Running imitator with model {} and property {}".format(modelName, propName))
 
     os.system("mkdir -p {}".format(resDirectory))  # create the path to res if needed
-    os.system(cmd)
+    os.system(cmd + " > /dev/null")
 
     # clean res file: delete absolute path
     cmd = "sed -i 's#{}##g' {}".format(benchmarks, resFile + resExtension)
@@ -82,8 +100,6 @@ def parseRes(resFile):
     metricsDict = {}
     with open(resFile, "r") as file:
         lines = file.read().split("\n")
-        readingMetrics = False
-        sepRead = 0
         for line in lines:
             for metricToKeep in metricsToKeep:
                 if metricToKeep in line:
@@ -109,6 +125,8 @@ def exportModelPropMetrics(listOfModelsProps):
             prop = couple[1]
             resFile = executeModelPropRun(model, prop)
             metrics = parseRes(resFile)
+            # delete unwanted metrics (like "Total computation time (IM)" for "Total computation time")
+            metrics = dict([(k, v) for k,v in metrics.items() if k in metricsToKeep])
             metrics["Model"] = os.path.basename(os.path.splitext(model)[0])
             metrics["Property"] = os.path.basename(os.path.splitext(prop)[0])
             metrics["Path"] = os.path.dirname(model).replace(benchmarks, "")

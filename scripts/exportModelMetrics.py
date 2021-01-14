@@ -56,17 +56,34 @@ def executeModelRun(model, timeout=imitatorTimeout):
     modelFile = os.path.join(benchmarks, model)
     resDirectory = os.path.join(resFiles, directory)
     resFile = os.path.join(resDirectory, modelName)
-    cmd = "{} {} -output-prefix {} {} > /dev/null".format(
+
+    cmd = "{} {} -output-prefix {} {}".format(
         imitatorCmd,
         modelFile,
         resFile,
-        "-time-limit {} ".format(timeout) if timeout != 0 else ""
+        "-time-limit {}".format(timeout) if timeout != 0 else ""
     )
+
+    # look if we already have do the run
+    try:
+        f = open(resFile + resExtension, "r")
+        lines = f.read().split("\n")
+        resCommand = ""
+        for line in lines:
+            if "Command" in line:
+                resCommand = line.split(": ")[1]
+                break
+        toCompareCmd = cmd.replace(benchmarks, "").replace(resFiles, "").replace(imitatorCmd, "imitator")
+        if toCompareCmd == resCommand:
+            print(" * Res file exist for model {}".format(modelName))
+            return resFile + resExtension
+    except FileNotFoundError:
+        pass
 
     print(" * Running imitator with model {}".format(modelName))
 
     os.system("mkdir -p {}".format(resDirectory))  # create the path to res if needed
-    os.system(cmd)
+    os.system(cmd + " > /dev/null")
 
     # clean res file: delete absolute path
     cmd = "sed -i 's#{}##g' {}".format(benchmarks, resFile + resExtension)
