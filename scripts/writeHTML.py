@@ -14,6 +14,7 @@ benchmarksLocation = "benchmarks/"  # benchmarks root from the project root
 benchmarksDir = os.path.join(root, benchmarksLocation)
 files = os.path.join(root, "files")
 resFiles = os.path.join(files, "res")
+pdfFiles = os.path.join(files, "pdf")
 
 # files
 library = os.path.join(files, "library.csv")
@@ -27,6 +28,9 @@ categoriesCsvSep = ";"  # sep, without spaces, in modelsMetaData
 modelSep = "_"  # sep of model families: each model will run of the properties. A 'basic' model can not have any "_"
 propSep = "-"  # sep of the property: [model]-[prop]. [prop] can not have any "-"
 propExtension = ".imiprop"
+
+# for imitator run
+imitatorCmd = "/home/dylan/.apps/imitator/bin/imitator"
 
 # output params
 gitURL = "https://gitlab.inria.fr/thesisdylan/imitator-benchmarks/-/tree/scripts/"
@@ -143,13 +147,34 @@ def defBenchmarks(data):
             print(model)
     return benchmarks
 
+################### Drawing model PDF
+def writePDF(imiPathFromBenchmarksRoot):
+    # placed at [root]/files/pdf/.../[modelName]-pta.pdf
+    actualName = os.path.basename(os.path.splitext(imiPathFromBenchmarksRoot)[0]) + "-pta.pdf"  # ie. name outputed by the run
+    pdfDirectory = os.path.join(pdfFiles, os.path.dirname(imiPathFromBenchmarksRoot))
+    pdfPath = os.path.join(pdfDirectory, actualName)
+
+    try:
+        open(pdfPath, "r")
+        # found pdf file
+        return pdfPath
+    except FileNotFoundError:
+        # else, write it
+        cmd = "timeout 30 {} {} -imi2PDF".format(imitatorCmd, os.path.join(benchmarksDir, imiPathFromBenchmarksRoot))
+        #UncommentToGeneratePDF#os.system(cmd)
+        # file is in ./[modelName]-pta.pdf
+        # move to right position
+        os.system("mkdir -p {}".format(pdfDirectory))
+        os.system("mv {} {}".format(actualName, pdfDirectory))
+        return pdfPath
+
 
 ################### Writing functions
 def writeHTMLHead(categoriesNames, metricsNames, propMetricsNames):
     line1 = "<tr>"
     line2 = "<tr>"
     if "Benchmark" in cols:
-        line1 += "<th rowspan=2 colspan=2>Benchmark</th>"
+        line1 += "<th rowspan=2 colspan=3>Benchmark</th>"
     if "Source" in cols:
         line1 += "<th rowspan=2>Source</th>"
     if "Categories" in cols:
@@ -172,6 +197,10 @@ def writeHTMLHead(categoriesNames, metricsNames, propMetricsNames):
 
 def writeHTMLModel(modelName, data, catNames, metNames, propMetNames, sizeModel=1, addBenchmark="", sizeBenchmark=0):
     #print("write {}".format(modelName))
+
+    #PDF view
+    pdfFile = writePDF(os.path.join(data[modelName]["Path"]))
+
     L = ["<tr>"]
     if "Benchmark" in cols:
         if sizeBenchmark != 0:
@@ -180,6 +209,13 @@ def writeHTMLModel(modelName, data, catNames, metNames, propMetNames, sizeModel=
                     sizeModel, os.path.join(gitURL, benchmarksLocation, data[modelName]["Path"]),
                     modelName
                                                                       ))
+        try:  # print PDF only if it exists
+            open(pdfFile)
+            L.append("\t<td rowspan={}><a href='{}' target='blank'>PDF</a></td>".format(
+                sizeModel, pdfFile
+            ))
+        except FileNotFoundError:
+            L.append("<td rowspan={}></td>".format(sizeModel))
     if "Source" in cols:
         L.append("\t<td rowspan={}>{}</td>".format(sizeModel, data[modelName]["metadata"]["bibkey"]))
     if "Categories" in cols:
