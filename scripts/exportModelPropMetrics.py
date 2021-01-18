@@ -39,7 +39,8 @@ def listOfModelsProperties():
         for row in reader:
             L.append( [
                 os.path.join(row["Path"], row["Model"] + modelExtension),  # model
-                os.path.join(row["Path"], row["Property"] + propExtension)  # property
+                os.path.join(row["Path"], row["Property"] + propExtension),  # property
+                row["Extra-command"]
             ])
     return L
 
@@ -56,14 +57,23 @@ def executeModelPropRun(model, property, timeout=imitatorTimeout, extra=""):
     resDirectory = os.path.join(resFiles, directory)
     resFile = os.path.join(resDirectory, modelName + resNameSep + propName)  # TODO improve? as model is in prop ...
 
+    if timeout != 0 and "time" not in extra:
+        timeoutCmd = "-cart-time-limit {} -time-limit {}".format(timeout, timeout)  # TODO improve it, cart-limit only when ..
+    else:
+        timeoutCmd = ""
+
+    if extra != "" and extra[0]!=" ":
+        extra = " " + extra
+
     cmd = "{} {} {} -output-prefix {} {}{}".format(
         imitatorCmd,
         modelFile,
         propFile,
         resFile,
-        "-cart-time-limit {} -time-limit {}".format(timeout, timeout) if timeout != 0 else "",  # TODO improve it, cart-limit only when ..
-        " " + extra if extra != "" else ""
+        timeoutCmd,
+        extra
     )
+    cmd = " ".join(cmd.split())
 
     # look if we already have do the run
     try:
@@ -123,7 +133,7 @@ def exportModelPropMetrics(listOfModelsProps):
             print("   ** Run of model {} ({}/{})".format(couple, index + 1, len(listOfModelsProps)))
             model = couple[0]
             prop = couple[1]
-            resFile = executeModelPropRun(model, prop)
+            resFile = executeModelPropRun(model, prop, extra=couple[2])
             metrics = parseRes(resFile)
             # delete unwanted metrics (like "Total computation time (IM)" for "Total computation time")
             metrics = dict([(k, v) for k,v in metrics.items() if k in metricsToKeep])
