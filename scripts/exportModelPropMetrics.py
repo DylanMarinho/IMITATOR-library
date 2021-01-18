@@ -12,7 +12,8 @@ resFiles = os.path.join(files, "res")
 resSep = "------------------------------------------------------------"
 beginToReadMetricsAt = 1  # number of resSep to read to entering to the metrics
 csvSep = ";"
-resNameSep = "+"
+resNameSep = ":"
+propSep = ":"  # sep of the property: [model]-[prop]. [prop] can not have any ":"
 
 # for imitator run
 imitatorCmd = "/home/dylan/.apps/imitator/bin/imitator"
@@ -55,7 +56,8 @@ def executeModelPropRun(model, property, timeout=imitatorTimeout, extra=""):
     propFile = os.path.join(benchmarks, property)
 
     resDirectory = os.path.join(resFiles, directory)
-    resFile = os.path.join(resDirectory, modelName + resNameSep + propName)  # TODO improve? as model is in prop ...
+    resName = modelName + resNameSep + propName.split(propSep)[-1]
+    resFile = os.path.join(resDirectory, resName)  # TODO improve? as model is in prop ...
 
     if timeout != 0 and "time" not in extra:
         timeoutCmd = "-cart-time-limit {} -time-limit {}".format(timeout, timeout)  # TODO improve it, cart-limit only when ..
