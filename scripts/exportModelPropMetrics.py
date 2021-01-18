@@ -61,7 +61,7 @@ def executeModelPropRun(model, property, timeout=imitatorTimeout, extra=""):
         modelFile,
         propFile,
         resFile,
-        "-time-limit {}".format(timeout) if timeout != 0 else "",
+        "-cart-time-limit {} -time-limit {}".format(timeout, timeout) if timeout != 0 else "",  # TODO improve it, cart-limit only when ..
         " " + extra if extra != "" else ""
     )
 
