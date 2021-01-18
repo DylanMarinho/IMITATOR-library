@@ -9,7 +9,7 @@ benchmarks = os.path.join(root, "benchmarks/")
 files = os.path.join(root, "files")
 
 modelSep = "_"  # sep of model families: each model will run of the properties. A 'basic' model can not have any "_"
-propSep = "-"  # sep of the property: [model]-[prop]. [prop] can not have any "-"
+propSep = ":"  # sep of the property: [model]-[prop]. [prop] can not have any ":"
 
 unsolvableTag = "Unsolvable"
 

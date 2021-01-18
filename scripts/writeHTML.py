@@ -26,7 +26,7 @@ modelPropMetrics = os.path.join(files, "modelsPropMetrics.csv")
 csvSep = ";"
 categoriesCsvSep = ";"  # sep, without spaces, in modelsMetaData
 modelSep = "_"  # sep of model families: each model will run of the properties. A 'basic' model can not have any "_"
-propSep = "-"  # sep of the property: [model]-[prop]. [prop] can not have any "-"
+propSep = ":"  # sep of the property: [model]-[prop]. [prop] can not have any ":"
 propExtension = ".imiprop"
 
 # for imitator run
