@@ -27,7 +27,10 @@ csvSep = ";"
 categoriesCsvSep = ";"  # sep, without spaces, in modelsMetaData
 modelSep = ":"  # sep of model families: each model will run of the properties. A 'basic' model can not have any ":"
 propSep = ":"  # sep of the property: [model]-[prop]. [prop] can not have any ":"
+resNameSep = ":"
+modelExtension = ".imi"
 propExtension = ".imiprop"
+resExtension = ".res"
 
 # for imitator run
 imitatorCmd = "/home/dylan/.apps/imitator/bin/imitator"
@@ -168,6 +171,20 @@ def writePDF(imiPathFromBenchmarksRoot):
         os.system("mv {} {}".format(actualName, pdfDirectory))
         return pdfPath
 
+################### RES names
+def modelResFile(imiPathFromBenchmarksRoot):
+    directory = os.path.dirname(imiPathFromBenchmarksRoot)
+    modelName = os.path.basename(imiPathFromBenchmarksRoot).replace(modelExtension, "")
+    resFile = os.path.join(resFiles, directory, modelName) + resExtension
+    return resFile
+
+def modelPropResFile(imiPathFromBenchmarksRoot, propName):
+    directory = os.path.dirname(imiPathFromBenchmarksRoot)
+    modelName = os.path.basename(imiPathFromBenchmarksRoot).replace(modelExtension, "")
+    resName = modelName + resNameSep + propName.split(propSep)[-1]
+    resFile = os.path.join(resFiles, directory, resName) + resExtension
+    return resFile
+
 
 ################### Writing functions
 def writeHTMLHead(categoriesNames, metricsNames, propMetricsNames):
@@ -182,12 +199,14 @@ def writeHTMLHead(categoriesNames, metricsNames, propMetricsNames):
         for cat in categoriesNames:
             line2 += "<th>{}</th>".format(cat)
     if "Metrics" in cols:
-        line1 += "<th colspan={}>Metrics</th>".format(len(metricsNames))
+        line1 += "<th colspan={}>Metrics</th>".format(len(metricsNames)+1)
+        line2 += "<th>Result file</th>"
         for metric in metricsNames:
             line2 += "<th>{}</th>".format(metric)
     if "Properties" in cols:
-        line1 += "<th colspan={}>Properties</th>".format(len(propMetricsNames)+1)  # +1 for col property name
+        line1 += "<th colspan={}>Properties</th>".format(len(propMetricsNames)+2)  # +1 for col property name, +1 for res file
         line2 += "<th>Property</th>"
+        line2 += "<th>Result file</th>"
         for metric in propMetricsNames:
             line2 += "<th>{}</th>".format(metric)
     line1 += "</tr>\n"
@@ -211,7 +230,7 @@ def writeHTMLModel(modelName, data, catNames, metNames, propMetNames, sizeModel=
                                                                       ))
         try:  # print PDF only if it exists
             open(pdfFile)
-            L.append("\t<td rowspan={}><a href='{}' target='blank'>PDF</a></td>".format(
+            L.append("\t<td rowspan={}><a href='{}' target='blank'><i class='fas fa-file-pdf'></i></a></td>".format(
                 sizeModel, pdfFile
             ))
         except FileNotFoundError:
@@ -227,6 +246,7 @@ def writeHTMLModel(modelName, data, catNames, metNames, propMetNames, sizeModel=
                 L.append("\t\t<td rowspan={}>no</td>".format(sizeModel))
     if "Metrics" in cols:
         L.append("\t<!--Metrics-->")
+        L.append("<td rowspan={}><a href='{}' target='blank'><i class='fas fa-file-alt'></i></a></td>".format(sizeModel, modelResFile(data[modelName]["Path"])))
         for met in metNames:
             try:
                 L.append("\t\t<td rowspan={}>{}</td>".format(sizeModel, data[modelName]['metrics'][met]))
@@ -245,6 +265,8 @@ def writeHTMLModel(modelName, data, catNames, metNames, propMetNames, sizeModel=
                 ))
             except KeyError:
                 L.append("\t\t<td></td>")
+            L.append(
+                "<td><a href='{}' target='blank'><i class='fas fa-file-alt'></i></a></td>".format(modelPropResFile(data[modelName]["Path"], prop)))
             for met in propMetNames:
                 try:
                     L.append("\t\t<td>{}</td>".format(metrics[met]))
@@ -290,8 +312,11 @@ if __name__ == "__main__":
     txt = writeHTMLTable(benchmarks, data, catNames, metNames, propMetNames)
 
     f = open(outputHTMLFile, "w")
-    content = '<head><link rel="stylesheet" type="text/css" media="screen" href="http://imitator.fr/imitator.css" ' \
-              '/></head>'
+    content = '<head>'
+    content += '\t<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">\n'
+    content += '\t<link rel="stylesheet" type="text/css" media="screen" href="http://imitator.fr/imitator.css"/>\n'
+    content += '</head>'
+    #TODO temp font awesome link, download it for published version
     content += "<body>"
     content += '<div id="entete"><h1>The IMITATOR benchmarks library</h1></div>'
     content += txt
