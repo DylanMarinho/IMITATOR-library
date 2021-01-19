@@ -1,5 +1,6 @@
 """Export regular metrics of a model"""
 """In practice, export all the metrics in the res file outputed by "imitator [model]"""
+"""And write PDF"""
 
 import os
 import csv
@@ -8,6 +9,7 @@ root = "/".join(os.getcwd().split("/")[:-1])
 benchmarks = os.path.join(root, "benchmarks/")
 files = os.path.join(root, "files")
 resFiles = os.path.join(files, "res")
+pdfFiles = os.path.join(files, "pdf")
 
 resSep = "------------------------------------------------------------"
 beginToReadMetricsAt = 1  # number of resSep to read to entering to the metrics
@@ -49,6 +51,26 @@ def listOfModels():
             L.append(os.path.join(row["Path"], row["Model"] + modelExtension))
     return list(set(L))
 
+
+def writePDF(imiPathFromBenchmarksRoot):
+    # placed at [root]/files/pdf/.../[modelName]-pta.pdf
+    actualName = os.path.basename(os.path.splitext(imiPathFromBenchmarksRoot)[0]) + "-pta.pdf"  # ie. name outputed by the run
+    pdfDirectory = os.path.join(pdfFiles, os.path.dirname(imiPathFromBenchmarksRoot))
+    pdfPath = os.path.join(pdfDirectory, actualName)
+
+    try:
+        open(pdfPath, "r")
+        # found pdf file
+        return pdfPath
+    except FileNotFoundError:
+        # else, write it
+        cmd = "timeout 30 {} {} -imi2PDF".format(imitatorCmd, os.path.join(benchmarks, imiPathFromBenchmarksRoot))
+        #UncommentForRun#os.system(cmd)  # TODO add a parsing argument to deal with or not
+        # file is in ./[modelName]-pta.pdf
+        # move to right position
+        os.system("mkdir -p {}".format(pdfDirectory))
+        os.system("mv {} {}".format(actualName, pdfDirectory))
+        return pdfPath
 
 def executeModelRun(model, timeout=imitatorTimeout):
     directory = os.path.dirname(model)
@@ -126,6 +148,9 @@ def exportModelMetrics(listOfModels):
 
         print(" * Begin export of Model metrics with {} models".format(len(listOfModels)))
         for model in listOfModels:
+            # write pdf
+            writePDF(model)
+            # extract metrics
             index = listOfModels.index(model)
             print("   ** Run of model {} ({}/{})".format(model, index+1, len(listOfModels)))
             resFile = executeModelRun(model)

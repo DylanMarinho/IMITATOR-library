@@ -151,25 +151,13 @@ def defBenchmarks(data):
     return benchmarks
 
 ################### Drawing model PDF
-def writePDF(imiPathFromBenchmarksRoot):
+def PDFpath(imiPathFromBenchmarksRoot):
     # placed at [root]/files/pdf/.../[modelName]-pta.pdf
     actualName = os.path.basename(os.path.splitext(imiPathFromBenchmarksRoot)[0]) + "-pta.pdf"  # ie. name outputed by the run
     pdfDirectory = os.path.join(pdfFiles, os.path.dirname(imiPathFromBenchmarksRoot))
     pdfPath = os.path.join(pdfDirectory, actualName)
 
-    try:
-        open(pdfPath, "r")
-        # found pdf file
-        return pdfPath
-    except FileNotFoundError:
-        # else, write it
-        cmd = "timeout 30 {} {} -imi2PDF".format(imitatorCmd, os.path.join(benchmarksDir, imiPathFromBenchmarksRoot))
-        #UncommentToGeneratePDF#os.system(cmd)
-        # file is in ./[modelName]-pta.pdf
-        # move to right position
-        os.system("mkdir -p {}".format(pdfDirectory))
-        os.system("mv {} {}".format(actualName, pdfDirectory))
-        return pdfPath
+    return pdfPath
 
 ################### RES names
 def modelResFile(imiPathFromBenchmarksRoot):
@@ -218,7 +206,7 @@ def writeHTMLModel(modelName, data, catNames, metNames, propMetNames, sizeModel=
     #print("write {}".format(modelName))
 
     #PDF view
-    pdfFile = writePDF(os.path.join(data[modelName]["Path"]))
+    pdfFile = PDFpath(os.path.join(data[modelName]["Path"]))
 
     L = ["<tr>"]
     if "Benchmark" in cols:
