@@ -36,7 +36,7 @@ resExtension = ".res"
 imitatorCmd = "/home/dylan/.apps/imitator/bin/imitator"
 
 # output params
-gitURL = "https://gitlab.inria.fr/thesisdylan/imitator-benchmarks/-/tree/scripts/"
+gitURL = "https://gitlab.inria.fr/thesisdylan/imitator-benchmarks/-/raw/scripts/"
 cols = ["Benchmark", "Source", "Categories", "Metrics", "Properties"]
 outputHTMLFile = os.path.join(files, "library.html")
 
