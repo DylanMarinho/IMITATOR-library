@@ -253,7 +253,7 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
     L = ["<tr>"]
     if "Benchmark" in colsHTML:
         if sizeBenchmark != 0:
-            L.append("\t<td rowspan={}>{}</td>".format(sizeBenchmark, addBenchmark))
+            L.append("\t<th rowspan={}>{}</th>".format(sizeBenchmark, addBenchmark))
         L.append("\t<td rowspan={}><a href='{}' target='blank'>{}</a></td>".format(
                     sizeModel, os.path.join(gitURL, benchmarksLocation, data[modelName]["Path"]),
                     modelName
@@ -357,7 +357,12 @@ if __name__ == "__main__":
     content += '</head>'
     #TODO temp font awesome link, download it for published version
     content += "<body>"
-    content += '<div id="entete"><h1>The IMITATOR benchmarks library</h1></div>'
+    content += '<div id="entete"><h1>The IMITATOR benchmarks library ({})</h1></div>'.format(libraryVersion)
+    content += "<p>This page presents the official IMITATOR benchmarks library. These models have been accumulated over the years from scientific publications, and from industrial collaborations.</p>"
+    content += "<p>In its {} version, the library contains {} benchmarks with {} different models and {} properties.</p>".format(
+        libraryVersion, len(benchmarks), len(modelMetrics), len(propMetrics)
+    )
+    content += "<p>Note that the library is under constant construction.</p>"
     content += txt
     content += "</body>"
 

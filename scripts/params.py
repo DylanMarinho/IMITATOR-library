@@ -8,6 +8,7 @@ import os
 ############################
 gitURL = "https://gitlab.inria.fr/thesisdylan/imitator-benchmarks/-/raw/scripts/"
 colsHTML = ["Benchmark", "Source", "Categories", "Metrics", "Properties"]
+libraryVersion = "V2.0"
 
 ############################
 # Imitator
