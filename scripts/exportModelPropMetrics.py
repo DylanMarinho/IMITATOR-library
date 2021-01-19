@@ -57,7 +57,7 @@ def executeModelPropRun(model, property, timeout=imitatorTimeout, extra=""):
 
     resDirectory = os.path.join(resFiles, directory)
     resName = modelName + resNameSep + propName.split(propSep)[-1]
-    resFile = os.path.join(resDirectory, resName)  # TODO improve? as model is in prop ...
+    resFile = os.path.join(resDirectory, resName)
 
     if timeout != 0 and "time" not in extra:
         timeoutCmd = "-cart-time-limit {} -time-limit {}".format(timeout, timeout)  # TODO improve it, cart-limit only when ..
