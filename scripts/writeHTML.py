@@ -220,13 +220,13 @@ def writeHTMLHead(categoriesNames, modelMetricsNames, propMetricsNames):
         line1 += "<th colspan={}>Metrics</th>".format(len(modelMetricsNames)+1)
         line2 += "<th>Result file</th>"
         for metric in modelMetricsNames:
-            line2 += "<th>{}</th>".format(metric)
+            line2 += "<th title='{}'>{}</th>".format(metric, metricToHTML(metric))
     if "Properties" in colsHTML:
         line1 += "<th colspan={}>Properties</th>".format(len(propMetricsNames)+2)  # +1 for col property name, +1 for res file
         line2 += "<th>Property</th>"
         line2 += "<th>Result file</th>"
         for metric in propMetricsNames:
-            line2 += "<th>{}</th>".format(metric)
+            line2 += "<th title='{}'>{}</th>".format(metric, metricToHTML(metric))
     line1 += "</tr>\n"
     line2 += "</tr>\n"
     return line1 + line2
@@ -271,17 +271,17 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
         L.append("\t<!--Categories-->")
         for cat in catNames:
             if cat in data[modelName]["metadata"]["Categories"]:
-                L.append("\t\t<td class='yes' rowspan={}>yes</td>".format(sizeModel))
+                L.append("\t\t<td class='yes' rowspan={} title='{}'>yes</td>".format(sizeModel, cat))
             else:
-                L.append("\t\t<td rowspan={}>no</td>".format(sizeModel))
+                L.append("\t\t<td rowspan={} title='{}'>no</td>".format(sizeModel, cat))
     if "Metrics" in colsHTML:
         L.append("\t<!--Metrics-->")
         L.append("<td rowspan={}><a href='{}' target='blank'><i class='fas fa-file-alt'></i></a></td>".format(sizeModel, defineResModelPath(data[modelName]["Path"])))
         for met in metNames:
             try:
-                L.append("\t\t<td rowspan={}>{}</td>".format(sizeModel, data[modelName]['metrics'][met]))
+                L.append("\t\t<td rowspan={} title='{}'>{}</td>".format(sizeModel, met, data[modelName]['metrics'][met]))
             except KeyError:
-                L.append("\t\t<td rowspan={}></td>".format(sizeModel))
+                L.append("\t\t<td rowspan={} title='{}'></td>".format(sizeModel, met))
     if "Properties" in colsHTML:
         L.append("\t<!--Properties-->")
         numberOfDealProps = 0
@@ -299,9 +299,9 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
                 "<td><a href='{}' target='blank'><i class='fas fa-file-alt'></i></a></td>".format(defineResPropertyPath(data[modelName]["Path"], prop)))
             for met in propMetNames:
                 try:
-                    L.append("\t\t<td>{}</td>".format(metrics[met]))
+                    L.append("\t\t<td title='{}'>{}</td>".format(met, metrics[met]))
                 except KeyError:
-                    L.append("\t\t<td></td>")
+                    L.append("\t\t<td title='{}'></td>".format(met))
                 # if it is not the last property: add a line
             if numberOfDealProps != len((data[modelName])["properties"].keys()):
                 L.append("</tr><tr>")

@@ -205,3 +205,30 @@ def defineResPropertyPath(model_path, property_path):
     prop_name = os.path.splitext(os.path.basename(property_path))[0]
     res_directory = os.path.join(resFilesDirectory, directory)
     return os.path.join(res_directory, model_name + resNameSep + algoOfProp(prop_name)) + resExtension
+
+def metricToHTML(metric):
+    correspondance = {
+        # model
+        "Number of IPTAs": "|IPTA|",
+        "Number of clocks": "|X|",
+        "Has invariants?": "Inv.?",
+        "Has clocks with rate <>1?": "<>1 clocks?",
+        "L/U subclass": "L/U?",
+        "Has silent actions?": "Sil.?",
+        "Is strongly deterministic?": "stDet.?",
+        "Number of parameters": "|P|",
+        "Number of discrete variables": "|discr. Var|",
+        "Number of actions": "|Act|",
+        "Total number of locations": "|L|",
+        "Average locations per IPTA": "avg(|L|)",
+        "Total number of transitions": "|Trans.|",
+        "Average transitions per IPTA": "avg(|Trans.|)",
+        # property
+        "Total computation time": "Time",
+        "Number of states": "|States|",
+        "Number of computed states": "|comp. States|"
+    }
+    try:
+        return correspondance[metric]
+    except KeyError:
+        return metric
