@@ -1,51 +1,49 @@
-import os
+"""From a metadata csv file (as outputed by parseModels), write models header
+WARNING: previous data will be overwritted, even if there is no data to write
+"""
+
+import argparse
 import csv
+import os
+from params import *
 
-root = "/".join(os.getcwd().split("/")[:-1])
-benchmarks = os.path.join(root, "benchmarks/")
-files = os.path.join(root, "files")
+parser = argparse.ArgumentParser(
+    description='Write new model header with input meta-data')
+parser.add_argument("-i", "--input",
+                    help='Csv input file, in files directory (default: {})'.format(defaultMetadataFile),
+                    default=defaultMetadataFile)
+args = parser.parse_args()
 
-sizeMax = 80
+metadataFile = args.input
+metadataPathAndFile = os.path.join(filesDirectory, metadataFile)
+try:
+    f = open(metadataPathAndFile, "r")
+    f.close()
+except FileNotFoundError:
+    print("File {} not found ({})".format(metadataFile, metadataPathAndFile))
+    exit(0)
 
-enteringHeadImi = "(" + "*"*(sizeMax-1)
-modelIntroduction = "IMITATOR MODEL"
-beginLine = " * "
-exitingHeadImi = " " + "*"*(sizeMax-2) + ")"
 exitingHeadImiLarge = " " + "*"*60 + ")"  # to consider previous headering models
 
-keys = ["Title",
-        "Description",
-        "Correctness",
-        "Scalable",
-        "Generated",
-        "Categories",
-        "Source",
-        "bibkey",
-        "Author",
-        "Modeling",
-        "Input by",
-        "License",
-        "",
-        "Created",
-        "Last modified",
-        "Model version",
-        "",
-        "IMITATOR version"
-]
-# Keys as in the input csv file, in the order to be outputed
-# "" to have an empty line in the imitator model head
-
-csvSep = ";"
-
 def keyLine(key):
+    """
+    Write a header key line: check for the size and define the line with correct number of spaces for alignment
+    :param key: key of the line (in keysOfImitatorHeader)
+    :return: the beginning of the line. eg. " * Title   : " with the correct number of spaces fir alignment
+    """
     maxKeySize = 0
-    for k in keys:
+    for k in keysOfImitatorHeader:
         maxKeySize = len(k) if len(k)>maxKeySize else maxKeySize
     line = key + " "*(maxKeySize-len(key))
     line = "{}{} : ".format(beginLine, line)
     return line
 
 def contentModel(imiFile):
+    """
+    Extract the model definition: the content of the imi file excepting the header
+    :param imiFile: imi model file, with path
+    :return: model definition
+    """
     # read and extract model
     try:
         f = open(imiFile, "r")
@@ -67,23 +65,31 @@ def contentModel(imiFile):
         print("File does not exist")
 
 def txtModel(modelData):
-    content = contentModel(os.path.join(benchmarks, modelData["Path"]))
+    """
+    Write the model: write the header and append previous definition
+    :param modelData: dictionnary of the header keys and corresponding values
+    :return: string with all the text
+    """
+    content = contentModel(os.path.join(benchmarksDirectory, modelData["Path"]))
     txt = enteringHeadImi + "\n"
-    txt += beginLine + " "*((sizeMax-len(modelIntroduction)-len(beginLine))//2) + modelIntroduction + " "*((sizeMax-len(modelIntroduction)-len(beginLine))//2) + "\n"
+    txt += beginLine + " "*((maxNumberOfPrints-len(modelIntroduction)-len(beginLine))//2) + modelIntroduction + " "*((maxNumberOfPrints-len(modelIntroduction)-len(beginLine))//2) + "\n"
     txt += beginLine + "\n"
-    for key in keys:
+    for key in keysOfImitatorHeader:
         if key=="":
             txt += beginLine + "\n"
         else:
             txt += keyLine(key) + modelData[key] + "\n"
     txt += exitingHeadImi + "\n"
-    #txt += "\n"
     txt += content
     return txt
 
 def parseCsvModels():
+    """
+    Parse the input csv file
+    :return: dictionnary with all the csv content {model: {headerKey: value}}
+    """
     dict = {}
-    with open(os.path.join(files, "modelsMeta_input.csv"), newline='') as csvfile:
+    with open(metadataPathAndFile, newline='') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=csvSep)
         for row in reader:
             dict[row["Title"]] = row
@@ -94,7 +100,7 @@ def writeModels():
     for model, modelData in allData.items():
         print(" * Writing {}".format(model))
         txt = txtModel(modelData)
-        f = open( os.path.join(benchmarks, modelData["Path"]), "w")
+        f = open( os.path.join(benchmarksDirectory, modelData["Path"]), "w")
         f.write(txt)
         f.close()
 

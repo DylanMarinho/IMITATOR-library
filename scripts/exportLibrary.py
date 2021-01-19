@@ -1,63 +1,74 @@
 """A library is a set of couples (model, property)"""
 
-import os
+import argparse
 import csv
 import glob
+from params import *
 
-root = "/".join(os.getcwd().split("/")[:-1])
-benchmarks = os.path.join(root, "benchmarks/")
-files = os.path.join(root, "files")
+parser = argparse.ArgumentParser(description='Generate csv file for the library')
+parser.add_argument("-o", "--output", help='Csv output file, in files directory (default: {})'.format(defaultLibraryFile),
+                    default=defaultLibraryFile)
+args = parser.parse_args()
 
-modelSep = ":"  # sep of model families: each model will run of the properties. A 'basic' model can not have any ":"
-propSep = ":"  # sep of the property: [model]-[prop]. [prop] can not have any ":"
+libraryFile = args.output
+libraryPathAndFile = os.path.join(filesDirectory, libraryFile)
+try:
+    f = open(libraryPathAndFile, "w")
+    f.close()
+except FileNotFoundError:
+    print("File {} not found ({})".format(libraryFile, libraryPathAndFile))
+    exit(0)
 
 unsolvableTag = "Unsolvable"
 
-modelExtension = ".imi"
-propExtension = ".imiprop"
-
-csvSep = ";"
 
 def isPropModel(model, property):
+    """
+    Check if a model corresponds to a property
+    :param model: imi file of the model (with or without path)
+    :param property: imiprop file of the property (with or without path)
+    :return: True if the model corresponds, False otherwise
+    """
     # Extract base of the model: model family or its name (which is the [model] of the property)
-    modelBase = model.replace(modelExtension, "")
-    if modelSep in modelBase:
-        modelBase = modelSep.join(modelBase.split(modelSep)[:-1])
+    modelBase = baseModel(model)
 
     # Extract base of the property: [model] part
-    propBase = property.replace(propExtension, "")
-    if propSep in propBase:
-        propBase = propSep.join(propBase.split(propSep)[:-1])
-    else:
-        print("Property {} does not follow regular naming convention".format(property))
-        return False
+    propBase = modelOfProp(property)
 
     return modelBase == propBase
 
+
 def isUnsolvable(modelFile):
+    """
+    Check if a model is tagged as Unsolvable
+    :param modelFile: imi file of the model (with path)
+    :return: True if it has Unsolvable tag, False otherwise
+    """
     # Look for unsolvable category in the imi file
     f = open(modelFile, "r")
     lines = f.read().split("\n")
     for l in lines:
         parts = l.split(":")
-        if len(parts)==2:
+        if len(parts) == 2:
             if "Categories" in parts[0]:
                 return unsolvableTag in parts[1]
     return False
 
+
 def exportLibrary():
-    with open(os.path.join(files, "library.csv"), 'w', newline='') as csvfile:
+    with open(libraryPathAndFile, 'w', newline='') as csvfile:
         fieldnames = ["Model", "Property", "Path", "Extra-command"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=csvSep)
         writer.writeheader()
 
-        models = [f for f in glob.glob(os.path.join(benchmarks, "**/*"+modelExtension), recursive=True)]
+        models = [f for f in glob.glob(os.path.join(benchmarksDirectory, "**/*" + modelExtension), recursive=True)]
         for m in models:
-            directory = os.path.dirname(m.replace(benchmarks, ""))
+            directory = os.path.dirname(m.replace(benchmarksDirectory, ""))
             model = os.path.basename(m)
-            unsolvableRes = isUnsolvable(m)
+            unsolvable_res = isUnsolvable(m)
 
-            properties = [f for f in glob.glob(os.path.join(benchmarks, directory, "*"+propExtension), recursive=True)]
+            properties = [f for f in
+                          glob.glob(os.path.join(benchmarksDirectory, directory, "*" + propExtension), recursive=True)]
             for prop in properties:
                 property = os.path.basename(prop)
                 if isPropModel(model, property):
@@ -66,9 +77,10 @@ def exportLibrary():
                     dict["Property"] = os.path.splitext(property)[0]
                     dict["Path"] = directory
                     dict["Extra-command"] = ""
-                    if unsolvableRes:
+                    if unsolvable_res:
                         dict["Extra-command"] += " -time-limit 1"
                     writer.writerow(dict)
+
 
 if __name__ == "__main__":
     exportLibrary()

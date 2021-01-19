@@ -2,162 +2,173 @@
 """In practice, export all the metrics in the res file outputed by "imitator [model]"""
 """And write PDF"""
 
-import os
+import argparse
 import csv
+import os
+from params import *
 
-root = "/".join(os.getcwd().split("/")[:-1])
-benchmarks = os.path.join(root, "benchmarks/")
-files = os.path.join(root, "files")
-resFiles = os.path.join(files, "res")
-pdfFiles = os.path.join(files, "pdf")
+parser = argparse.ArgumentParser(description='Generate csv file with model metrics')
+parser.add_argument("-l", "--library",
+                    help='Csv library file for input, in files directory (default: {})'.format(defaultLibraryFile),
+                    default=defaultLibraryFile)
+parser.add_argument("-o", "--output",
+                    help='Csv output file, in files directory (default: {})'.format(defaultModelMetricsFile),
+                    default=defaultModelMetricsFile)
+parser.add_argument("-pdf", "--pdf", help='Generate needed PDF (default: False)', action='store_true')
+parser.set_defaults(pdf=False)
+args = parser.parse_args()
 
-resSep = "------------------------------------------------------------"
-beginToReadMetricsAt = 1  # number of resSep to read to entering to the metrics
-csvSep = ";"
-
-# for imitator run
-imitatorCmd = "/home/dylan/.apps/imitator/bin/imitator"
-imitatorTimeout = 5  # timeout for imitator in second, 0 disables it
-
-# scripts params
-modelExtension = ".imi"
-resExtension = ".res"
-libraryFile = os.path.join(files, "library.csv")
-
-# metrics in the res file to keep. Same name as in the res file!
-metricsToKeep = [
- "Number of IPTAs",
- "Number of clocks",
- "Has invariants?",
- "Has clocks with rate <>1?",
- "L/U subclass",
- "Has silent actions?",
- "Is strongly deterministic?",
- "Number of parameters",
- "Number of discrete variables",
- "Number of actions",
- "Total number of locations",
- "Average locations per IPTA",
- "Total number of transitions",
- "Average transitions per IPTA"
-]
+libraryFile = args.library
+libraryPathAndFile = os.path.join(filesDirectory, libraryFile)
+modelMetricsFile = args.output
+modelMetricsPathAndFile = os.path.join(filesDirectory, modelMetricsFile)
+try:
+    f = open(libraryPathAndFile, "r")
+    f.close()
+except FileNotFoundError:
+    print("File {} not found ({})".format(libraryFile, libraryPathAndFile))
+    exit(0)
+try:
+    f = open(modelMetricsPathAndFile, "w")
+    f.close()
+except FileNotFoundError:
+    print("File {} not found ({})".format(modelMetricsFile, modelMetricsPathAndFile))
+    exit(0)
 
 
 def listOfModels():
+    """
+    Read library input file and extract models
+    :return: List of model paths
+    """
     L = []
-    with open(os.path.join(files, libraryFile), newline='') as csvfile:
+    with open(libraryPathAndFile, newline='') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=csvSep)
         for row in reader:
             L.append(os.path.join(row["Path"], row["Model"] + modelExtension))
     return list(set(L))
 
 
-def writePDF(imiPathFromBenchmarksRoot):
-    # placed at [root]/files/pdf/.../[modelName]-pta.pdf
-    actualName = os.path.basename(os.path.splitext(imiPathFromBenchmarksRoot)[0]) + "-pta.pdf"  # ie. name outputed by the run
-    pdfDirectory = os.path.join(pdfFiles, os.path.dirname(imiPathFromBenchmarksRoot))
-    pdfPath = os.path.join(pdfDirectory, actualName)
+def writePDF(imiPath):
+    """
+    Write and place the PDF outputed by imitator -imi2PDF
+    :param imiPath: path to the imiFile (without benchmark directory)
+    :return: path to the pdf
+    """
+    actual_name = automaticPdfName(imiPath)
+    path_to_pdf = definePdfPath(imiPath)
 
     try:
-        open(pdfPath, "r")
+        open(path_to_pdf, "r")
         # found pdf file
-        return pdfPath
+        return path_to_pdf
     except FileNotFoundError:
         # else, write it
-        cmd = "timeout 30 {} {} -imi2PDF".format(imitatorCmd, os.path.join(benchmarks, imiPathFromBenchmarksRoot))
-        #UncommentForRun#os.system(cmd)  # TODO add a parsing argument to deal with or not
-        # file is in ./[modelName]-pta.pdf
-        # move to right position
-        os.system("mkdir -p {}".format(pdfDirectory))
-        os.system("mv {} {}".format(actualName, pdfDirectory))
-        return pdfPath
+        cmd = "timeout 30 {} {} -imi2PDF".format(imitatorCmd, os.path.join(benchmarksDirectory, imiPath))
+        os.system(cmd)
+        # and move it to right place
+        os.system("mkdir -p {}".format(os.path.dirname(path_to_pdf)))
+        os.system("mv {} {}".format(actual_name, path_to_pdf))
+        return path_to_pdf
 
-def executeModelRun(model, timeout=imitatorTimeout):
-    directory = os.path.dirname(model)
-    modelName = os.path.basename(model).replace(modelExtension, "")
-    modelFile = os.path.join(benchmarks, model)
-    resDirectory = os.path.join(resFiles, directory)
-    resFile = os.path.join(resDirectory, modelName)
+
+def executeModelRun(model_path, timeout=imitatorTimeoutForModels):
+    """
+    Execute a run of imitator with a model
+    :param model_path: path to the model, without benchmarks directory
+    :param timeout: timeout to the imitator run (option -time-limit). 0 disables it
+    :return: path to the res file
+    """
+    modelName = os.path.basename(model_path).replace(modelExtension, "")
+    modelFile = os.path.join(benchmarksDirectory, model_path)
+    resFileWithPath = defineResModelPath(model_path)
 
     cmd = "{} {} -output-prefix {} {}".format(
         imitatorCmd,
         modelFile,
-        resFile,
+        os.path.splitext(resFileWithPath)[0],
         "-time-limit {}".format(timeout) if timeout != 0 else ""
     )
 
     # look if we already have do the run
     try:
-        f = open(resFile + resExtension, "r")
+        f = open(resFileWithPath, "r")
         lines = f.read().split("\n")
         resCommand = ""
         for line in lines:
             if "Command" in line:
                 resCommand = line.split(": ")[1]
                 break
-        toCompareCmd = cmd.replace(benchmarks, "").replace(resFiles, "").replace(imitatorCmd, "imitator")
+        toCompareCmd = cmd.replace(benchmarksDirectory, "").replace(resFilesDirectory, "").replace(imitatorCmd,
+                                                                                                   "imitator")
         if toCompareCmd == resCommand:
             print(" * Res file exist for model {}".format(modelName))
-            return resFile + resExtension
-    except FileNotFoundError:
-        pass
+            return resFileWithPath
+    except FileNotFoundError:  # if exception, we need to compute it
+        print(" * Running imitator with model {}".format(modelName))
 
-    print(" * Running imitator with model {}".format(modelName))
+        os.system("mkdir -p {}".format(os.path.dirname(resFileWithPath)))  # create the path to res if needed
+        os.system(cmd + " > /dev/null")
 
-    os.system("mkdir -p {}".format(resDirectory))  # create the path to res if needed
-    os.system(cmd + " > /dev/null")
-
-    # clean res file: delete absolute path
-    cmd = "sed -i 's#{}##g' {}".format(benchmarks, resFile + resExtension)
-    os.system(cmd)
-    cmd = "sed -i 's#{}##g' {}".format(resFiles, resFile + resExtension)
-    os.system(cmd)
-    cmd = "sed -i 's#{}#{}#g' {}".format(imitatorCmd, "imitator", resFile + resExtension)
-    os.system(cmd)
-    return resFile + resExtension
+        # clean res file: delete absolute path
+        cmd = "sed -i 's#{}##g' {}".format(benchmarksDirectory, resFileWithPath)
+        os.system(cmd)
+        cmd = "sed -i 's#{}##g' {}".format(resFilesDirectory, resFileWithPath)
+        os.system(cmd)
+        cmd = "sed -i 's#{}#{}#g' {}".format(imitatorCmd, "imitator", resFileWithPath)
+        os.system(cmd)
+        return resFileWithPath
 
 
-def parseRes(resFile):
+def parseModelRes(resFile):
+    """
+    Parse a res file of a model imitator run
+    :param resFile: path to the res file
+    :return: dictionnary with the metrics {metricName: value}
+    """
     metricsDict = {}
     with open(resFile, "r") as file:
         lines = file.read().split("\n")
-        readingMetrics = False
-        sepRead = 0
+        reading_metrics = False
+        sep_read = 0
         for line in lines:
             if line == resSep:
-                sepRead += 1
-                if sepRead == beginToReadMetricsAt:
-                    readingMetrics = True
-                elif readingMetrics:  # reading is True and not == -> finished
-                    readingMetrics = False
+                sep_read += 1
+                if sep_read == beginToReadMetricsAt:
+                    reading_metrics = True
+                elif reading_metrics:  # reading is True and not == -> finished
+                    reading_metrics = False
                     break
-            elif readingMetrics:
+            elif reading_metrics:
                 sp = line.split(":")
                 metric = " ".join(sp[0].split())
                 value = " ".join(sp[1].split())
                 metricsDict[metric] = value
     return metricsDict
 
+
 def exportModelMetrics(listOfModels):
-    with open(os.path.join(files, "modelsMetrics.csv"), 'w', newline='') as csvfile:
+    with open(modelMetricsPathAndFile, 'w', newline='') as csvfile:
         fieldnames = ["Name", "Path"]
-        for k in metricsToKeep:
+        for k in modelMetricsToKeep:
             fieldnames.append(k)
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=csvSep)
         writer.writeheader()
 
         print(" * Begin export of Model metrics with {} models".format(len(listOfModels)))
         for model in listOfModels:
-            # write pdf
-            writePDF(model)
+            if args.pdf:
+                # write pdf
+                writePDF(model)
             # extract metrics
             index = listOfModels.index(model)
-            print("   ** Run of model {} ({}/{})".format(model, index+1, len(listOfModels)))
+            print("   ** Run of model {} ({}/{})".format(model, index + 1, len(listOfModels)))
             resFile = executeModelRun(model)
-            metrics = parseRes(resFile)
+            metrics = parseModelRes(resFile)
             metrics["Name"] = os.path.basename(os.path.splitext(model)[0])
-            metrics["Path"] = os.path.dirname(model).replace(benchmarks, "")
+            metrics["Path"] = os.path.dirname(model).replace(benchmarksDirectory, "")
             writer.writerow(metrics)
+
 
 if __name__ == "__main__":
     models = listOfModels()

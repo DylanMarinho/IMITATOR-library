@@ -1,47 +1,43 @@
-# Parse "new" model header
+"""Parse "new" model header"""
 
-import os
+import argparse
 import csv
+import os
 import glob
+from params import *
 
-root = "/".join(os.getcwd().split("/")[:-1])
-benchmarks = os.path.join(root, "benchmarks/")
-files = os.path.join(root, "files")
+parser = argparse.ArgumentParser(
+    description='Generate csv file with model meta-data (contained in the imi file header)')
+parser.add_argument("-o", "--output",
+                    help='Csv output file, in files directory (default: {})'.format(defaultMetadataFile),
+                    default=defaultMetadataFile)
+args = parser.parse_args()
 
-sizeMax = 80
+metadataFile = args.output
+metadataPathAndFile = os.path.join(filesDirectory, metadataFile)
+try:
+    f = open(metadataPathAndFile, "w")
+    f.close()
+except FileNotFoundError:
+    print("File {} not found ({})".format(metadataFile, metadataPathAndFile))
+    exit(0)
 
-#Ok if we only want to parse "new headering" models
-#enteringHeadImi = "(" + "*"*(sizeMax-1)
-#exitingHeadImi = " " + "*"*(sizeMax-2) + ")" + "\n"
+# If we only want to parse "new headering" models, use params values
+# "Bad" way, but needed if we want to parse "old headering" models
+enteringHeadImi = "(" + "*" * 60
+exitingHeadImi = "*" * 60 + ")"
 
-#"Bad" way, but ok if we want to parse "old headering" models
-enteringHeadImi = "(" + "*"*60
-exitingHeadImi = "*"*60 + ")"
-
-headProps = [
-            "Description",
-            "Correctness",
-            "Scalable",
-            "Generated",
-            "Categories",
-            "Source",
-            "bibkey",
-            "Author",
-            "Modeling",
-            "Input by",
-            "License",
-            "Created",
-            "Last modified",
-            "Model version",
-            "IMITATOR version"
-]
+headProps = [k for k in keysOfImitatorHeader if k != ""]
 
 possibleCategoriesSep = [",", ";"]
-categoriesSep = " ; "
-
-csvSep = ";"
 
 def parseImi(imiFile):
+    """
+    Parse an imi file header.
+    NB. For categories, replace with the defined categories separator
+    :param imiFile: imi file of the model (with path)
+    :return: dictionnary with the data {meta data key: value}
+    """
     try:
         print("* Parse {}".format(imiFile))
         f = open(imiFile, "r")
@@ -66,7 +62,7 @@ def parseImi(imiFile):
                             if prop == "Categories":  # want to reformat categories to uniform the writing on run
                                 value = "".join(value.split())
                                 for sep in possibleCategoriesSep:
-                                    value = value.replace(sep, categoriesSep)
+                                    value = value.replace(sep, categoriesSepHeadImi)
                             dict[prop] = value
         if isReading:
             print("Wrong parsing: never exit")
@@ -74,20 +70,22 @@ def parseImi(imiFile):
     except FileNotFoundError:
         print("File not found: ".format(imiFile))
 
+
 def parseModelsMetadata():
-    with open(os.path.join(files, "modelsMeta.csv"), 'w', newline='') as csvfile:
+    with open(metadataPathAndFile, 'w', newline='') as csvfile:
         fieldnames = ["Title", "Path"]
         for k in headProps:
             fieldnames.append(k)
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=csvSep)
 
         writer.writeheader()
-        models = [f for f in glob.glob(os.path.join(benchmarks, "**/*.imi"), recursive=True)]
+        models = [f for f in glob.glob(os.path.join(benchmarksDirectory, "**/*" + modelExtension), recursive=True)]
         for m in models:
             dict = parseImi(m)
-            dict["Title"] = os.path.splitext( os.path.basename(m) )[0]
-            dict["Path"] = m.replace(benchmarks, "")
+            dict["Title"] = os.path.splitext(os.path.basename(m))[0]
+            dict["Path"] = m.replace(benchmarksDirectory, "")
             writer.writerow(dict)
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     parseModelsMetadata()
