@@ -1,7 +1,7 @@
 (*******************************************************************************
  *                                IMITATOR MODEL                               
  * 
- * Title            : gear_6000
+ * Title            : gear:6000
  * Description      : Parametric timed pattern matching benchmark
  * Correctness      : N/A
  * Scalable         : 

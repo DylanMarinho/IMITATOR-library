@@ -1,7 +1,7 @@
 (*******************************************************************************
  *                                IMITATOR MODEL                               
  * 
- * Title            : gear_2000
+ * Title            : gear:2000
  * Description      : Parametric timed pattern matching benchmark
  * Correctness      : N/A
  * Scalable         : 

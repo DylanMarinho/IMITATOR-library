@@ -1,7 +1,7 @@
 (*******************************************************************************
  *                                IMITATOR MODEL                               
  * 
- * Title            : accel_6000
+ * Title            : accel:6000
  * Description      : Parametric timed pattern matching benchmark
  * Correctness      : N/A
  * Scalable         : 

@@ -1,7 +1,7 @@
 (*******************************************************************************
  *                                IMITATOR MODEL                               
  * 
- * Title            : accel_2000
+ * Title            : accel:2000
  * Description      : Parametric timed pattern matching benchmark
  * Correctness      : N/A
  * Scalable         : 
