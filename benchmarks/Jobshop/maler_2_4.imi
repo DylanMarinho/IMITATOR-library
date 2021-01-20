@@ -6,7 +6,7 @@
  * Correctness      : All tasks performed on time
  * Scalable         : 
  * Generated        : 
- * Categories       : Sched
+ * Categories       : RTS ; Scheduling
  * Source           : Maler et al. ("Job-Shop Scheduling Using Timed Automata", by Yasmina Abdeddaı̈m and Oded Maler, CAV 2001 (??))
  * bibkey           : 
  * Author           : Romain Soulat
