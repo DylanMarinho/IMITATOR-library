@@ -16,8 +16,8 @@ libraryVersion = "V2.0"
 
 # Command to imitator, as used in a terminal
 imitatorCmd = "/home/dylan/.apps/imitator/bin/imitator"
-imitatorTimeoutForModels = 5  # timeout for imitator in second, 0 disables it. Used for model metrics
-imitatorTimeoutForProps = 1  # timeout for imitator in second, 0 disables it. Used for property metrics
+imitatorTimeoutForModels = 0  # timeout for imitator in second, 0 disables it. Used for model metrics
+imitatorTimeoutForProps = 0  # timeout for imitator in second, 0 disables it. Used for property metrics
 
 ############################
 # Directories
