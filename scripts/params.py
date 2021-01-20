@@ -233,3 +233,6 @@ def metricToHTML(metric):
         return correspondance[metric]
     except KeyError:
         return metric
+
+def idOfBenchmark(benchmark):
+    return "".join(benchmark.split())

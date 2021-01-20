@@ -253,8 +253,8 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
     L = ["<tr>"]
     if "Benchmark" in colsHTML:
         if sizeBenchmark != 0:
-            L.append("\t<th rowspan={}>{}</th>".format(sizeBenchmark, addBenchmark))
-        L.append("\t<td rowspan={}><a href='{}' target='blank'>{}</a></td>".format(
+            L.append("\t<th rowspan={} class='benchmark' id='{}'>{}</th>".format(sizeBenchmark, idOfBenchmark(addBenchmark), addBenchmark))
+        L.append("\t<th rowspan={} class='model'><a href='{}' target='blank'>{}</a></th>".format(
                     sizeModel, os.path.join(gitURL, benchmarksLocation, data[modelName]["Path"]),
                     modelName
                                                                       ))
@@ -273,7 +273,7 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
             if cat in data[modelName]["metadata"]["Categories"]:
                 L.append("\t\t<td class='yes' rowspan={} title='{}'>yes</td>".format(sizeModel, cat))
             else:
-                L.append("\t\t<td rowspan={} title='{}'>no</td>".format(sizeModel, cat))
+                L.append("\t\t<td class='no' rowspan={} title='{}'>no</td>".format(sizeModel, cat))
     if "Metrics" in colsHTML:
         L.append("\t<!--Metrics-->")
         L.append("<td rowspan={}><a href='{}' target='blank'><i class='fas fa-file-alt'></i></a></td>".format(sizeModel, defineResModelPath(data[modelName]["Path"])))
@@ -288,13 +288,13 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
         for prop, metrics in (data[modelName])["properties"].items():
             numberOfDealProps += 1
             try:
-                L.append("\t\t<td><a href='{}' target='blank'>{}</td>".format(
+                L.append("\t\t<td class='property'><a href='{}' target='blank'>{}</td>".format(
                     os.path.join(gitURL, benchmarksLocation, os.path.dirname(data[modelName]["Path"]),
                                  prop + propExtension),
                     prop.split(propSep)[-1]
                 ))
             except KeyError:
-                L.append("\t\t<td></td>")
+                L.append("\t\t<td class='property'></td>")
             L.append(
                 "<td><a href='{}' target='blank'><i class='fas fa-file-alt'></i></a></td>".format(defineResPropertyPath(data[modelName]["Path"], prop)))
             for met in propMetNames:
@@ -319,10 +319,13 @@ def writeHTMLTable(benchmarks, data, catNames, modelMetNames, propMetNames):
     :param propMetNames: list of property metrics names
     :return: string of the table
     """
-    txt = "<table class='tableau'>\n"
+    txt = "<table class='library'>\n"
     # HEAD
+    txt+= "<thead>\n"
     txt += writeHTMLHead(catNames, modelMetNames, propMetNames)
+    txt += "</thead>\n"
     # CONTENT
+    txt += "<tbody>\n"
     for benchmark, values in benchmarks.items():
         first = True
         for m in values["models"]:
@@ -332,6 +335,7 @@ def writeHTMLTable(benchmarks, data, catNames, modelMetNames, propMetNames):
                 first = False
             else:
                 txt += writeHTMLModel(m, data, catNames, modelMetNames, propMetNames, sizeModel= sizeModel, sizeBenchmark=0)
+    txt += "</tbody>\n"
     txt += "</table>\n"
     return txt
 
@@ -348,23 +352,35 @@ if __name__ == "__main__":
     data = fusion(metadata, modelMetrics, propMetrics)
     benchmarks = defBenchmarks(data)
 
-    txt = writeHTMLTable(benchmarks, data, catNames, metNames, propMetNames)
-
-    f = open(htmlPathAndFile, "w")
+    """Head"""
     content = '<head>'
     content += '\t<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">\n'
-    content += '\t<link rel="stylesheet" type="text/css" media="screen" href="http://imitator.fr/imitator.css"/>\n'
+    #content += '\t<link rel="stylesheet" type="text/css" media="screen" href="http://imitator.fr/imitator.css"/>\n'
+    content += '\t<link rel="stylesheet" type="text/css" media="screen" href="styleLibrary.css"/>\n'
     content += '</head>'
     #TODO temp font awesome link, download it for published version
+    """Content body with presentation text"""
     content += "<body>"
-    content += '<div id="entete"><h1>The IMITATOR benchmarks library ({})</h1></div>'.format(libraryVersion)
-    content += "<p>This page presents the official IMITATOR benchmarks library. These models have been accumulated over the years from scientific publications, and from industrial collaborations.</p>"
-    content += "<p>In its {} version, the library contains {} benchmarks with {} different models and {} properties.</p>".format(
+    content += '<div id="header"><h1>The IMITATOR benchmarks library ({})</h1></div>'.format(libraryVersion)
+    content += "<div class='content'>\n"
+    content += "\t<p>This page presents the official IMITATOR benchmarks library. These models have been accumulated over the years from scientific publications, and from industrial collaborations.</p>\n"
+    content += "\t<p>In its {} version, the library contains {} benchmarks with {} different models and {} properties.</p>\n".format(
         libraryVersion, len(benchmarks), len(modelMetrics), len(propMetrics)
     )
-    content += "<p>Note that the library is under constant construction.</p>"
+    content += "\t<p>Note that the library is under constant construction.</p>\n"
+    content += "</div>"
+
+    """List of benchmarks"""
+    content += "<ul id='listOfBenchmarks'>\n"
+    for benchmark in benchmarks.keys():
+        content += '\t<li><a href="#{}">{}</a></li>\n'.format(idOfBenchmark(benchmark), benchmark)
+    content += "</ul>\n"
+
+    """Add table"""
+    txt = writeHTMLTable(benchmarks, data, catNames, metNames, propMetNames)
     content += txt
     content += "</body>"
 
+    f = open(htmlPathAndFile, "w")
     f.write(content)
     f.close()
