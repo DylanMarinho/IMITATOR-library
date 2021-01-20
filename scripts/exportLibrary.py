@@ -81,7 +81,7 @@ def exportLibrary():
                         dict["Extra-command"] += " -time-limit {}".format(imitatorTimeoutForUnsolvables)
                     with_no_inclusion = ["accel", "blowup", "gear"]
                     if baseModel(dict["Model"]) in with_no_inclusion:
-                        dict["Extra-command"] += " -no-inclusion"
+                        dict["Extra-command"] += " -no-cumulative-pruning"
                     writer.writerow(dict)
 
 
