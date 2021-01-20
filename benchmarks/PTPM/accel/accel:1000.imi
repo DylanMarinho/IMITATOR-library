@@ -1,10 +1,10 @@
 (*******************************************************************************
- *                                IMITATOR MODEL                               
- * 
+ *                                IMITATOR MODEL
+ *
  * Title            : accel:1000
- * Description      : Parametric timed pattern matching benchmark
+ * Description      : Parametric timed pattern matching benchmark : accel
  * Correctness      : N/A
- * Scalable         : 
+ * Scalable         : yes
  * Generated        : yes
  * Categories       : Automative ; Industrial
  * Source           : Benchmarks for Temporal Logic Requirements for Automotive Systems (ARCH@CPSWeek 2014) + Masaki Waga / Étienne André, Ichiro Husuo, Masaki Waga "Offline timed pattern matching under uncertainty" (ICECCS 2018)
@@ -13,11 +13,11 @@
  * Modeling         : Étienne André
  * Input by         : Étienne André
  * License          : Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
- * 
+ *
  * Created          : 2018/03/30
  * Last modified    : 2020/08/18
- * Model version    : 
- * 
+ * Model version    :
+ *
  * IMITATOR version : 3
  ******************************************************************************)
 

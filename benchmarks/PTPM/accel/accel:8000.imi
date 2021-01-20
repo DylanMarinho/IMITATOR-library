@@ -2,9 +2,9 @@
  *                                IMITATOR MODEL                               
  * 
  * Title            : accel:8000
- * Description      : Parametric timed pattern matching benchmark
+ * Description      : Parametric timed pattern matching benchmark : accel
  * Correctness      : N/A
- * Scalable         : 
+ * Scalable         : yes
  * Generated        : yes
  * Categories       : Automative ; Industrial
  * Source           : Benchmarks for Temporal Logic Requirements for Automotive Systems (ARCH@CPSWeek 2014) + Masaki Waga / Étienne André, Ichiro Husuo, Masaki Waga "Offline timed pattern matching under uncertainty" (ICECCS 2018)

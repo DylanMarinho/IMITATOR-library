@@ -2,9 +2,9 @@
  *                                IMITATOR MODEL                               
  * 
  * Title            : CSMACD:bc1
- * Description      : Non-probabilistic model deduced from the probabilistic model in "Symbolic Model Checking for Probabilistic Timed Automata" (M. Kwiatkowska, G. Norman, J. Sproston and F. Wang., FORMATS/FTRTFT'2004). See figures on http
+ * Description      : Non-probabilistic model deduced from the probabilistic model in "Symbolic Model Checking for Probabilistic Timed Automata" (M. Kwiatkowska, G. Norman, J. Sproston and F. Wang., FORMATS/FTRTFT'2004). See figures on http://www.prismmodelchecker.org/casestudies/csma.php.
  * Correctness      : Transmission completed
- * Scalable         : 
+ * Scalable         : yes
  * Generated        : yes
  * Categories       : Academic ; Industrial ; Protocol ; RTS
  * Source           : http://www.prismmodelchecker.org/casestudies/csma.php

@@ -4,7 +4,7 @@
  * Title            : blowup:800
  * Description      : Template of a timed word alternating between a and c
  * Correctness      : N/A
- * Scalable         : 
+ * Scalable         : yes
  * Generated        : yes
  * Categories       : Toy
  * Source           : Étienne André, Ichiro Husuo, Masaki Waga "Offline timed pattern matching under uncertainty" (ICECCS 2018)

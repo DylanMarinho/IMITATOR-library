@@ -3,7 +3,7 @@
  * 
  * Title            : AndOr
  * Description      : Modeling of an "AND" and an "OR" logical gate
- * Correctness      : Alternating sequence
+ * Correctness      : Alternating sequence: b- x- a- b+ a+ x+
  * Scalable         : 
  * Generated        : 
  * Categories       : Academic ; Hardware
