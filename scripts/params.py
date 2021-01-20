@@ -18,6 +18,7 @@ libraryVersion = "V2.0"
 imitatorCmd = "/home/dylan/.apps/imitator/bin/imitator"
 imitatorTimeoutForModels = 0  # timeout for imitator in second, 0 disables it. Used for model metrics
 imitatorTimeoutForProps = 0  # timeout for imitator in second, 0 disables it. Used for property metrics
+imitatorTimeoutForUnsolvables = 5  # timeout for imitator in second as extra-command for unsolvables
 
 ############################
 # Directories

@@ -78,7 +78,10 @@ def exportLibrary():
                     dict["Path"] = directory
                     dict["Extra-command"] = ""
                     if unsolvable_res:
-                        dict["Extra-command"] += " -time-limit 1"
+                        dict["Extra-command"] += " -time-limit {}".format(imitatorTimeoutForUnsolvables)
+                    with_no_inclusion = ["accel", "blowup", "gear"]
+                    if baseModel(dict["Model"]) in with_no_inclusion:
+                        dict["Extra-command"] += " -no-inclusion"
                     writer.writerow(dict)
 
 
