@@ -1,18 +1,18 @@
 (*******************************************************************************
  *                                IMITATOR MODEL
  *
- * Title            : synthInvN
- * Description      : Toy benchmark for which the result is "p2 = i*p1 | i \in N" but IMITATOR cannot find it because the accumulated constraints grow forever
- * Correctness      : Reachability
+ * Title            : infeasible cycle
+ * Description      : Toy benchmark for which the PZG has an infinite path but where the PTA infinite path is infeasible
+ * Correctness      :
  * Scalable         :
  * Generated        :
  * Categories       : Academic ; Unsolvable
- * Source           : Own work
+ * Source           : Iterative Bounded Synthesis for Efficient Cycle Detection in Parametric Timed Automata, Fig. 4
  * bibkey           :
- * Author           : Étienne André
+ * Author           : Étienne André, Jaime Arias, Laure Petrucci, Jaco van de Pol
  * Modeling         : Dylan Marinho
  * Input by         : Dylan Marinho
- * License          : Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+ * License          :
  *
  * Created          : 2021/01/21
  * Last modified    : 2021/01/21
@@ -28,7 +28,7 @@ var
 		: clock;
 
 (* Parameters *)
-	p1, p2
+	p,
 		: parameter;
 
 
@@ -38,11 +38,8 @@ var
 (************************************************************)
 synclabs: a;
 
-loc l1: invariant x <= 1
-	when x = p1 do {x := 0} goto l1;
-	when x = 0 & y = p2 do {x := 0, y := 0} goto lGoal;
-
-loc lGoal: invariant True
+accepting loc l0: invariant x <= 1 & y <= p
+	when x >= 1 do {x := 0} goto l0;
 
 end (* pta *)
 
@@ -56,7 +53,7 @@ init :=
 	(*------------------------------------------------------------*)
 	(* Initial location *)
 	(*------------------------------------------------------------*)
-	& loc[pta] = l1
+	& loc[pta] = l0
 
 	(*------------------------------------------------------------*)
 	(* Initial clock constraints *)
@@ -67,8 +64,7 @@ init :=
 	(*------------------------------------------------------------*)
 	(* Parameter constraints *)
 	(*------------------------------------------------------------*)
-	& p1 >= 0
-  & p2 >= 0
+	& p >= 0
 ;
 
 
