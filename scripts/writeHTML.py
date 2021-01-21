@@ -10,6 +10,7 @@ import argparse
 import os
 import csv
 from params import *
+from datetime import datetime  # for displaying datetime of generation. Delete if not needed
 
 parser = argparse.ArgumentParser(description='Generate html file of the library')
 parser.add_argument("-html", "--html",
@@ -27,6 +28,9 @@ parser.add_argument("-models", "--modelMetrics",
 parser.add_argument("-props", "--propMetrics",
                     help='Csv property metrics file, in files directory (default: {})'.format(defaultPropMetricsFile),
                     default=defaultPropMetricsFile)
+parser.add_argument("-noDatetime", "--noDatetime",
+                    help='Display datetime of file generation (default: Display datetime)', action="store_true")
+parser.set_defaults(noDatetime=False)
 args = parser.parse_args()
 
 htmlFile = args.html
@@ -47,6 +51,7 @@ open(libraryPathAndFile, "r")
 open(modelMetadataPathAndFile, "r")
 open(modelMetricsPathAndFile, "r")
 open(propMetricsPathAndFile, "r")
+
 
 ################### Parsing files
 def parseMetaData(csvFile):
@@ -141,7 +146,7 @@ def categoriesNames(metadata):
         categories = "".join(categories.split())  # delete spaces
         categories = categories.split(categoriesSep)
         for cat in categories:
-            if cat not in names and cat!="":
+            if cat not in names and cat != "":
                 names.append(cat)
     names.sort()
     return names
@@ -182,7 +187,7 @@ def defBenchmarks(data):
         try:
             a = benchmarks[benchName]["sizeModel"]
             # benchName exist
-        except KeyError: #benchName does not exist
+        except KeyError:  # benchName does not exist
             benchmarks[benchName] = {}
             benchmarks[benchName]["sizeModel"] = 0
             benchmarks[benchName]["size"] = 0
@@ -217,12 +222,13 @@ def writeHTMLHead(categoriesNames, modelMetricsNames, propMetricsNames):
         for cat in categoriesNames:
             line2 += "<th>{}</th>".format(cat)
     if "Metrics" in colsHTML:
-        line1 += "<th colspan={}>Metrics</th>".format(len(modelMetricsNames)+1)
+        line1 += "<th colspan={}>Metrics</th>".format(len(modelMetricsNames) + 1)
         line2 += "<th>Result file</th>"
         for metric in modelMetricsNames:
             line2 += "<th title='{}'>{}</th>".format(metric, metricToHTML(metric))
     if "Properties" in colsHTML:
-        line1 += "<th colspan={}>Properties</th>".format(len(propMetricsNames)+2)  # +1 for col property name, +1 for res file
+        line1 += "<th colspan={}>Properties</th>".format(
+            len(propMetricsNames) + 2)  # +1 for col property name, +1 for res file
         line2 += "<th>Property</th>"
         line2 += "<th>Result file</th>"
         for metric in propMetricsNames:
@@ -232,7 +238,8 @@ def writeHTMLHead(categoriesNames, modelMetricsNames, propMetricsNames):
     return line1 + line2
 
 
-def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeModel=1, addBenchmark="", sizeBenchmark=0):
+def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeModel=1, addBenchmark="",
+                   sizeBenchmark=0):
     """
     Write a "line" of the table. Indeed, deal with a model (which has sizeModel lines)
     :param modelName: Name of the model
@@ -245,19 +252,21 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
     :param sizeBenchmark: Size of the benchmark (sum of model sizes) if the model is the first of the benchark, 0 otherwise
     :return: string of the sizeModel lines
     """
-    #print("write {}".format(modelName))
+    # print("write {}".format(modelName))
 
-    #PDF view
+    # PDF view
     pdfFile = definePdfPath(data[modelName]["Path"])
 
     L = ["<tr>"]
     if "Benchmark" in colsHTML:
         if sizeBenchmark != 0:
-            L.append("\t<th rowspan={} class='benchmark' id='{}'>{}</th>".format(sizeBenchmark, idOfBenchmark(addBenchmark), addBenchmark))
+            L.append(
+                "\t<th rowspan={} class='benchmark' id='{}'>{}</th>".format(sizeBenchmark, idOfBenchmark(addBenchmark),
+                                                                            addBenchmark))
         L.append("\t<th rowspan={} class='model'><a href='{}' target='blank'>{}</a></th>".format(
-                    sizeModel, os.path.join(gitURL, benchmarksLocation, data[modelName]["Path"]),
-                    modelName
-                                                                      ))
+            sizeModel, os.path.join(gitURL, benchmarksLocation, data[modelName]["Path"]),
+            modelName
+        ))
         try:  # print PDF only if it exists
             open(pdfFile)
             L.append("\t<td rowspan={}><a href='{}' target='blank'><i class='fas fa-file-pdf'></i></a></td>".format(
@@ -276,10 +285,15 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
                 L.append("\t\t<td class='no' rowspan={} title='{}'>no</td>".format(sizeModel, cat))
     if "Metrics" in colsHTML:
         L.append("\t<!--Metrics-->")
-        L.append("<td rowspan={}><a href='{}' target='blank'><i class='fas fa-file-alt'></i></a></td>".format(sizeModel, defineResModelPath(data[modelName]["Path"])))
+        L.append("<td rowspan={}><a href='{}' target='blank'><i class='fas fa-file-alt'></i></a></td>".format(sizeModel,
+                                                                                                              defineResModelPath(
+                                                                                                                  data[
+                                                                                                                      modelName][
+                                                                                                                      "Path"])))
         for met in metNames:
             try:
-                L.append("\t\t<td rowspan={} title='{}'>{}</td>".format(sizeModel, met, data[modelName]['metrics'][met]))
+                L.append(
+                    "\t\t<td rowspan={} title='{}'>{}</td>".format(sizeModel, met, data[modelName]['metrics'][met]))
             except KeyError:
                 L.append("\t\t<td rowspan={} title='{}'></td>".format(sizeModel, met))
     if "Properties" in colsHTML:
@@ -296,7 +310,8 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
             except KeyError:
                 L.append("\t\t<td class='property'></td>")
             L.append(
-                "<td><a href='{}' target='blank'><i class='fas fa-file-alt'></i></a></td>".format(defineResPropertyPath(data[modelName]["Path"], prop)))
+                "<td><a href='{}' target='blank'><i class='fas fa-file-alt'></i></a></td>".format(
+                    defineResPropertyPath(data[modelName]["Path"], prop)))
             for met in propMetNames:
                 try:
                     L.append("\t\t<td title='{}'>{}</td>".format(met, metrics[met]))
@@ -321,7 +336,7 @@ def writeHTMLTable(benchmarks, data, catNames, modelMetNames, propMetNames):
     """
     txt = "<table class='library'>\n"
     # HEAD
-    txt+= "<thead>\n"
+    txt += "<thead>\n"
     txt += writeHTMLHead(catNames, modelMetNames, propMetNames)
     txt += "</thead>\n"
     # CONTENT
@@ -331,10 +346,12 @@ def writeHTMLTable(benchmarks, data, catNames, modelMetNames, propMetNames):
         for m in values["models"]:
             sizeModel = len(data[m]["properties"])
             if first:
-                txt += writeHTMLModel(m, data, catNames, modelMetNames, propMetNames, sizeModel= sizeModel, addBenchmark=benchmark, sizeBenchmark=values["size"])
+                txt += writeHTMLModel(m, data, catNames, modelMetNames, propMetNames, sizeModel=sizeModel,
+                                      addBenchmark=benchmark, sizeBenchmark=values["size"])
                 first = False
             else:
-                txt += writeHTMLModel(m, data, catNames, modelMetNames, propMetNames, sizeModel= sizeModel, sizeBenchmark=0)
+                txt += writeHTMLModel(m, data, catNames, modelMetNames, propMetNames, sizeModel=sizeModel,
+                                      sizeBenchmark=0)
     txt += "</tbody>\n"
     txt += "</table>\n"
     return txt
@@ -355,10 +372,10 @@ if __name__ == "__main__":
     """Head"""
     content = '<head>'
     content += '\t<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">\n'
-    #content += '\t<link rel="stylesheet" type="text/css" media="screen" href="http://imitator.fr/imitator.css"/>\n'
+    # content += '\t<link rel="stylesheet" type="text/css" media="screen" href="http://imitator.fr/imitator.css"/>\n'
     content += '\t<link rel="stylesheet" type="text/css" media="screen" href="styleLibrary.css"/>\n'
     content += '</head>'
-    #TODO temp font awesome link, download it for published version
+    # TODO temp font awesome link, download it for published version
     """Content body with presentation text"""
     content += "<body>"
     content += '<div id="header"><h1>The IMITATOR benchmarks library ({})</h1></div>'.format(libraryVersion)
@@ -369,6 +386,14 @@ if __name__ == "__main__":
     )
     content += "\t<p>Note that the library is under constant construction.</p>\n"
     content += "</div>"
+
+    # BEGIN Datetime
+    if not args.noDatetime:
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        content += '<div class="content"><p><span style="color:red;font-size:15;"><b>PAGE WRITTEN ON: {}</b></span></p></div>'.format(
+            dt_string)
+    # END Datetime
 
     """List of benchmarks"""
     content += "<ul id='listOfBenchmarks'>\n"
