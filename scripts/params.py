@@ -62,6 +62,7 @@ resExtension = ".res"
 ############################
 csvSep = ";"
 categoriesSep = ";"  # separator for categories *in csv*
+sourcesSep = ";"
 resSep = "------------------------------------------------------------"
 beginToReadMetricsAt = 1  # number of resSep to read to entering to the model metrics
 
@@ -207,6 +208,25 @@ def defineResPropertyPath(model_path, property_path):
     res_directory = os.path.join(resFilesDirectory, directory)
     return os.path.join(res_directory, model_name + resNameSep + algoOfProp(prop_name)) + resExtension
 
+def categoryToHTML(category):
+    correspondance = {
+        "Academic": "Ac.",
+        "Automative": "Auto.",
+        "Education": "Educ.",
+        "Hardware": "Hard.",
+        "Industrial": "Ind.",
+        "ProdCons": "Prod.",
+        "Protocol": "Prot.",
+        "RTS": "RTS",
+        "Scheduling": "Sched.",
+        "Toy": "Toy",
+        "Unsolvable": "Unsol."
+    }
+    try:
+        return correspondance[category]
+    except KeyError:
+        return category
+
 def metricToHTML(metric):
     correspondance = {
         # model
@@ -236,3 +256,14 @@ def metricToHTML(metric):
 
 def idOfBenchmark(benchmark):
     return "".join(benchmark.split())
+
+def reduceHTML(metric):
+    """
+    Make some reducutions for metric HTML display
+    :param metric: value of the metric
+    :return: txt to be printed
+    """
+    if "second" in metric:
+        metric = metric.replace("seconds", "s.")
+        metric = metric.replace("second", "s.")
+    return metric

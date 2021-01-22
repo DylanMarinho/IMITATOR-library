@@ -220,17 +220,15 @@ def writeHTMLHead(categoriesNames, modelMetricsNames, propMetricsNames):
     if "Categories" in colsHTML:
         line1 += "<th colspan={}>Categories</th>".format(len(categoriesNames))
         for cat in categoriesNames:
-            line2 += "<th>{}</th>".format(cat)
+            line2 += "<th title='{}'>{}</th>".format(cat, categoryToHTML(cat))
     if "Metrics" in colsHTML:
         line1 += "<th colspan={}>Metrics</th>".format(len(modelMetricsNames) + 1)
-        line2 += "<th>Result file</th>"
         for metric in modelMetricsNames:
             line2 += "<th title='{}'>{}</th>".format(metric, metricToHTML(metric))
     if "Properties" in colsHTML:
         line1 += "<th colspan={}>Properties</th>".format(
             len(propMetricsNames) + 2)  # +1 for col property name, +1 for res file
         line2 += "<th>Property</th>"
-        line2 += "<th>Result file</th>"
         for metric in propMetricsNames:
             line2 += "<th title='{}'>{}</th>".format(metric, metricToHTML(metric))
     line1 += "</tr>\n"
@@ -267,15 +265,25 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
             sizeModel, os.path.join(gitURL, benchmarksLocation, data[modelName]["Path"]),
             modelName
         ))
+
+        # Print PDF and res if they exist
+        fileCellContent = ""
         try:  # print PDF only if it exists
             open(pdfFile)
-            L.append("\t<td rowspan={}><a href='{}' target='blank'><i class='fas fa-file-pdf'></i></a></td>".format(
-                sizeModel, pdfFile
-            ))
+            fileCellContent+= "\t<a href='{}' target='blank'><i class='fas fa-file-pdf'></i></a>\t".format(
+                pdfFile)
         except FileNotFoundError:
-            L.append("<td rowspan={}></td>".format(sizeModel))
+            pass
+        try: # print res only if it exists
+            resFile = defineResModelPath(data[modelName]["Path"])
+            open(resFile)
+            fileCellContent+="\t<a href='{}' target='blank'><i class='fas fa-file-alt'></i></a>".format(
+                resFile)
+        except FileNotFoundError:
+            pass
+        L.append("\t<td rowspan={}>{}</td>".format(sizeModel, fileCellContent))
     if "Source" in colsHTML:
-        L.append("\t<td rowspan={}>{}</td>".format(sizeModel, data[modelName]["metadata"]["bibkey"]))
+        L.append("\t<td rowspan={}>{}</td>".format(sizeModel, data[modelName]["metadata"]["bibkey"].replace(sourcesSep, "<br />")))
     if "Categories" in colsHTML:
         L.append("\t<!--Categories-->")
         for cat in catNames:
@@ -285,15 +293,10 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
                 L.append("\t\t<td class='no' rowspan={} title='{}'>no</td>".format(sizeModel, cat))
     if "Metrics" in colsHTML:
         L.append("\t<!--Metrics-->")
-        L.append("<td rowspan={}><a href='{}' target='blank'><i class='fas fa-file-alt'></i></a></td>".format(sizeModel,
-                                                                                                              defineResModelPath(
-                                                                                                                  data[
-                                                                                                                      modelName][
-                                                                                                                      "Path"])))
         for met in metNames:
             try:
                 L.append(
-                    "\t\t<td rowspan={} title='{}'>{}</td>".format(sizeModel, met, data[modelName]['metrics'][met]))
+                    "\t\t<td rowspan={} title='{}'>{}</td>".format(sizeModel, met, reduceHTML(data[modelName]['metrics'][met])))
             except KeyError:
                 L.append("\t\t<td rowspan={} title='{}'></td>".format(sizeModel, met))
     if "Properties" in colsHTML:
@@ -302,19 +305,18 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
         for prop, metrics in (data[modelName])["properties"].items():
             numberOfDealProps += 1
             try:
-                L.append("\t\t<td class='property'><a href='{}' target='blank'>{}</td>".format(
-                    os.path.join(gitURL, benchmarksLocation, os.path.dirname(data[modelName]["Path"]),
-                                 prop + propExtension),
-                    prop.split(propSep)[-1]
+                L.append("\t\t<td class='property'>{} - {}</td>".format(
+                    "<a href='{}' target='blank'><i class='fas fa-file-alt'></i></a>".format(
+                        defineResPropertyPath(data[modelName]["Path"], prop)),
+                    "<a href='{}' target='blank'>{}</a>".format(
+                        os.path.join(gitURL, benchmarksLocation, os.path.dirname(data[modelName]["Path"]), prop + propExtension),
+                        prop.split(propSep)[-1]),
                 ))
             except KeyError:
                 L.append("\t\t<td class='property'></td>")
-            L.append(
-                "<td><a href='{}' target='blank'><i class='fas fa-file-alt'></i></a></td>".format(
-                    defineResPropertyPath(data[modelName]["Path"], prop)))
             for met in propMetNames:
                 try:
-                    L.append("\t\t<td title='{}'>{}</td>".format(met, metrics[met]))
+                    L.append("\t\t<td title='{}'>{}</td>".format(met, reduceHTML(metrics[met])))
                 except KeyError:
                     L.append("\t\t<td title='{}'></td>".format(met))
                 # if it is not the last property: add a line
