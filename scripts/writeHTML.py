@@ -222,13 +222,13 @@ def writeHTMLHead(categoriesNames, modelMetricsNames, propMetricsNames):
         for cat in categoriesNames:
             line2 += "<th title='{}'>{}</th>".format(cat, categoryToHTML(cat))
     if "Metrics" in colsHTML:
-        line1 += "<th colspan={}>Metrics</th>".format(len(modelMetricsNames) + 1)
+        line1 += "<th colspan={}>Metrics</th>".format(len(modelMetricsNames))
         for metric in modelMetricsNames:
             line2 += "<th title='{}'>{}</th>".format(metric, metricToHTML(metric))
     if "Properties" in colsHTML:
         line1 += "<th colspan={}>Properties</th>".format(
             len(propMetricsNames) + 2)  # +1 for col property name, +1 for res file
-        line2 += "<th>Property</th>"
+        line2 += "<th colspan=2>Property</th>"
         for metric in propMetricsNames:
             line2 += "<th title='{}'>{}</th>".format(metric, metricToHTML(metric))
     line1 += "</tr>\n"
@@ -288,9 +288,9 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
         L.append("\t<!--Categories-->")
         for cat in catNames:
             if cat in data[modelName]["metadata"]["Categories"]:
-                L.append("\t\t<td class='yes' rowspan={} title='{}'>yes</td>".format(sizeModel, cat))
+                L.append("\t\t<td class='yes' rowspan={} title='{}'>{}</td>".format(sizeModel, cat, cat))
             else:
-                L.append("\t\t<td class='no' rowspan={} title='{}'>no</td>".format(sizeModel, cat))
+                L.append("\t\t<td class='no' rowspan={} title='{}'></td>".format(sizeModel, cat))
     if "Metrics" in colsHTML:
         L.append("\t<!--Metrics-->")
         for met in metNames:
@@ -305,15 +305,17 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
         for prop, metrics in (data[modelName])["properties"].items():
             numberOfDealProps += 1
             try:
-                L.append("\t\t<td class='property'>{} - {}</td>".format(
-                    "<a href='{}' target='blank'><i class='fas fa-file-alt'></i></a>".format(
-                        defineResPropertyPath(data[modelName]["Path"], prop)),
+                L.append("\t\t<td class='property'>{}</td>".format(
                     "<a href='{}' target='blank'>{}</a>".format(
                         os.path.join(gitURL, benchmarksLocation, os.path.dirname(data[modelName]["Path"]), prop + propExtension),
                         prop.split(propSep)[-1]),
                 ))
+                L.append("\t\t<td>{}</td>".format(
+                    "<a href='{}' target='blank'><i class='fas fa-file-alt'></i></a>".format(
+                        defineResPropertyPath(data[modelName]["Path"], prop))))
             except KeyError:
                 L.append("\t\t<td class='property'></td>")
+                L.append("\t\t<td></td>")
             for met in propMetNames:
                 try:
                     L.append("\t\t<td title='{}'>{}</td>".format(met, reduceHTML(metrics[met])))

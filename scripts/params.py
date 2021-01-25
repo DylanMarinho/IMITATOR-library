@@ -6,7 +6,7 @@ import os
 ############################
 # HTML output params
 ############################
-gitURL = "https://gitlab.inria.fr/thesisdylan/imitator-benchmarks/-/raw/scripts/"
+gitURL = "https://raw.githubusercontent.com/imitator-model-checker/imitator/benchmarks/"
 colsHTML = ["Benchmark", "Source", "Categories", "Metrics", "Properties"]
 libraryVersion = "V2.0"
 
@@ -242,8 +242,8 @@ def metricToHTML(metric):
         "Number of actions": "|Act|",
         "Total number of locations": "|L|",
         "Average locations per IPTA": "avg(|L|)",
-        "Total number of transitions": "|Trans.|",
-        "Average transitions per IPTA": "avg(|Trans.|)",
+        "Total number of transitions": "|T|",
+        "Average transitions per IPTA": "avg(|T|)",
         # property
         "Total computation time": "Time",
         "Number of states": "|States|",
