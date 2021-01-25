@@ -1,23 +1,23 @@
 (*******************************************************************************
- *                                IMITATOR MODEL
- *
- * Title            : infinite no solution
+ *                                IMITATOR MODEL                               
+ * 
+ * Title            : infinite:Rplus
  * Description      : Toy benchmark for which there exists an infinite accepting run for p>=0; q=0
- * Correctness      :
- * Scalable         :
- * Generated        :
+ * Correctness      : 
+ * Scalable         : 
+ * Generated        : 
  * Categories       : Academic ; Unsolvable
  * Source           : Own work
- * bibkey           :
+ * bibkey           : 
  * Author           : Jaco van de Pol
  * Modeling         : Dylan Marinho and Jaco van de Pol
  * Input by         : Dylan Marinho
- * License          :
- *
+ * License          : 
+ * 
  * Created          : 2021/01/21
  * Last modified    : 2021/01/21
- * Model version    :
- *
+ * Model version    : 
+ * 
  * IMITATOR version : 3
  ******************************************************************************)
 

@@ -1,23 +1,23 @@
 (*******************************************************************************
- *                                IMITATOR MODEL
- *
- * Title            : synth pn+q
+ *                                IMITATOR MODEL                               
+ * 
+ * Title            : synthpNplusq
  * Description      : Toy benchmark for which the result is "r = p*i+q | i \in N" but IMITATOR cannot find it because the accumulated constraints grow forever
  * Correctness      : Reachability
- * Scalable         :
- * Generated        :
+ * Scalable         : 
+ * Generated        : 
  * Categories       : Academic ; Unsolvable
  * Source           : Parametric real-time reasoning.
  * bibkey           : AHV93
  * Author           : Rajeev Alur, Thomas A. Henzinger, Moshe Y. Vardi
  * Modeling         : Dylan Marinho
  * Input by         : Dylan Marinho
- * License          :
- *
+ * License          : 
+ * 
  * Created          : 2021/01/21
  * Last modified    : 2021/01/21
- * Model version    :
- *
+ * Model version    : 
+ * 
  * IMITATOR version : 3
  ******************************************************************************)
 

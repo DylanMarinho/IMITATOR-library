@@ -1,23 +1,23 @@
 (*******************************************************************************
- *                                IMITATOR MODEL
- *
- * Title            : infinite2
+ *                                IMITATOR MODEL                               
+ * 
+ * Title            : infinite:5
  * Description      : Toy benchmark for which there exists an infinite accepting run for all p>=5 but IMITATOR cannot find it
- * Correctness      :
- * Scalable         :
- * Generated        :
+ * Correctness      : 
+ * Scalable         : 
+ * Generated        : 
  * Categories       : Academic ; Unsolvable
  * Source           : Iterative Bounded Synthesis for Efficient Cycle Detection in Parametric Timed Automata, Fig. 3a
- * bibkey           :
+ * bibkey           : 
  * Author           : Étienne André, Jaime Arias, Laure Petrucci, Jaco van de Pol
  * Modeling         : Dylan Marinho
  * Input by         : Dylan Marinho
- * License          :
- *
+ * License          : 
+ * 
  * Created          : 2021/01/21
  * Last modified    : 2021/01/21
- * Model version    :
- *
+ * Model version    : 
+ * 
  * IMITATOR version : 3
  ******************************************************************************)
 
