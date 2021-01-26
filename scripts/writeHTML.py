@@ -288,7 +288,7 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
         L.append("\t<!--Categories-->")
         for cat in catNames:
             if cat in data[modelName]["metadata"]["Categories"]:
-                L.append("\t\t<td class='yes' rowspan={} title='{}'>{}</td>".format(sizeModel, cat, cat))
+                L.append("\t\t<td class='yes' rowspan={} title='{}'>{}</td>".format(sizeModel, cat, categoryToHTML(cat)))
             else:
                 L.append("\t\t<td class='no' rowspan={} title='{}'></td>".format(sizeModel, cat))
     if "Metrics" in colsHTML:
