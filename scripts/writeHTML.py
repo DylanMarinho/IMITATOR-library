@@ -310,9 +310,14 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
                         os.path.join(gitURL, benchmarksLocation, os.path.dirname(data[modelName]["Path"]), prop + propExtension),
                         prop.split(propSep)[-1]),
                 ))
-                L.append("\t\t<td>{}</td>".format(
-                    "<a href='{}' target='blank'><i class='fas fa-file-alt'></i></a>".format(
-                        defineResPropertyPath(data[modelName]["Path"], prop))))
+                try:  # print res only if it exists
+                    resFile = defineResPropertyPath(data[modelName]["Path"], prop)
+                    open(resFile)
+                    L.append("\t\t<td>{}</td>".format(
+                        "<a href='{}' target='blank'><i class='fas fa-file-alt'></i></a>".format(
+                            resFile)))
+                except FileNotFoundError:
+                    L.append("\t\t<td></td>")
             except KeyError:
                 L.append("\t\t<td class='property'></td>")
                 L.append("\t\t<td></td>")
