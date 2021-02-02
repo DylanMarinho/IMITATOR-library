@@ -4,8 +4,8 @@
  * Title            : FMTV-2
  * Description      : 
  * Correctness      : 
- * Scalable         : 
- * Generated        : 
+ * Scalable         : No
+ * Generated        : No
  * Categories       : Industrial ; Protocol ; RTS
  * Source           : 
  * bibkey           : SAL15
@@ -16,9 +16,9 @@
  * 
  * Created          : 2015/xx/xx (< 2015/10/30)
  * Last modified    : 2020/08/18
- * Model version    : 
+ * Model version    : 1.0
  * 
- * IMITATOR version : 3
+ * IMITATOR version : 3.0
  ******************************************************************************)
 
 

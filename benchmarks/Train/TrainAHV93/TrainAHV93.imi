@@ -4,8 +4,8 @@
  * Title            : TrainAHV93
  * Description      : Classical Railroad Gate Controller
  * Correctness      : "Whenever the train is inside the gate, the gate should be closed"
- * Scalable         : 
- * Generated        : 
+ * Scalable         : No
+ * Generated        : No
  * Categories       : Academic
  * Source           : Model described in "Parametric Real-Time Reasoning" (fig. 2); Alur, Henzinger, Vardi (STOC 1993)
  * bibkey           : AHV93
@@ -16,9 +16,9 @@
  * 
  * Created          : 2011/11/25
  * Last modified    : 2020/08/19
- * Model version    : 
+ * Model version    : 1.0
  * 
- * IMITATOR version : 3
+ * IMITATOR version : 3.0
  ******************************************************************************)
 
 

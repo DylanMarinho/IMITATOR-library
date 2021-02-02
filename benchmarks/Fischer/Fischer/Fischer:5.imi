@@ -4,8 +4,8 @@
  * Title            : Fischer:5
  * Description      : 
  * Correctness      : 
- * Scalable         : yes
- * Generated        : yes
+ * Scalable         : Yes
+ * Generated        : Yes
  * Categories       : Academic ; Protocol ; RTS
  * Source           : 
  * bibkey           : PS08
@@ -16,9 +16,9 @@
  * 
  * Created          : 
  * Last modified    : 
- * Model version    : 
+ * Model version    : 1.0
  * 
- * IMITATOR version : 3
+ * IMITATOR version : 3.0
  ******************************************************************************)
 
 

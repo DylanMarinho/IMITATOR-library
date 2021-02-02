@@ -4,8 +4,8 @@
  * Title            : infinite:noSolution
  * Description      : Toy benchmark for which there not exists any infinite accepting run for any value of p
  * Correctness      : 
- * Scalable         : 
- * Generated        : 
+ * Scalable         : No
+ * Generated        : No
  * Categories       : Academic ; Unsolvable
  * Source           : Own work
  * bibkey           : 
@@ -16,9 +16,9 @@
  * 
  * Created          : 2021/01/21
  * Last modified    : 2021/01/21
- * Model version    : 
+ * Model version    : 1.0
  * 
- * IMITATOR version : 3
+ * IMITATOR version : 3.0
  ******************************************************************************)
 
 var

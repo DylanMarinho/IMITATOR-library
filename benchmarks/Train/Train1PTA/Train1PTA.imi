@@ -4,8 +4,8 @@
  * Title            : Train1PTA
  * Description      : Simple model with 1 PTA only
  * Correctness      : "Crash" cannot happen
- * Scalable         : 
- * Generated        : 
+ * Scalable         : No
+ * Generated        : No
  * Categories       : Education ; Toy
  * Source           : Own work
  * bibkey           : 
@@ -16,9 +16,9 @@
  * 
  * Created          : 2012/03/13
  * Last modified    : 2020/03/20
- * Model version    : 
+ * Model version    : 1.0
  * 
- * IMITATOR version : 3
+ * IMITATOR version : 3.0
  ******************************************************************************)
 
 

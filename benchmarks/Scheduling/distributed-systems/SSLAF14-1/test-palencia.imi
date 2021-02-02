@@ -4,8 +4,8 @@
  * Title            : test-palencia
  * Description      : 
  * Correctness      : 
- * Scalable         : 
- * Generated        : 
+ * Scalable         : No
+ * Generated        : No
  * Categories       : Protocol ; RTS
  * Source           : 
  * bibkey           : SSLAF13
@@ -16,9 +16,9 @@
  * 
  * Created          : < 2013/10
  * Last modified    : 2018/08/20
- * Model version    : 
+ * Model version    : 1.0
  * 
- * IMITATOR version : 3
+ * IMITATOR version : 3.0
  ******************************************************************************)
 
 

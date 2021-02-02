@@ -4,8 +4,8 @@
  * Title            : synthpN
  * Description      : Toy benchmark for which the result is "p2 = i*p1 | i \in N" but IMITATOR cannot find it because the accumulated constraints grow forever
  * Correctness      : Reachability
- * Scalable         : 
- * Generated        : 
+ * Scalable         : No
+ * Generated        : No
  * Categories       : Academic ; Unsolvable
  * Source           : Own work
  * bibkey           : 
@@ -16,9 +16,9 @@
  * 
  * Created          : 2021/01/21
  * Last modified    : 2021/01/21
- * Model version    : 
+ * Model version    : 1.0
  * 
- * IMITATOR version : 3
+ * IMITATOR version : 3.0
  ******************************************************************************)
 
 var

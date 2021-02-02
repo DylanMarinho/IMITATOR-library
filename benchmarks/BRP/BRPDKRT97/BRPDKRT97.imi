@@ -4,8 +4,8 @@
  * Title            : BRPDKRT97
  * Description      : Bounded Retransmission Protocol [version slightly modified]
  * Correctness      : V[] ((S.error ^ x = SYNC) => R.new_file)
- * Scalable         : 
- * Generated        : 
+ * Scalable         : No
+ * Generated        : No
  * Categories       : Academic ; Industrial ; Protocol ; RTS
  * Source           : "The Bounded Retransmission Protocol Must Be on Time!"
  * bibkey           : DKRT97
@@ -16,9 +16,9 @@
  * 
  * Created          : ? (< 09/2007)
  * Last modified    : 2020/04/30
- * Model version    : 
+ * Model version    : 1.0
  * 
- * IMITATOR version : 3
+ * IMITATOR version : 3.0
  ******************************************************************************)
 
 
