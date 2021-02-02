@@ -38,12 +38,14 @@ def isPropModel(model, property):
     return modelBase == propBase
 
 
-def isUnsolvable(modelFile):
+def isUnsolvable(modelFile, propFile):
     """
-    Check if a model is tagged as Unsolvable
+    Check if a (model,property) is Unsolvable (model or prop tagged as Unsolvable)
     :param modelFile: imi file of the model (with path)
-    :return: True if it has Unsolvable tag, False otherwise
+    :param propFile: imiprop file of the property (with path)
+    :return: True if one of them has Unsolvable tag, False otherwise
     """
+    unsolvable = False
     # Look for unsolvable category in the imi file
     f = open(modelFile, "r")
     lines = f.read().split("\n")
@@ -51,8 +53,16 @@ def isUnsolvable(modelFile):
         parts = l.split(":")
         if len(parts) == 2:
             if "Categories" in parts[0]:
-                return unsolvableTag in parts[1]
-    return False
+                unsolvable = unsolvableTag in parts[1]
+    if not unsolvable:  # if model is not unsolvable, check property
+        f = open(propFile, "r")
+        lines = f.read().split("\n")
+        for l in lines:
+            parts = l.split(":")
+            if len(parts) == 2:
+                if "Computation" in parts[0]:
+                    unsolvable = unsolvableTag in parts[1]
+    return unsolvable
 
 
 def exportLibrary():
@@ -65,11 +75,12 @@ def exportLibrary():
         for m in models:
             directory = os.path.dirname(m.replace(benchmarksDirectory, ""))
             model = os.path.basename(m)
-            unsolvable_res = isUnsolvable(m)
 
             properties = [f for f in
                           glob.glob(os.path.join(benchmarksDirectory, directory, "*" + propExtension), recursive=True)]
             for prop in properties:
+                unsolvable_res = isUnsolvable(m, prop)
+
                 property = os.path.basename(prop)
                 if isPropModel(model, property):
                     dict = {}
