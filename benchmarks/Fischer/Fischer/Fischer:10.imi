@@ -4,21 +4,21 @@
  * Title            : Fischer:10
  * Description      : 
  * Correctness      : 
- * Scalable         : Yes
- * Generated        : Yes
+ * Scalable         : yes
+ * Generated        : yes
  * Categories       : Academic ; Protocol ; RTS
- * Source           : 
+ * Source           : Wojciech Penczek, Maciej Szreter. SAT-based Unbounded Model Checking of Timed Automata. Fundam. Inform. 85(1-4): 425-440 (2008)
  * bibkey           : PS08
- * Author           : 
- * Modeling         : 
- * Input by         : 
+ * Author           : Wojciech Penczek and Maciej Szreter
+ * Modeling         : Wojciech Penczek and Maciej Szreter
+ * Input by         : Étienne André
  * License          : 
  * 
  * Created          : 
  * Last modified    : 
- * Model version    : 1.0
+ * Model version    : 
  * 
- * IMITATOR version : 3.0
+ * IMITATOR version : 3
  ******************************************************************************)
 
 

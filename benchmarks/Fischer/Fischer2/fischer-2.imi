@@ -4,8 +4,8 @@
  * Title            : fischer-2
  * Description      : Fischer's mutual exclusion protocol with 2 processes
  * Correctness      : The mutual exclusion is ensured
- * Scalable         : No
- * Generated        : No
+ * Scalable         : 
+ * Generated        : 
  * Categories       : Academic ; Protocol ; RTS
  * Source           : ?
  * bibkey           : 
@@ -16,9 +16,9 @@
  * 
  * Created          : < 2012/02/14
  * Last modified    : 2020/08/14
- * Model version    : 1.0
+ * Model version    : 
  * 
- * IMITATOR version : 3.0
+ * IMITATOR version : 3
  ******************************************************************************)
 
 

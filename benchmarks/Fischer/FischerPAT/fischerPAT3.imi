@@ -4,8 +4,8 @@
  * Title            : fischerPAT3
  * Description      : Fischer's mutual exclusion protocol with 2 processes
  * Correctness      : Not 2 processes together in the critical section (location obs_violation unreachable)
- * Scalable         : No
- * Generated        : No
+ * Scalable         : in the number of processes
+ * Generated        : no
  * Categories       : Academic ; Protocol ; RTS
  * Source           : PAT library of benchmarks
  * bibkey           : 
@@ -16,9 +16,9 @@
  * 
  * Created          : 2012/10/08
  * Last modified    : 2020/08/14
- * Model version    : 1.0
+ * Model version    : 
  * 
- * IMITATOR version : 3.0
+ * IMITATOR version : 3
  ******************************************************************************)
 
 
