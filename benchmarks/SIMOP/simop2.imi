@@ -4,8 +4,8 @@
  * Title            : simop2
  * Description      : Networked automation system. Version with 2 parameters.
  * Correctness      : TODO
- * Scalable         : No
- * Generated        : No
+ * Scalable         : 
+ * Generated        : 
  * Categories       : Industrial
  * Source           : SIMOP Project / Étienne André, Thomas Chatain, Olivier De Smet, Laurent Fribourg and Silvain Ruel. Synthèse de contraintes temporisées pour une architecture d’automatisation en réseau. In Didier Lime and Olivier H. Roux (eds.), MSR’09, Journal Européen des Systèmes Automatisés 43(7-9), Hermès, pages 1049–1064, 2009.
  * bibkey           : ACDFR09
@@ -16,9 +16,9 @@
  * 
  * Created          : < 06/2007
  * Last modified    : 2020/08/19
- * Model version    : 1.0
+ * Model version    : 
  * 
- * IMITATOR version : 3.0
+ * IMITATOR version : 3
  ******************************************************************************)
 
 

@@ -4,8 +4,8 @@
  * Title            : coffeeDrinker
  * Description      : Coffee vending machine; a single button is used to wake the machine up, and to add sugar. Then a cup, and coffee are delivered after a (parametric) time.
  * Correctness      : The scientist never gets mad
- * Scalable         : No
- * Generated        : No
+ * Scalable         : 
+ * Generated        : 
  * Categories       : Education ; Toy
  * Source           : Own work
  * bibkey           : 
@@ -16,9 +16,9 @@
  * 
  * Created          : 2011/01/21
  * Last modified    : 2020/08/13
- * Model version    : 1.0
+ * Model version    : 
  * 
- * IMITATOR version : 3.0
+ * IMITATOR version : 3
  ******************************************************************************)
 
 

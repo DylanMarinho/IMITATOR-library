@@ -4,8 +4,8 @@
  * Title            : flipflop:4D
  * Description      : A flip-flop circuit made of 4 gates. The environment is such that D raises, then CK raises then D falls, and then CK falls. No discrete variable. Version with 4 parameters.
  * Correctness      : Q should raise before CK falls
- * Scalable         : No
- * Generated        : No
+ * Scalable         : 
+ * Generated        : 
  * Categories       : Academic ; Hardware
  * Source           : "Verification of timed circuits with symbolic delays" (Clariso -- Cortadella); Design Automation Conference, 2004. Proceedings of the ASP-DAC 2004. Asia and South Pacific; DOI: 10.1109/ASPDAC.2004.1337668
  * bibkey           : CC07
@@ -16,9 +16,9 @@
  * 
  * Created          : 2007/11
  * Last modified    : 2020/08/14
- * Model version    : 1.0
+ * Model version    : 
  * 
- * IMITATOR version : 3.0
+ * IMITATOR version : 3
  ******************************************************************************)
 
 

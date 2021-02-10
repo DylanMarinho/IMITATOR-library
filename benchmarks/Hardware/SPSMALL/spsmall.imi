@@ -4,8 +4,8 @@
  * Title            : spsmall
  * Description      : Model with observer (to check whether tCKQ is conform with ST specification)
  * Correctness      : s <= 166
- * Scalable         : No
- * Generated        : No
+ * Scalable         : 
+ * Generated        : 
  * Categories       : Hardware ; Industrial
  * Source           : Project ANR Valmem
  * bibkey           : CEFX09 ; Andre10
@@ -16,9 +16,9 @@
  * 
  * Created          : < 2007
  * Last modified    : 2020/08/19
- * Model version    : 1.0
+ * Model version    : 
  * 
- * IMITATOR version : 3.0
+ * IMITATOR version : 3
  ******************************************************************************)
 
    var

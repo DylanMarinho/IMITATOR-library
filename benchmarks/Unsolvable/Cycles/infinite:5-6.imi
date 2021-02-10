@@ -4,8 +4,8 @@
  * Title            : infinite:5-6
  * Description      : Toy benchmark for which there exists an infinite accepting run for p>=6 but not detecting if the algorithm diverges on the infinite p>=5 path
  * Correctness      : 
- * Scalable         : No
- * Generated        : No
+ * Scalable         : 
+ * Generated        : 
  * Categories       : Academic ; Unsolvable
  * Source           : Iterative Bounded Synthesis for Efficient Cycle Detection in Parametric Timed Automata, Fig. 6
  * bibkey           : 
@@ -16,9 +16,9 @@
  * 
  * Created          : 2021/01/21
  * Last modified    : 2021/01/21
- * Model version    : 1.0
+ * Model version    : 
  * 
- * IMITATOR version : 3.0
+ * IMITATOR version : 3
  ******************************************************************************)
 
 var

@@ -4,8 +4,8 @@
  * Title            : AndOr
  * Description      : Modeling of an "AND" and an "OR" logical gate
  * Correctness      : Alternating sequence: b- x- a- b+ a+ x+
- * Scalable         : No
- * Generated        : No
+ * Scalable         : 
+ * Generated        : 
  * Categories       : Academic ; Hardware
  * Source           : From "Verification of Concurrent Systems with Parametric Delays Using Octahedra" (2005) by Clariso and Cortadella; Fig 3a
  * bibkey           : CC05
@@ -16,9 +16,9 @@
  * 
  * Created          : 2008/01
  * Last modified    : 2020/04/30
- * Model version    : 1.0
+ * Model version    : 
  * 
- * IMITATOR version : 3.0
+ * IMITATOR version : 3
  ******************************************************************************)
 
 

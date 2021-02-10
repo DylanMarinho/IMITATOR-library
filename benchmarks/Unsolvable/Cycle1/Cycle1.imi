@@ -4,8 +4,8 @@
  * Title            : Cycle1
  * Description      : Unsolvable benchmark for cycle synthesis. The tool cannot find the cycle because the generated clock constraints grow forever.
  * Correctness      : Cycle
- * Scalable         : No
- * Generated        : No
+ * Scalable         : 
+ * Generated        : 
  * Categories       : Academic ; Unsolvable
  * Source           : Own work
  * bibkey           : 
@@ -16,9 +16,9 @@
  * 
  * Created          : 2020/08
  * Last modified    : 2020/09/24
- * Model version    : 1.0
+ * Model version    : 
  * 
- * IMITATOR version : 3.0
+ * IMITATOR version : 3
  ******************************************************************************)
 
 var

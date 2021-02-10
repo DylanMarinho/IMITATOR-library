@@ -4,8 +4,8 @@
  * Title            : JLR13-3tasks-npfp-100:2
  * Description      : Three periodic tasks run upon a uniprocessor by their fixed priorites, and the execution of a task cannot be preempted.
  * Correctness      : 
- * Scalable         : No
- * Generated        : No
+ * Scalable         : 
+ * Generated        : 
  * Categories       : Academic ; Protocol ; RTS
  * Source           : 
  * bibkey           : JLR13
@@ -16,9 +16,9 @@
  * 
  * Created          : xxxx (< 2015/10/29)
  * Last modified    : 2020/08/18
- * Model version    : 1.0
+ * Model version    : 
  * 
- * IMITATOR version : 3.0
+ * IMITATOR version : 3
  ******************************************************************************)
 
 

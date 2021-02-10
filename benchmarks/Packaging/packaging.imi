@@ -4,8 +4,8 @@
  * Title            : packaging
  * Description      : Packaging system
  * Correctness      : Risk unreachable (??)
- * Scalable         : No
- * Generated        : No
+ * Scalable         : 
+ * Generated        : 
  * Categories       : Academic ; ProdCons
  * Source           : https://github.com/astefano/efsmt_coverts/tree/master/imitator_examples/Imitator/packaging
  * bibkey           : ABBCR16
@@ -16,9 +16,9 @@
  * 
  * Created          : 2017/01/18
  * Last modified    : 2020/08/13
- * Model version    : 1.0
+ * Model version    : 
  * 
- * IMITATOR version : 3.0
+ * IMITATOR version : 3
  ******************************************************************************)
 
 

@@ -4,8 +4,8 @@
  * Title            : IMPO
  * Description      : Model of a small acyclic asynchronous circuit
  * Correctness      : Q must not rise
- * Scalable         : No
- * Generated        : No
+ * Scalable         : 
+ * Generated        : 
  * Categories       : Academic ; Hardware
  * Source           : "Preserving Partial Order Runs in Parametric Time Petri Nets"  (ACSD 2015), Fig. 1
  * bibkey           : ACR16
@@ -16,9 +16,9 @@
  * 
  * Created          : 2015/01/29
  * Last modified    : 2020/08/13
- * Model version    : 1.0
+ * Model version    : 
  * 
- * IMITATOR version : 3.0
+ * IMITATOR version : 3
  ******************************************************************************)
 
 
