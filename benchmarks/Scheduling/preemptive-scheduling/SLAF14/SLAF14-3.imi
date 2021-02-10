@@ -3,9 +3,9 @@
  * 
  * Title            : SLAF14-3
  * Description      : 
- * Correctness      : 
- * Scalable         : No
- * Generated        : No
+ * Correctness      : System must be schedulable
+ * Scalable         : yes
+ * Generated        : 
  * Categories       : Academic ; Protocol ; RTS
  * Source           : 
  * bibkey           : SLAF14
@@ -16,9 +16,9 @@
  * 
  * Created          : < 2015/10/30
  * Last modified    : 2020/08/18
- * Model version    : 1.0
+ * Model version    : 
  * 
- * IMITATOR version : 3.0
+ * IMITATOR version : 3
  ******************************************************************************)
 
 
