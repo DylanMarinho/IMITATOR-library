@@ -4,8 +4,8 @@
  * Title            : synthInvN
  * Description      : Toy benchmark for which the result is "p = 1/i | i \in N" but IMITATOR cannot find it because the accumulated constraints grow forever
  * Correctness      : Reachability
- * Scalable         : No
- * Generated        : No
+ * Scalable         : 
+ * Generated        : 
  * Categories       : Academic ; Unsolvable
  * Source           : Own work
  * bibkey           : 
@@ -15,10 +15,10 @@
  * License          : Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
  * 
  * Created          : 2021/01/21
- * Last modified    : 2021/01/21
- * Model version    : 1.0
+ * Last modified    : 2021/02/08
+ * Model version    : 
  * 
- * IMITATOR version : 3.0
+ * IMITATOR version : 3
  ******************************************************************************)
 
 var
@@ -36,7 +36,7 @@ var
 (************************************************************)
   automaton pta
 (************************************************************)
-synclabs: a;
+synclabs: ;
 
 loc l1: invariant x <= 1
 	when x = p do {x := 0} goto l1;
