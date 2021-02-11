@@ -1,5 +1,5 @@
 (************************************************************
- *                      IMITATOR MODEL                      
+ *                      IMITATOR MODEL
  *
  * Unsolvable benchmark for cycle synthesis
  *
@@ -17,4 +17,4 @@
  * IMITATOR version: 3.0
  ************************************************************)
 
-property := #synth Loop;
+property := #synth Cycle;
