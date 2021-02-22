@@ -1,13 +1,13 @@
 (*******************************************************************************
  *                                IMITATOR MODEL                               
  * 
- * Title            : BRPAAPP21:infeasiblePath
- * Description      : Toy benchmark for which the PZG has an infinite path but where the PTA infinite path is infeasible
+ * Title            : infinite:5-6
+ * Description      : Toy benchmark for which there exists an infinite accepting run for p>=6 but not detecting if the algorithm diverges on the infinite p>=5 path
  * Correctness      : 
  * Scalable         : 
  * Generated        : 
  * Categories       : Academic ; Unsolvable
- * Source           : Iterative Bounded Synthesis for Efficient Cycle Detection in Parametric Timed Automata, Fig. 4
+ * Source           : Iterative Bounded Synthesis for Efficient Cycle Detection in Parametric Timed Automata, Fig. 6
  * bibkey           : 
  * Author           : Étienne André, Jaime Arias, Laure Petrucci, Jaco van de Pol
  * Modeling         : Dylan Marinho
@@ -38,8 +38,12 @@ var
 (************************************************************)
 synclabs: a;
 
-accepting loc l0: invariant x <= 1 & y <= p
-	when x >= 1 do {x := 0} goto l0;
+loc l0: invariant y <= p
+	when x >= 5 do {y := 0} goto l0;
+  when y >= 6 do {x := 0} goto l1;
+
+accepting loc l1: invariant True
+  when True goto l1;
 
 end (* pta *)
 

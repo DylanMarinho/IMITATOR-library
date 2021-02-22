@@ -1,13 +1,13 @@
 (*******************************************************************************
  *                                IMITATOR MODEL                               
  * 
- * Title            : BRPAAPP21:5
- * Description      : Toy benchmark for which there exists an infinite accepting run for all p>=5 but IMITATOR cannot find it
+ * Title            : infinite:notFiniteDisjunction
+ * Description      : Toy benchmark for which there exists an infinite accepting run for a not finite disjunction of parameters (p in N)
  * Correctness      : 
  * Scalable         : 
  * Generated        : 
  * Categories       : Academic ; Unsolvable
- * Source           : Iterative Bounded Synthesis for Efficient Cycle Detection in Parametric Timed Automata, Fig. 3a
+ * Source           : Iterative Bounded Synthesis for Efficient Cycle Detection in Parametric Timed Automata, Fig. 5
  * bibkey           : 
  * Author           : Étienne André, Jaime Arias, Laure Petrucci, Jaco van de Pol
  * Modeling         : Dylan Marinho
@@ -38,8 +38,12 @@ var
 (************************************************************)
 synclabs: a;
 
-accepting loc l0: invariant y <= p
-	when x >= 5 do {y := 0} goto l0;
+loc l0: invariant x <= 1
+	when x >= 1 do {x := 0} goto l0;
+	when x = 1 & y = p do {x := 0, y := 0} goto lGoal;
+
+accepting loc lGoal: invariant True
+  when True do {x := 0, y:= 0} goto lGoal;
 
 end (* pta *)
 
