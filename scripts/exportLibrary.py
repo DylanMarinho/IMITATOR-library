@@ -93,6 +93,13 @@ def exportLibrary():
                     with_no_inclusion = ["accel", "blowup", "gear"]
                     if baseModel(dict["Model"]) in with_no_inclusion:
                         dict["Extra-command"] += " -no-cumulative-pruning"
+                    if "BRPAAPP21" in baseModel(dict["Model"]):
+                        if baseModel(dict["Model"]) == "BRPAAPP21_RC" and property =="BRPAAPP21_RC:AGnot.imiprop":
+                            dict["Extra-command"] += " -mergeq -comparison inclusion"
+                        elif baseModel(dict["Model"]) == "BRPAAPP21_GFSinRC" and property == "BRPAAPP21_GFSinRC:CycleThrough.imiprop":
+                            dict["Extra-command"] += " -no-subsumption -comparison inclusion"
+                        elif baseModel(dict["Model"]) == "BRPAAPP21_GSinFSdk" and property == "BRPAAPP21_GSinFSdk:CycleThrough.imiprop":
+                            dict["Extra-command"] += " -no-subsumption -comparison inclusion "
                     writer.writerow(dict)
 
 
