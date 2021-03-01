@@ -350,7 +350,10 @@ def writeHTMLTable(benchmarks, data, catNames, modelMetNames, propMetNames):
     txt += "</thead>\n"
     # CONTENT
     txt += "<tbody>\n"
-    for benchmark, values in benchmarks.items():
+    sorted_benchmarks_names = sorted(benchmarks)
+    # for benchmark, values in benchmarks.items():
+    for benchmark in sorted_benchmarks_names:
+        values = benchmarks[benchmark]
         first = True
         for m in values["models"]:
             sizeModel = len(data[m]["properties"])
@@ -406,7 +409,7 @@ if __name__ == "__main__":
 
     """List of benchmarks"""
     content += "<ul id='listOfBenchmarks'>\n"
-    for benchmark in benchmarks.keys():
+    for benchmark in sorted(benchmarks.keys()):
         content += '\t<li><a href="#{}">{}</a></li>\n'.format(idOfBenchmark(benchmark), benchmark)
     content += "</ul>\n"
 
