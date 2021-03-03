@@ -295,8 +295,11 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
         L.append("\t<!--Metrics-->")
         for met in metNames:
             try:
+                value = reduceHTML(data[modelName]['metrics'][met])
                 L.append(
-                    "\t\t<td rowspan={} title='{}'>{}</td>".format(sizeModel, met, reduceHTML(data[modelName]['metrics'][met])))
+                    "\t\t<td rowspan={} {}title='{}'>{}</td>".format(
+                        sizeModel, " class='yes '" if value in ["true", "L/U-PTA", "U-PTA", "L-PTA"] else "", met, value)
+                )
             except KeyError:
                 L.append("\t\t<td rowspan={} title='{}'></td>".format(sizeModel, met))
     if "Properties" in colsHTML:
