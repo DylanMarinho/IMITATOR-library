@@ -6,6 +6,7 @@
 import argparse
 import os
 import csv
+import numpy as np
 from params import *
 
 parser = argparse.ArgumentParser(description='Generate stat file of the library')
@@ -98,31 +99,31 @@ def export_stats(metrics_dictionary):
     t_f_count = ["true", "L/U-PTA"]
     for model, metrics in metrics_dictionary.items():
         for metric, value in metrics.items():
-            #check if metric exist in keep list, if not, pass
+            # check if metric exist in keep list, if not, pass
             try:
                 metrics_for_stats[metric]
             except KeyError:
                 continue
-            #check if metric exist in stat
+            # check if metric exist in stat
             try:
                 a = stats[metric]
             except KeyError:
                 stats[metric] = {}
 
-            if metrics_for_stats[metric]=="T/F" or metrics_for_stats[metric]=="L/U":
+            if metrics_for_stats[metric] == "T/F" or metrics_for_stats[metric] == "L/U":
                 try:
                     stats[metric]["number"] += 1 if value in t_f_count else 0
                     stats[metric]["total"] += 1
                 except KeyError:
                     stats[metric]["number"] = 1 if value in t_f_count else 0
                     stats[metric]["total"] = 1
-            elif metrics_for_stats[metric]=="V":
+            elif metrics_for_stats[metric] == "V":
                 try:
                     stats[metric]["total"] += 1
-                    stats[metric]["sum"] += float(value)
+                    stats[metric]["values"].append(float(value))
                 except KeyError:
                     stats[metric]["total"] = 1
-                    stats[metric]["sum"] = float(value)
+                    stats[metric]["values"] = [float(value)]
             else:
                 print("Unknown metric type for {}".format(metric))
     return stats
@@ -132,9 +133,9 @@ def number_of_stats_values(stats):
     maximum = 0
     for metric, values in stats.items():
         if metrics_for_stats[metric] == "T/F" or metrics_for_stats[metric] == "L/U":
-            number = 1 # 1 column of percentage
+            number = 1  # 1 column of percentage
         elif metrics_for_stats[metric] == "V":
-            number = 1 # 1 column of average
+            number = 2  # 1 column of average
         else:
             print("Unknown type for {}".format(metric))
             number = 0
@@ -146,19 +147,47 @@ def number_of_stats_values(stats):
 
 
 def write_tex_file(stats, tex_file=texPathAndFile):
-    txt = "\\begin{tabular}{|l l" + " |c|" * number_of_stats_values(stats) + "}\n"
+    txt = "\\begin{tabular}{| l" + "|" + " c|" * number_of_stats_values(stats) + "}\n"
+    txt += "\\hline\\rowHeader{} Metric & Average & Median" + " \\\\\n\\hline\\"
+    # Begin with V
+    for metric, values in stats.items():
+        if metrics_for_stats[metric] == "V":
+            txt += " {}".format(metric)
+            txt += " & {}".format(round(np.mean(values["values"])))
+            txt += " & {}".format(round(np.median(values["values"])))
+            txt += " \\\\\n"
+    txt += "\\hline\\rowHeader{} Metric & Percentage & " + " \\\\\n\\hline\\"
     for metric, values in stats.items():
         if metrics_for_stats[metric] == "T/F" or metrics_for_stats[metric] == "L/U":
-            txt += " Percentage of "
-        elif metrics_for_stats[metric] == "V":
-            txt += " Average of "
-        txt += " & {}".format(metric)
-        if metrics_for_stats[metric] == "T/F" or metrics_for_stats[metric] == "L/U":
-            txt += " & {} \%".format(round(values["number"]/values["total"]*100))
-        elif metrics_for_stats[metric] == "V":
-            txt += " & {}".format(round(values["sum"] / values["total"]))
-        txt += " \\\\\n"
+            txt += " {}".format(metric)
+            txt += " & {} \%".format(round(values["number"] / values["total"] * 100))
+            txt += " & "
+            txt += " \\\\\n"
+        # if metrics_for_stats[metric] == "T/F" or metrics_for_stats[metric] == "L/U":
+        #     txt += " Percentage of "
+        # elif metrics_for_stats[metric] == "V":
+        #     txt += ""
+        # txt += " & {}".format(metric)
+        # if metrics_for_stats[metric] == "T/F" or metrics_for_stats[metric] == "L/U":
+        #     txt += " & {} \%".format(round(values["number"] / values["total"] * 100))
+        # elif metrics_for_stats[metric] == "V":
+        #     txt += " & {}".format(round(np.mean(values["values"])))
+        #     txt += " & {}".format(round(np.median(values["values"])))
+        # txt += " \\\\\n"
+    txt += "\\hline"
     txt += "\\end{tabular}"
+
+    txt += "\n"
+    discrete = stats["Number of discrete variables"]
+    discrete_values = [k for k in discrete["values"] if k != 0]
+    print(discrete_values)
+    txt += "Number of discrete variables ({} \% for the models) & {} & {} \\".format(
+        len(discrete_values) / discrete["total"] * 100,
+        round(np.mean(discrete_values)),
+        round(np.median(discrete_values))
+    )
+
+    txt.replace("<>", "$\\neq$")
 
     f = open(tex_file, 'w')
     f.write(txt)
