@@ -211,10 +211,11 @@ def defineResPropertyPath(model_path, property_path):
 def categoryToHTML(category):
     correspondance = {
         "Academic": "Ac.",
-        "Automative": "Auto.",
+        "Automotive": "Auto.",
         "Education": "Educ.",
         "Hardware": "Hard.",
         "Industrial": "Ind.",
+        "Monitoring": "Mon.",
         "ProdCons": "Prod.",
         "Protocol": "Prot.",
         "RTS": "RTS",
