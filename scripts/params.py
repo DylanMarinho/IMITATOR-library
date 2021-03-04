@@ -149,6 +149,7 @@ def modelOfProp(propPath):
         print("Property {} does not follow regular naming convention".format(property))
         return ''
 
+
 def algoOfProp(propPath):
     """
     :param propPath: imiprop file (with or without path)
@@ -184,6 +185,7 @@ def definePdfPath(ImiPath):
     pdf_path = os.path.join(pdf_directory, actual_name)
     return pdf_path
 
+
 def defineResModelPath(model_path):
     """
     Define the path to output the res file for a model execution
@@ -194,6 +196,7 @@ def defineResModelPath(model_path):
     model_name = os.path.splitext(os.path.basename(model_path))[0]
     res_directory = os.path.join(resFilesDirectory, directory)
     return os.path.join(res_directory, model_name) + resExtension
+
 
 def defineResPropertyPath(model_path, property_path):
     """
@@ -207,6 +210,7 @@ def defineResPropertyPath(model_path, property_path):
     prop_name = os.path.splitext(os.path.basename(property_path))[0]
     res_directory = os.path.join(resFilesDirectory, directory)
     return os.path.join(res_directory, model_name + resNameSep + algoOfProp(prop_name)) + resExtension
+
 
 def categoryToHTML(category):
     correspondance = {
@@ -260,6 +264,7 @@ def metricToHTML(metric):
 def idOfBenchmark(benchmark):
     return "".join(benchmark.split())
 
+
 def reduceHTML(metric):
     """
     Make some reducutions for metric HTML display
@@ -270,6 +275,7 @@ def reduceHTML(metric):
         metric = metric.replace("seconds", "s.")
         metric = metric.replace("second", "s.")
     return metric
+
 
 # For the timeout remark in HTML page
 unsolvable_tag = "Unsolvable"

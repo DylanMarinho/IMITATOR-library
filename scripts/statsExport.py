@@ -13,6 +13,9 @@ parser = argparse.ArgumentParser(description='Generate stat file of the library'
 # parser.add_argument("-l", "--library",
 #                     help='Csv library file for input, in files directory (default: {})'.format(defaultLibraryFile),
 #                     default=defaultLibraryFile)
+parser.add_argument("-meta", "--modelMetadata",
+                    help='Csv model metadata file, in files directory (default: {})'.format(defaultMetadataFile),
+                    default=defaultMetadataFile)
 parser.add_argument("-models", "--modelMetrics",
                     help='Csv model metrics file, in files directory (default: {})'.format(defaultModelMetricsFile),
                     default=defaultModelMetricsFile)
@@ -30,6 +33,8 @@ if not args.html and not args.tex:
 
 # libraryFile = args.library
 # libraryPathAndFile = os.path.join(filesDirectory, libraryFile)
+metaFile = args.modelMetadata
+metaPathAndFile = os.path.join(filesDirectory, metaFile)
 modelMetricsFile = args.modelMetrics
 modelMetricsPathAndFile = os.path.join(filesDirectory, modelMetricsFile)
 propMetricsFile = args.propMetrics
@@ -81,6 +86,20 @@ prop_metrics_for_stats = {
 }
 
 """Parsing"""
+
+
+def parseMetaData(csvFile):
+    """
+    Parse metadata csv file
+    :param csvFile: Metadata csv file
+    :return: dictionnary of metadata {modelName : {metadata key: value}}
+    """
+    metadata = {}
+    with open(csvFile, "r") as file:
+        reader = csv.DictReader(file, delimiter=csvSep)
+        for row in reader:
+            metadata[row["Title"]] = row
+    return metadata
 
 
 def parseModelMetrics(csvFile):
@@ -151,15 +170,20 @@ def export_stats_model(metrics_dictionary):
                 print("Unknown metric type for {}".format(metric))
     return stats
 
-def export_stats_prop(metrics_dictionary):
+def export_stats_prop(metrics_dictionary, meta_model_dictionary):
     """
     Export stats from a metric dict
     :param metrics_dictionary: dictionary of metrics {name : {metric key: value}}
+    :param meta_model_dictionary: dictionary of metadata for models (check unsolvable)
     :return: dictionary of stats {stat key: {number: .., avg: ..}}
     """
     stats = {}
     t_f_count = ["true"]
     for model, metrics in metrics_dictionary.items():
+        # Dont deal with unsolvable models
+        if unsolvable_tag in meta_model_dictionary[model.split("+")[0]]["Categories"]:  # TODO améliorer ...
+            continue
+
         for metric, value in metrics.items():
             # check if metric exist in keep list, if not, pass
             try:
@@ -283,8 +307,9 @@ def write_tex_file(stats_models, stats_props, tex_file=texPathAndFile):
 
 """Main"""
 if __name__ == "__main__":
+    meta = parseMetaData(metaPathAndFile)
     modelMetrics = parseModelMetrics(modelMetricsPathAndFile)
     propMetrics = parsePropMetrics(propMetricsPathAndFile)
     stats_models = export_stats_model(modelMetrics)
-    stats_props = export_stats_prop(propMetrics)
+    stats_props = export_stats_prop(propMetrics, meta)
     write_tex_file(stats_models, stats_props, texPathAndFile)
