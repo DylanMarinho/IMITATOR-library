@@ -228,6 +228,7 @@ def categoryToHTML(category):
     except KeyError:
         return category
 
+
 def metricToHTML(metric):
     correspondance = {
         # model
@@ -255,6 +256,7 @@ def metricToHTML(metric):
     except KeyError:
         return metric
 
+
 def idOfBenchmark(benchmark):
     return "".join(benchmark.split())
 
@@ -268,3 +270,8 @@ def reduceHTML(metric):
         metric = metric.replace("seconds", "s.")
         metric = metric.replace("second", "s.")
     return metric
+
+# For the timeout remark in HTML page
+unsolvable_tag = "Unsolvable"
+time_metric = "Total computation time"
+unsolvable_timeout_text = "TO (Uns.)"

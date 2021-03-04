@@ -303,6 +303,7 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
             except KeyError:
                 L.append("\t\t<td rowspan={} title='{}'></td>".format(sizeModel, met))
     if "Properties" in colsHTML:
+        res_exist = False
         L.append("\t<!--Properties-->")
         numberOfDealProps = 0
         for prop, metrics in (data[modelName])["properties"].items():
@@ -319,16 +320,20 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
                     L.append("\t\t<td>{}</td>".format(
                         "<a href='{}' target='blank'><i class='fas fa-file-alt'></i></a>".format(
                             resFile)))
+                    res_exist = True
                 except FileNotFoundError:
                     L.append("\t\t<td></td>")
             except KeyError:
                 L.append("\t\t<td class='property'></td>")
                 L.append("\t\t<td></td>")
             for met in propMetNames:
-                try:
-                    L.append("\t\t<td title='{}'>{}</td>".format(met, reduceHTML(metrics[met])))
-                except KeyError:
-                    L.append("\t\t<td title='{}'></td>".format(met))
+                if unsolvable_tag in data[modelName]["metadata"]["Categories"] and met == time_metric and res_exist:
+                    L.append("\t\t<td title='{}'>{}</td>".format(met, unsolvable_timeout_text))
+                else:
+                    try:
+                        L.append("\t\t<td title='{}'>{}</td>".format(met, reduceHTML(metrics[met])))
+                    except KeyError:
+                        L.append("\t\t<td title='{}'></td>".format(met))
                 # if it is not the last property: add a line
             if numberOfDealProps != len((data[modelName])["properties"].keys()):
                 L.append("</tr><tr>")
