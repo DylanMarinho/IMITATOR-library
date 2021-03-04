@@ -16,6 +16,9 @@ parser = argparse.ArgumentParser(description='Generate stat file of the library'
 parser.add_argument("-models", "--modelMetrics",
                     help='Csv model metrics file, in files directory (default: {})'.format(defaultModelMetricsFile),
                     default=defaultModelMetricsFile)
+parser.add_argument("-props", "--propMetrics",
+                    help='Csv model metrics file, in files directory (default: {})'.format(defaultPropMetricsFile),
+                    default=defaultPropMetricsFile)
 parser.add_argument("-html", "--html",
                     help='Generate HTML output (todo?) (default: False)', action="store_true", default=False)
 parser.add_argument("-tex", "--tex",
@@ -29,6 +32,8 @@ if not args.html and not args.tex:
 # libraryPathAndFile = os.path.join(filesDirectory, libraryFile)
 modelMetricsFile = args.modelMetrics
 modelMetricsPathAndFile = os.path.join(filesDirectory, modelMetricsFile)
+propMetricsFile = args.propMetrics
+propMetricsPathAndFile = os.path.join(filesDirectory, propMetricsFile)
 htmlFile = "statistics.html"
 htmlPathAndFile = os.path.join(filesDirectory, htmlFile)
 texFile = "statistics.tex"
@@ -69,6 +74,12 @@ metrics_for_stats = {
     "Average transitions per IPTA": "V"
 }
 
+prop_metrics_for_stats = {
+    "Total computation time": "V",
+    "Number of states": "V",
+    "Number of computed states": "V"
+}
+
 """Parsing"""
 
 
@@ -85,11 +96,23 @@ def parseModelMetrics(csvFile):
             metrics[row["Name"]] = row
     return metrics
 
+def parsePropMetrics(csvFile):
+    """
+    Parse model metrics csv file
+    :param csvFile: Prop metrics csv file
+    :return: dictionary of metrics {name : {metric key: value}}
+    """
+    metrics = {}
+    with open(csvFile, "r") as file:
+        reader = csv.DictReader(file, delimiter=csvSep)
+        for row in reader:
+            metrics[row["Model"] + "+" + row["Property"]] = row
+    return metrics
 
 """Export stats"""
 
 
-def export_stats(metrics_dictionary):
+def export_stats_model(metrics_dictionary):
     """
     Export stats from a metric dict
     :param metrics_dictionary: dictionary of metrics {modelName : {metric key: value}}
@@ -128,13 +151,61 @@ def export_stats(metrics_dictionary):
                 print("Unknown metric type for {}".format(metric))
     return stats
 
+def export_stats_prop(metrics_dictionary):
+    """
+    Export stats from a metric dict
+    :param metrics_dictionary: dictionary of metrics {name : {metric key: value}}
+    :return: dictionary of stats {stat key: {number: .., avg: ..}}
+    """
+    stats = {}
+    t_f_count = ["true"]
+    for model, metrics in metrics_dictionary.items():
+        for metric, value in metrics.items():
+            # check if metric exist in keep list, if not, pass
+            try:
+                prop_metrics_for_stats[metric]
+            except KeyError:
+                continue
+            # check if metric exist in stat
+            try:
+                a = stats[metric]
+            except KeyError:
+                stats[metric] = {}
+
+            if prop_metrics_for_stats[metric] == "T/F":
+                try:
+                    stats[metric]["number"] += 1 if value in t_f_count else 0
+                    stats[metric]["total"] += 1
+                except KeyError:
+                    stats[metric]["number"] = 1 if value in t_f_count else 0
+                    stats[metric]["total"] = 1
+            elif prop_metrics_for_stats[metric] == "V":
+                if value!="":
+                    if metric == "Total computation time":
+                        value = float(value.replace(" seconds", "").replace(" second", ""))
+                    try:
+                        stats[metric]["total"] += 1
+                        stats[metric]["values"].append(float(value))
+                    except KeyError:
+                        stats[metric]["total"] = 1
+                        stats[metric]["values"] = [float(value)]
+            else:
+                print("Unknown metric type for {}".format(metric))
+    return stats
 
 def number_of_stats_values(stats):
     maximum = 0
+    try:
+        # Check if called for models
+        metric = list(stats.keys())[0]
+        a = metrics_for_stats[metric]
+        metrics_link = metrics_for_stats
+    except KeyError:
+        metrics_link = prop_metrics_for_stats # else, use prop_metrics
     for metric, values in stats.items():
-        if metrics_for_stats[metric] == "T/F" or metrics_for_stats[metric] == "L/U":
+        if metrics_link[metric] == "T/F" or metrics_link[metric] == "L/U":
             number = 1  # 1 column of percentage
-        elif metrics_for_stats[metric] == "V":
+        elif metrics_link[metric] == "V":
             number = 2  # 1 column of average
         else:
             print("Unknown type for {}".format(metric))
@@ -146,39 +217,29 @@ def number_of_stats_values(stats):
 """Write functions"""
 
 
-def write_tex_file(stats, tex_file=texPathAndFile):
-    txt = "\\begin{tabular}{| l" + "|" + " c|" * number_of_stats_values(stats) + "}\n"
+def write_tex_file(stats_models, stats_props, tex_file=texPathAndFile):
+    # Models
+    txt = "\\begin{tabular}{| l" + "|" + " c|" * number_of_stats_values(stats_models) + "}\n"
     txt += "\\hline\\rowHeader{} Metric & Average & Median" + " \\\\\n\\hline\\"
     # Begin with V
-    for metric, values in stats.items():
+    for metric, values in stats_models.items():
         if metrics_for_stats[metric] == "V":
             txt += " {}".format(metric)
             txt += " & {}".format(round(np.mean(values["values"])))
             txt += " & {}".format(round(np.median(values["values"])))
             txt += " \\\\\n"
     txt += "\\hline\\rowHeader{} Metric & Percentage & " + " \\\\\n\\hline\\"
-    for metric, values in stats.items():
+    for metric, values in stats_models.items():
         if metrics_for_stats[metric] == "T/F" or metrics_for_stats[metric] == "L/U":
             txt += " {}".format(metric)
             txt += " & {} \%".format(round(values["number"] / values["total"] * 100))
             txt += " & "
             txt += " \\\\\n"
-        # if metrics_for_stats[metric] == "T/F" or metrics_for_stats[metric] == "L/U":
-        #     txt += " Percentage of "
-        # elif metrics_for_stats[metric] == "V":
-        #     txt += ""
-        # txt += " & {}".format(metric)
-        # if metrics_for_stats[metric] == "T/F" or metrics_for_stats[metric] == "L/U":
-        #     txt += " & {} \%".format(round(values["number"] / values["total"] * 100))
-        # elif metrics_for_stats[metric] == "V":
-        #     txt += " & {}".format(round(np.mean(values["values"])))
-        #     txt += " & {}".format(round(np.median(values["values"])))
-        # txt += " \\\\\n"
     txt += "\\hline"
     txt += "\\end{tabular}"
 
     txt += "\n"
-    discrete = stats["Number of discrete variables"]
+    discrete = stats_models["Number of discrete variables"]
     discrete_values = [k for k in discrete["values"] if k != 0]
     print(discrete_values)
     txt += "Number of discrete variables ({} \% for the models) & {} & {} \\".format(
@@ -187,6 +248,32 @@ def write_tex_file(stats, tex_file=texPathAndFile):
         round(np.median(discrete_values))
     )
 
+    # Props
+    txt += "\n\\begin{tabular}{| l" + "|" + " c|" * number_of_stats_values(stats_props) + "}\n"
+    txt += "\\hline\\rowHeader{} Metric & Average & Median" + " \\\\\n\\hline\\"
+    # Begin with V
+    for metric, values in stats_props.items():
+        if prop_metrics_for_stats[metric] == "V":
+            txt += " {}".format(metric)
+            txt += " & {}".format(round(np.mean(values["values"]), 3))
+            txt += " & {}".format(round(np.median(values["values"]), 3))
+            txt += " \\\\\n"
+    txt += "\\hline\\rowHeader{} Metric & Percentage & " + " \\\\\n\\hline\\"
+    for metric, values in stats_props.items():
+        if prop_metrics_for_stats[metric] == "T/F":
+            txt += " {}".format(metric)
+            txt += " & {} \%".format(round(values["number"] / values["total"] * 100))
+            txt += " & "
+            txt += " \\\\\n"
+    # check number of props
+    number_of_execution = 0
+    for metric, values in stats_props.items():
+        number_of_execution = values["total"] if number_of_execution==0 or number_of_execution==values["total"] else -1
+    txt += "\\hline"
+    txt += "\\end{tabular}"
+    txt += "Computation stats on {} executions".format(number_of_execution)
+
+    # Fix some symbols
     txt.replace("<>", "$\\neq$")
 
     f = open(tex_file, 'w')
@@ -197,5 +284,7 @@ def write_tex_file(stats, tex_file=texPathAndFile):
 """Main"""
 if __name__ == "__main__":
     modelMetrics = parseModelMetrics(modelMetricsPathAndFile)
-    stats = export_stats(modelMetrics)
-    write_tex_file(stats, texPathAndFile)
+    propMetrics = parsePropMetrics(propMetricsPathAndFile)
+    stats_models = export_stats_model(modelMetrics)
+    stats_props = export_stats_prop(propMetrics)
+    write_tex_file(stats_models, stats_props, texPathAndFile)
