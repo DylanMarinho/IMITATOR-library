@@ -1,23 +1,23 @@
 (*******************************************************************************
- *                                IMITATOR MODEL
- *
+ *                                IMITATOR MODEL                               
+ * 
  * Title            : BlT09-fig1
  * Description      : TODO
  * Correctness      : infinite run visiting infinitely often location 3
- * Scalable         :
- * Generated        :
- * Categories       :
+ * Scalable         : 
+ * Generated        : 
+ * Categories       : 
  * Source           : Laura Bozzelli, Salvatore La Torre: Decision problems for lower/upper bound parametric timed automata. Formal Methods in System Design 35(2): 121-151 (2009), Fig1
  * bibkey           : BT09
  * Author           : Laura Bozzelli, Salvatore La Torre
  * Modeling         : Laura Bozzelli, Salvatore La Torre
  * Input by         : Étienne André
- * License          :
- *
+ * License          : 
+ * 
  * Created          : 2015/11/17
  * Last modified    : 2020/08/13
- * Model version    :
- *
+ * Model version    : 
+ * 
  * IMITATOR version : 3
  ******************************************************************************)
 
