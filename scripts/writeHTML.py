@@ -358,7 +358,8 @@ def writeHTMLTable(benchmarks, data, catNames, modelMetNames, propMetNames):
     txt += "</thead>\n"
     # CONTENT
     txt += "<tbody>\n"
-    sorted_benchmarks_names = sorted(benchmarks)
+    sorted_benchmarks_names = list(benchmarks.keys())
+    sorted_benchmarks_names.sort(key=str.casefold)
     # for benchmark, values in benchmarks.items():
     for benchmark in sorted_benchmarks_names:
         values = benchmarks[benchmark]
@@ -417,7 +418,9 @@ if __name__ == "__main__":
 
     """List of benchmarks"""
     content += "<ul id='listOfBenchmarks'>\n"
-    for benchmark in sorted(benchmarks.keys()):
+    keys = list(benchmarks.keys())
+    keys.sort(key=str.casefold)
+    for benchmark in keys:
         content += '\t<li><a href="#{}">{}</a></li>\n'.format(idOfBenchmark(benchmark), benchmark)
     content += "</ul>\n"
 
