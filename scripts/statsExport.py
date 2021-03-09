@@ -115,6 +115,7 @@ def parseModelMetrics(csvFile):
             metrics[row["Name"]] = row
     return metrics
 
+
 def parsePropMetrics(csvFile):
     """
     Parse model metrics csv file
@@ -128,8 +129,61 @@ def parsePropMetrics(csvFile):
             metrics[row["Model"] + "+" + row["Property"]] = row
     return metrics
 
+
+"""Get names"""
+
+
+################### Get names
+
+def categoriesNames(metadata):
+    """
+    Return list of categories
+    :param metadata: Dictionnary of metadata {modelName : {metadata key: value}}
+    :return: List of (sorted) category names
+    """
+    names = []
+    for data in metadata.values():
+        categories = data["Categories"]
+        categories = "".join(categories.split())  # delete spaces
+        categories = categories.split(categoriesSep)
+        for cat in categories:
+            if cat not in names and cat != "":
+                names.append(cat)
+    names.sort()
+    return names
+
+
 """Export stats"""
 
+
+def export_stats_metadata(metadata_dictionary, file_to_write=os.path.join(filesDirectory, "stats_metadata.txt")):
+    """
+    Export stats from a metadata dict (here, only categories)
+    :param metadata_dictionary:
+    :return: dictionary of stats {stat key: {number: ..}}
+    """
+    stats = {}
+    catNames = categoriesNames(metadata_dictionary)
+    stats["Categories"] = {}
+    stats["Total"] = 0
+    for cat in catNames:
+        stats["Categories"][cat] = 0
+    for model, data in metadata_dictionary.items():
+        stats["Total"] += 1
+        categories = "".join(data["Categories"].split())
+        for cat in categories.split(categoriesSep):
+            stats["Categories"][cat] += 1
+
+    # write
+    txt = "\\hline\\rowHeader{}Category\t&\tNumber of models\t&\tProportion\\\\\\hline\n"
+    total = stats["Total"]
+    txt += "{}\t&\t{}\t&\t{}\\,\\%\\\\\\hline\n".format("All", total, round(total / total * 100))
+    for cat in catNames:
+        number = stats["Categories"][cat]
+        txt += "{}\t&\t{}\t&\t{}\\,\\%\\\\\n".format(cat, number, round(number/total*100))
+    f = open(file_to_write, "w")
+    f.write(txt)
+    f.close()
 
 def export_stats_model(metrics_dictionary):
     """
@@ -170,6 +224,7 @@ def export_stats_model(metrics_dictionary):
                 print("Unknown metric type for {}".format(metric))
     return stats
 
+
 def export_stats_prop(metrics_dictionary, meta_model_dictionary):
     """
     Export stats from a metric dict
@@ -204,7 +259,7 @@ def export_stats_prop(metrics_dictionary, meta_model_dictionary):
                     stats[metric]["number"] = 1 if value in t_f_count else 0
                     stats[metric]["total"] = 1
             elif prop_metrics_for_stats[metric] == "V":
-                if value!="":
+                if value != "":
                     if metric == "Total computation time":
                         value = float(value.replace(" seconds", "").replace(" second", ""))
                     try:
@@ -217,6 +272,7 @@ def export_stats_prop(metrics_dictionary, meta_model_dictionary):
                 print("Unknown metric type for {}".format(metric))
     return stats
 
+
 def number_of_stats_values(stats):
     maximum = 0
     try:
@@ -225,7 +281,7 @@ def number_of_stats_values(stats):
         a = metrics_for_stats[metric]
         metrics_link = metrics_for_stats
     except KeyError:
-        metrics_link = prop_metrics_for_stats # else, use prop_metrics
+        metrics_link = prop_metrics_for_stats  # else, use prop_metrics
     for metric, values in stats.items():
         if metrics_link[metric] == "T/F" or metrics_link[metric] == "L/U":
             number = 1  # 1 column of percentage
@@ -292,7 +348,8 @@ def write_tex_file(stats_models, stats_props, tex_file=texPathAndFile):
     # check number of props
     number_of_execution = 0
     for metric, values in stats_props.items():
-        number_of_execution = values["total"] if number_of_execution==0 or number_of_execution==values["total"] else -1
+        number_of_execution = values["total"] if number_of_execution == 0 or number_of_execution == values[
+            "total"] else -1
     txt += "\\hline"
     txt += "\\end{tabular}"
     txt += "Computation stats on {} executions".format(number_of_execution)
@@ -313,3 +370,5 @@ if __name__ == "__main__":
     stats_models = export_stats_model(modelMetrics)
     stats_props = export_stats_prop(propMetrics, meta)
     write_tex_file(stats_models, stats_props, texPathAndFile)
+
+    export_stats_metadata(meta)
