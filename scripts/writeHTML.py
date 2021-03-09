@@ -316,7 +316,7 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
                 value = reduceHTML(data[modelName]['metadata'][meta])
                 L.append(
                     "\t\t<td rowspan={} {}title='{}'>{}</td>".format(
-                        sizeModel, " class='yes '" if value not in ["no", ""] else "", meta,
+                        sizeModel, " class='yes' " if value not in ["no", ""] else "", meta,
                         value if value not in ["no", ""] else "no")
                 )
             except KeyError:
@@ -327,7 +327,7 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
                 value = reduceHTML(data[modelName]['metrics'][met])
                 L.append(
                     "\t\t<td rowspan={} {}title='{}'>{}</td>".format(
-                        sizeModel, " class='yes '" if value in ["true", "L/U-PTA", "U-PTA", "L-PTA"] else "", met,
+                        sizeModel, " class='yes' " if value in ["true", "L/U-PTA", "U-PTA", "L-PTA"] else "", met,
                         value)
                 )
             except KeyError:
@@ -422,15 +422,17 @@ if __name__ == "__main__":
     benchmarks = defBenchmarks(data)
 
     """Head"""
-    content = '<head>'
+    content = '<!DOCTYPE html>\n<html lang="fr">\n<head>\n'
+    content += '<title>The IMITATOR benchmark library ({})</title>\n'.format(libraryVersion)
+    content += '<meta charset="UTF-8">\n'
     content += '\t<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">\n'
     # content += '\t<link rel="stylesheet" type="text/css" media="screen" href="http://imitator.fr/imitator.css"/>\n'
     content += '\t<link rel="stylesheet" type="text/css" media="screen" href="styleLibrary.css"/>\n'
-    content += '</head>'
+    content += '</head>\n'
     # TODO temp font awesome link, download it for published version
     """Content body with presentation text"""
-    content += "<body>"
-    content += '<div id="header"><h1>The IMITATOR benchmarks library ({})</h1></div>'.format(libraryVersion)
+    content += "<body>\n"
+    content += '<div id="header"><h1>The IMITATOR benchmarks library ({})</h1></div>\n'.format(libraryVersion)
     content += "<div class='content'>\n"
     content += "\t<p>This page presents the official IMITATOR benchmarks library. These models have been accumulated over the years from scientific publications, and from industrial collaborations.</p>\n"
     content += "\t<p>In its {} version, the library contains {} benchmarks with {} different models and {} properties.</p>\n".format(
@@ -457,7 +459,7 @@ if __name__ == "__main__":
     """Add table"""
     txt = writeHTMLTable(benchmarks, data, catNames, metNames, propMetNames)
     content += txt
-    content += "</body>"
+    content += "</body>\n</html>"
 
     f = open(htmlPathAndFile, "w")
     f.write(content)

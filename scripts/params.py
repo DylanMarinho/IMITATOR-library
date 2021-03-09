@@ -267,7 +267,7 @@ def metricToHTML(metric):
         "Number of IPTAs": "|IPTA|",
         "Number of clocks": "|X|",
         "Has invariants?": "Inv.?",
-        "Has clocks with rate <>1?": "<>1 clocks?",
+        "Has clocks with rate <>1?": "&lt;&gt;1 clocks?",
         "L/U subclass": "L/U?",
         "Has silent actions?": "Sil.?",
         "Is strongly deterministic?": "stDet.?",
