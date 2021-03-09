@@ -222,7 +222,11 @@ def writeHTMLHead(categoriesNames, modelMetricsNames, propMetricsNames):
         for cat in categoriesNames:
             line2 += "<th title='{}'>{}</th>".format(cat, categoryToHTML(cat))
     if "Metrics" in colsHTML:
-        line1 += "<th colspan={}>Metrics</th>".format(len(modelMetricsNames))
+        line1 += "<th colspan={}>Metrics</th>".format(len(modelMetricsNames) + len(metadata_to_print))
+        # metadata
+        for meta in metadata_to_print:
+            line2 += "<th title='{}'>{}</th>".format(meta, metricToHTML(meta))
+        # metrics
         for metric in modelMetricsNames:
             line2 += "<th title='{}'>{}</th>".format(metric, metricToHTML(metric))
     if "Properties" in colsHTML:
@@ -270,35 +274,50 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
         fileCellContent = ""
         try:  # print PDF only if it exists
             open(pdfFile)
-            fileCellContent+= "\t<a href='{}' target='blank'><i class='fas fa-file-pdf'></i></a>\t".format(
+            fileCellContent += "\t<a href='{}' target='blank'><i class='fas fa-file-pdf'></i></a>\t".format(
                 pdfFile)
         except FileNotFoundError:
             pass
-        try: # print res only if it exists
+        try:  # print res only if it exists
             resFile = defineResModelPath(data[modelName]["Path"])
             open(resFile)
-            fileCellContent+="\t<a href='{}' target='blank'><i class='fas fa-file-alt'></i></a>".format(
+            fileCellContent += "\t<a href='{}' target='blank'><i class='fas fa-file-alt'></i></a>".format(
                 resFile)
         except FileNotFoundError:
             pass
         L.append("\t<td rowspan={}>{}</td>".format(sizeModel, fileCellContent))
     if "Source" in colsHTML:
-        L.append("\t<td rowspan={}>{}</td>".format(sizeModel, data[modelName]["metadata"]["bibkey"].replace(sourcesSep, "<br />")))
+        L.append("\t<td rowspan={}>{}</td>".format(sizeModel,
+                                                   data[modelName]["metadata"]["bibkey"].replace(sourcesSep, "<br />")))
     if "Categories" in colsHTML:
         L.append("\t<!--Categories-->")
         for cat in catNames:
             if cat in data[modelName]["metadata"]["Categories"]:
-                L.append("\t\t<td class='yes' rowspan={} title='{}'>{}</td>".format(sizeModel, cat, categoryToHTML(cat)))
+                L.append(
+                    "\t\t<td class='yes' rowspan={} title='{}'>{}</td>".format(sizeModel, cat, categoryToHTML(cat)))
             else:
                 L.append("\t\t<td class='no' rowspan={} title='{}'></td>".format(sizeModel, cat))
     if "Metrics" in colsHTML:
+        # Add metadata
+        L.append("\t<!--Metadata-->")
+        for meta in metadata_to_print:
+            try:
+                value = reduceHTML(data[modelName]['metadata'][meta])
+                L.append(
+                    "\t\t<td rowspan={} {}title='{}'>{}</td>".format(
+                        sizeModel, " class='yes '" if value not in ["no", ""] else "", meta,
+                        value if value not in ["no", ""] else "no")
+                )
+            except KeyError:
+                L.append("\t\t<td rowspan={} title='{}'></td>".format(sizeModel, meta))
         L.append("\t<!--Metrics-->")
         for met in metNames:
             try:
                 value = reduceHTML(data[modelName]['metrics'][met])
                 L.append(
                     "\t\t<td rowspan={} {}title='{}'>{}</td>".format(
-                        sizeModel, " class='yes '" if value in ["true", "L/U-PTA", "U-PTA", "L-PTA"] else "", met, value)
+                        sizeModel, " class='yes '" if value in ["true", "L/U-PTA", "U-PTA", "L-PTA"] else "", met,
+                        value)
                 )
             except KeyError:
                 L.append("\t\t<td rowspan={} title='{}'></td>".format(sizeModel, met))
@@ -311,7 +330,8 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
             try:
                 L.append("\t\t<td class='property'>{}</td>".format(
                     "<a href='{}' target='blank'>{}</a>".format(
-                        os.path.join(gitURL, benchmarksLocation, os.path.dirname(data[modelName]["Path"]), prop + propExtension),
+                        os.path.join(gitURL, benchmarksLocation, os.path.dirname(data[modelName]["Path"]),
+                                     prop + propExtension),
                         prop.split(propSep)[-1]),
                 ))
                 try:  # print res only if it exists
@@ -405,14 +425,13 @@ if __name__ == "__main__":
     content += "\t<p>In its {} version, the library contains {} benchmarks with {} different models and {} properties.</p>\n".format(
         libraryVersion, len(benchmarks), len(modelMetrics), len(propMetrics)
     )
-    content += "\t<p>Note that the library is under constant construction.</p>\n"
     content += "</div>"
 
     # BEGIN Datetime
     if not args.noDatetime:
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        content += '<div class="content"><p><span style="color:red;font-size:15;"><b>PAGE WRITTEN ON: {}</b></span></p></div>'.format(
+        content += '<!-- <div class="content"><p><span style="color:red;font-size:15;"><b>PAGE WRITTEN ON: {}</b></span></p></div> -->'.format(
             dt_string)
     # END Datetime
 

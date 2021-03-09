@@ -8,6 +8,7 @@ import os
 ############################
 gitURL = "https://raw.githubusercontent.com/imitator-model-checker/imitator/benchmarks/"
 colsHTML = ["Benchmark", "Source", "Categories", "Metrics", "Properties"]
+metadata_to_print = ["Scalable", "Generated"]
 libraryVersion = "V2.0"
 
 ############################
@@ -235,6 +236,9 @@ def categoryToHTML(category):
 
 def metricToHTML(metric):
     correspondance = {
+        # metadata
+        "Scalable": "Scal.",
+        "Generated": "Gen.",
         # model
         "Number of IPTAs": "|IPTA|",
         "Number of clocks": "|X|",
