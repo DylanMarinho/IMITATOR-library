@@ -7,6 +7,7 @@ import os
 # HTML output params
 ############################
 gitURL = "https://raw.githubusercontent.com/imitator-model-checker/imitator/benchmarks/"
+filesURL = "/imitator"
 colsHTML = ["Benchmark", "Jani", "Source", "Categories", "Metrics", "Properties"]
 metadata_to_print = ["Scalable", "Generated"]
 libraryVersion = "V2.0"
@@ -308,3 +309,12 @@ def reduceHTML(metric):
 unsolvable_tag = "Unsolvable"
 time_metric = "Total computation time"
 unsolvable_timeout_text = "TO (Uns.)"
+
+
+def files_URL_for_html(file_path):
+    """
+    Return url to file from its absolute path
+    :param file_path: absolute path to file
+    :return: url path
+    """
+    return os.path.join(filesURL, file_path.replace(filesDirectory + "/", ""))

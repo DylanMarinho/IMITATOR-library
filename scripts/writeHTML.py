@@ -277,14 +277,14 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
         try:  # print PDF only if it exists
             open(pdfFile)
             fileCellContent += "\t<a href='{}' target='blank'><i class='fas fa-file-pdf'></i></a>\t".format(
-                pdfFile)
+                files_URL_for_html(pdfFile))
         except FileNotFoundError:
             pass
         try:  # print res only if it exists
             resFile = defineResModelPath(data[modelName]["Path"])
             open(resFile)
             fileCellContent += "\t<a href='{}' target='blank'><i class='fas fa-file-alt'></i></a>".format(
-                resFile)
+                files_URL_for_html(resFile))
         except FileNotFoundError:
             pass
         L.append("\t<td rowspan={}>{}</td>".format(sizeModel, fileCellContent))
@@ -293,7 +293,7 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
             janiFile = defineJaniPath(data[modelName]["Path"])
             open(janiFile)
             fileCellContent = "\t<a href='{}' target='blank'><i class='fas fa-file-alt'></i></a>".format(
-                janiFile)
+                files_URL_for_html(janiFile))
         except FileNotFoundError:
             fileCellContent = ""
         L.append("\t<td rowspan={}>{}</td>".format(sizeModel, fileCellContent))
@@ -350,7 +350,7 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
                     open(resFile)
                     L.append("\t\t<td>{}</td>".format(
                         "<a href='{}' target='blank'><i class='fas fa-file-alt'></i></a>".format(
-                            resFile)))
+                            files_URL_for_html(resFile))))
                     res_exist = True
                 except FileNotFoundError:
                     L.append("\t\t<td></td>")
