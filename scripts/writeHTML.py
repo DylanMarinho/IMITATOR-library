@@ -215,6 +215,8 @@ def writeHTMLHead(categoriesNames, modelMetricsNames, propMetricsNames):
     line2 = "<tr>"
     if "Benchmark" in colsHTML:
         line1 += "<th rowspan=2 colspan=3>Benchmark</th>"
+    if "Jani" in colsHTML:
+        line1 += "<th rowspan=2>Jani</th>"
     if "Source" in colsHTML:
         line1 += "<th rowspan=2>Source</th>"
     if "Categories" in colsHTML:
@@ -285,6 +287,15 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
                 resFile)
         except FileNotFoundError:
             pass
+        L.append("\t<td rowspan={}>{}</td>".format(sizeModel, fileCellContent))
+    if "Jani" in colsHTML:
+        try:  # print res only if it exists
+            janiFile = defineJaniPath(data[modelName]["Path"])
+            open(janiFile)
+            fileCellContent = "\t<a href='{}' target='blank'><i class='fas fa-file-alt'></i></a>".format(
+                janiFile)
+        except FileNotFoundError:
+            fileCellContent = ""
         L.append("\t<td rowspan={}>{}</td>".format(sizeModel, fileCellContent))
     if "Source" in colsHTML:
         L.append("\t<td rowspan={}>{}</td>".format(sizeModel,

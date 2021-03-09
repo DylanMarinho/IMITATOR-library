@@ -7,7 +7,7 @@ import os
 # HTML output params
 ############################
 gitURL = "https://raw.githubusercontent.com/imitator-model-checker/imitator/benchmarks/"
-colsHTML = ["Benchmark", "Source", "Categories", "Metrics", "Properties"]
+colsHTML = ["Benchmark", "Jani", "Source", "Categories", "Metrics", "Properties"]
 metadata_to_print = ["Scalable", "Generated"]
 libraryVersion = "V2.0"
 
@@ -30,6 +30,7 @@ benchmarksDirectory = os.path.join(root, benchmarksLocation)
 filesDirectory = os.path.join(root, "files")
 resFilesDirectory = os.path.join(filesDirectory, "res")
 pdfFilesDirectory = os.path.join(filesDirectory, "pdf")
+janiFilesDirectory = os.path.join(filesDirectory, "jani")
 
 ############################
 # Default files
@@ -174,6 +175,15 @@ def automaticPdfName(ImiPath):
     return os.path.basename(os.path.splitext(ImiPath)[0]) + "-pta.pdf"  # ie. name outputed by the run
 
 
+def automaticJaniName(ImiPath):
+    """
+    Return the path to the output of imitator -imi2Jani
+    :param ImiPath: imi file, with path
+    :return: jani path
+    """
+    return os.path.basename(os.path.splitext(ImiPath)[0]) + ".jani"  # ie. name outputed by the run
+
+
 def definePdfPath(ImiPath):
     """
     Return path to pdf file
@@ -211,6 +221,19 @@ def defineResPropertyPath(model_path, property_path):
     prop_name = os.path.splitext(os.path.basename(property_path))[0]
     res_directory = os.path.join(resFilesDirectory, directory)
     return os.path.join(res_directory, model_name + resNameSep + algoOfProp(prop_name)) + resExtension
+
+
+def defineJaniPath(ImiPath):
+    """
+    Return path to jani file
+    :param ImiPath: imi file, with path
+    :return: jani path
+    """
+    # placed at [root]/files/jani/.../[modelName].jani
+    actual_name = automaticJaniName(ImiPath)
+    jani_directory = os.path.join(janiFilesDirectory, os.path.dirname(ImiPath).replace(benchmarksDirectory, ""))
+    pdf_path = os.path.join(jani_directory, actual_name)
+    return pdf_path
 
 
 def categoryToHTML(category):
