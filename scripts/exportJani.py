@@ -63,6 +63,12 @@ def writeJani(imiPath):
         # else, write it
         cmd = "{} {} -imi2Jani".format(imitatorCmd, os.path.join(benchmarksDirectory, imiPath))
         os.system(cmd)
+        # clean with jq
+        cmd = "cat {} | jq > {}.temp && mv {}.temp {}".format(actual_name, actual_name, actual_name, actual_name)
+        os.system(cmd)
+        # remove absolute path
+        cmd = "sed -i 's#{}##g' {}".format(benchmarksDirectory, actual_name)
+        os.system(cmd)
         # and move it to right place
         os.system("mkdir -p {}".format(os.path.dirname(path_to_jani)))
         os.system("mv {} {}".format(actual_name, path_to_jani))
