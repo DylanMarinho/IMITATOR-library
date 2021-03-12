@@ -32,6 +32,7 @@ filesDirectory = os.path.join(root, "files")
 resFilesDirectory = os.path.join(filesDirectory, "res")
 pdfFilesDirectory = os.path.join(filesDirectory, "pdf")
 janiFilesDirectory = os.path.join(filesDirectory, "jani")
+expectedResultsFilesDirectory = os.path.join(filesDirectory, "expected")
 
 ############################
 # Default files
@@ -237,6 +238,25 @@ def defineJaniPath(ImiPath):
     return pdf_path
 
 
+def defineExpectedPath(ImiPath, property_path):
+    """
+    Return path to expected file
+    :param ImiPath: imi file, with path
+    :param property_path: path to the property (can be without path, it is computed from model_path)
+    :return: expected path, "" if it does not exist
+    """
+    model_name = os.path.basename(os.path.splitext(ImiPath)[0])
+    prop_name = os.path.splitext(os.path.basename(property_path))[0]
+    file = (model_name + resNameSep + algoOfProp(prop_name)) + ".expres"
+    path = os.path.join(expectedResultsFilesDirectory, file)
+    print(path)
+    try:
+        open(path, "r")
+        return path
+    except FileNotFoundError:
+        return ""
+
+
 def categoryToHTML(category):
     correspondance = {
         "Academic": "Ac.",
@@ -318,3 +338,31 @@ def files_URL_for_html(file_path):
     :return: url path
     """
     return os.path.join(filesURL, file_path.replace(filesDirectory + "/", ""))
+
+
+unsolvableTag = "Unsolvable"
+def isUnsolvable(modelFile, propFile):
+    """
+    Check if a (model,property) is Unsolvable (model or prop tagged as Unsolvable)
+    :param modelFile: imi file of the model (with path)
+    :param propFile: imiprop file of the property (with path)
+    :return: True if one of them has Unsolvable tag, False otherwise
+    """
+    unsolvable = False
+    # Look for unsolvable category in the imi file
+    # f = open(modelFile, "r")
+    # lines = f.read().split("\n")
+    # for l in lines:
+    #     parts = l.split(":")
+    #     if len(parts) == 2:
+    #         if "Categories" in parts[0]:
+    #             unsolvable = unsolvableTag in parts[1]
+    if not unsolvable:  # if model is not unsolvable, check property
+        f = open(propFile, "r")
+        lines = f.read().split("\n")
+        for l in lines:
+            parts = l.split(":")
+            if len(parts) == 2:
+                if "Computation" in parts[0]:
+                    unsolvable = unsolvableTag in parts[1]
+    return unsolvable

@@ -53,6 +53,19 @@ open(modelMetricsPathAndFile, "r")
 open(propMetricsPathAndFile, "r")
 
 
+################### Calls
+def is_unsolvable(model, prop):
+    """
+    Call isUnsolvable with paths
+    :param model: model, with path from benchmark
+    :param prop: prop name
+    :return: bool
+    """
+    model_path = os.path.join(benchmarksDirectory, model)
+    dir = os.path.dirname(model)
+    prop_path = os.path.join(benchmarksDirectory, dir, prop + propExtension)
+    return isUnsolvable(model_path, prop_path)
+
 ################### Parsing files
 def parseMetaData(csvFile):
     """
@@ -339,28 +352,41 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
         for prop, metrics in (data[modelName])["properties"].items():
             numberOfDealProps += 1
             try:
+                # Name of property
                 L.append("\t\t<td class='property'>{}</td>".format(
                     "<a href='{}' target='blank'>{}</a>".format(
                         os.path.join(gitURL, benchmarksLocation, os.path.dirname(data[modelName]["Path"]),
                                      prop + propExtension),
                         prop.split(propSep)[-1]),
                 ))
-                try:  # print res only if it exists
-                    resFile = defineResPropertyPath(data[modelName]["Path"], prop)
-                    open(resFile)
+
+                # res of expected file
+                expected_file = defineExpectedPath(data[modelName]["Path"], prop)
+                if expected_file != "":
                     L.append("\t\t<td>{}</td>".format(
-                        "<a href='{}' target='blank'><i class='fas fa-file-alt'></i></a>".format(
-                            files_URL_for_html(resFile))))
-                    res_exist = True
-                except FileNotFoundError:
-                    L.append("\t\t<td></td>")
+                        "<a href='{}' target='blank'><i class='far fa-file-alt'></i></a>".format(
+                            #files_URL_for_html(
+                            expected_file
+                        # )
+                    )))
+                else:
+                    try:  # print res only if it exists
+                        resFile = defineResPropertyPath(data[modelName]["Path"], prop)
+                        open(resFile)
+                        L.append("\t\t<td>{}</td>".format(
+                            "<a href='{}' target='blank'><i class='fas fa-file-alt'></i></a>".format(
+                                files_URL_for_html(resFile))))
+                        res_exist = True
+                    except FileNotFoundError:
+                        L.append("\t\t<td></td>")
             except KeyError:
                 L.append("\t\t<td class='property'></td>")
                 L.append("\t\t<td></td>")
-            for met in propMetNames:
-                if unsolvable_tag in data[modelName]["metadata"]["Categories"] and met == time_metric and res_exist:
-                    L.append("\t\t<td title='{}'>{}</td>".format(met, unsolvable_timeout_text))
-                else:
+            # Metrics
+            if is_unsolvable(data[modelName]["Path"], prop):
+                L.append("\t\t<td title='' class='TO' colspan={}>{}</td>".format(len(propMetNames), unsolvable_timeout_text))
+            else:
+                for met in propMetNames:
                     try:
                         L.append("\t\t<td title='{}'>{}</td>".format(met, reduceHTML(metrics[met])))
                     except KeyError:
