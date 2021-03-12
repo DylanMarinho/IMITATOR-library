@@ -322,6 +322,8 @@ def reduceHTML(metric):
     if "second" in metric:
         metric = metric.replace("seconds", "s.")
         metric = metric.replace("second", "s.")
+    if metric == "in the number of processes":
+        metric = "nb of proc."
     return metric
 
 
