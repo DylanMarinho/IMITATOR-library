@@ -365,9 +365,9 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
                 if expected_file != "":
                     L.append("\t\t<td>{}</td>".format(
                         "<a href='{}' target='blank'><i class='far fa-file-alt'></i></a>".format(
-                            #files_URL_for_html(
+                            files_URL_for_html(
                             expected_file
-                        # )
+                        )
                     )))
                 else:
                     try:  # print res only if it exists
