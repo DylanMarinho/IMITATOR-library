@@ -6,7 +6,7 @@ import os
 ############################
 # HTML output params
 ############################
-gitURL = "https://raw.githubusercontent.com/imitator-model-checker/imitator/benchmarks/"
+gitURL = "https://raw.githubusercontent.com/imitator-model-checker/imitator/develop/"
 filesURL = "/imitator"
 colsHTML = ["Benchmark", "Jani", "Source", "Categories", "Metrics", "Properties"]
 metadata_to_print = ["Scalable", "Generated"]
