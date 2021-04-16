@@ -3,6 +3,8 @@
 
 import os
 
+root = "/".join(os.getcwd().split("/")[:-1])
+
 ############################
 # HTML output params
 ############################
@@ -17,7 +19,7 @@ libraryVersion = "V2.0"
 ############################
 
 # Command to imitator, as used in a terminal
-imitatorCmd = "/home/dylan/.apps/imitator/bin/imitator"
+imitatorCmd = os.path.join(root,"imitator-v3.0.0-amd64")
 imitatorTimeoutForModels = 0  # timeout for imitator in second, 0 disables it. Used for model metrics
 imitatorTimeoutForProps = 0  # timeout for imitator in second, 0 disables it. Used for property metrics
 imitatorTimeoutForUnsolvables = 5  # timeout for imitator in second as extra-command for unsolvables
@@ -25,7 +27,6 @@ imitatorTimeoutForUnsolvables = 5  # timeout for imitator in second as extra-com
 ############################
 # Directories
 ############################
-root = "/".join(os.getcwd().split("/")[:-1])
 benchmarksLocation = "benchmarks/"
 benchmarksDirectory = os.path.join(root, benchmarksLocation)
 filesDirectory = os.path.join(root, "files")
@@ -249,7 +250,6 @@ def defineExpectedPath(ImiPath, property_path):
     prop_name = os.path.splitext(os.path.basename(property_path))[0]
     file = (model_name + resNameSep + algoOfProp(prop_name)) + ".expres"
     path = os.path.join(expectedResultsFilesDirectory, file)
-    print(path)
     try:
         open(path, "r")
         return path
@@ -351,20 +351,11 @@ def isUnsolvable(modelFile, propFile):
     :return: True if one of them has Unsolvable tag, False otherwise
     """
     unsolvable = False
-    # Look for unsolvable category in the imi file
-    # f = open(modelFile, "r")
-    # lines = f.read().split("\n")
-    # for l in lines:
-    #     parts = l.split(":")
-    #     if len(parts) == 2:
-    #         if "Categories" in parts[0]:
-    #             unsolvable = unsolvableTag in parts[1]
-    if not unsolvable:  # if model is not unsolvable, check property
-        f = open(propFile, "r")
-        lines = f.read().split("\n")
-        for l in lines:
-            parts = l.split(":")
-            if len(parts) == 2:
-                if "Computation" in parts[0]:
-                    unsolvable = unsolvableTag in parts[1]
+    f = open(propFile, "r")
+    lines = f.read().split("\n")
+    for l in lines:
+        parts = l.split(":")
+        if len(parts) == 2:
+            if "Computation" in parts[0]:
+                unsolvable = unsolvableTag in parts[1]
     return unsolvable
