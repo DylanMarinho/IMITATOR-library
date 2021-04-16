@@ -8,10 +8,22 @@ from params import *
 
 parser = argparse.ArgumentParser(
     description='Generate csv file with model meta-data (contained in the imi file header)')
+parser.add_argument("-l", "--library",
+                    help='Csv library file for input, in files directory (default: {})'.format(defaultLibraryFile),
+                    default=defaultLibraryFile)
 parser.add_argument("-o", "--output",
                     help='Csv output file, in files directory (default: {})'.format(defaultMetadataFile),
                     default=defaultMetadataFile)
 args = parser.parse_args()
+
+libraryFile = args.library
+libraryPathAndFile = os.path.join(filesDirectory, libraryFile)
+try:
+    f = open(libraryPathAndFile, "r")
+    f.close()
+except FileNotFoundError:
+    print("File {} not found ({})".format(libraryFile, libraryPathAndFile))
+    exit(0)
 
 metadataFile = args.output
 metadataPathAndFile = os.path.join(filesDirectory, metadataFile)
@@ -30,6 +42,18 @@ exitingHeadImi = "*" * 60 + ")"
 headProps = [k for k in keysOfImitatorHeader if k != ""]
 
 possibleCategoriesSep = [",", ";"]
+
+def listOfModels():
+    """
+    Read library input file and extract models
+    :return: List of model paths
+    """
+    L = []
+    with open(libraryPathAndFile, newline='') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=csvSep)
+        for row in reader:
+            L.append(os.path.join(benchmarksDirectory, row["Path"], row["Model"] + modelExtension))
+    return list(set(L))
 
 def parseImi(imiFile):
     """
@@ -79,7 +103,7 @@ def parseModelsMetadata():
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=csvSep)
 
         writer.writeheader()
-        models = [f for f in glob.glob(os.path.join(benchmarksDirectory, "**/*" + modelExtension), recursive=True)]
+        models = listOfModels()
         for m in models:
             dict = parseImi(m)
             dict["Title"] = os.path.splitext(os.path.basename(m))[0]
