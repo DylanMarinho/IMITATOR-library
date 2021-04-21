@@ -236,10 +236,15 @@ def export_stats_prop(metrics_dictionary, meta_model_dictionary):
     t_f_count = ["true"]
     for model, metrics in metrics_dictionary.items():
         # Dont deal with unsolvable models
-        if unsolvable_tag in meta_model_dictionary[model.split("+")[0]]["Categories"]:  # TODO améliorer ...
+        if isUnsolvable(
+            os.path.join(benchmarksDirectory, metrics_dictionary[model]["Path"], metrics_dictionary[model]["Model"] + modelExtension),
+            os.path.join(benchmarksDirectory, metrics_dictionary[model]["Path"], metrics_dictionary[model]["Property"] + propExtension)
+            ):
             continue
 
+
         for metric, value in metrics.items():
+            part_of_stat = False
             # check if metric exist in keep list, if not, pass
             try:
                 prop_metrics_for_stats[metric]
@@ -255,9 +260,11 @@ def export_stats_prop(metrics_dictionary, meta_model_dictionary):
                 try:
                     stats[metric]["number"] += 1 if value in t_f_count else 0
                     stats[metric]["total"] += 1
+                    part_of_stat = True
                 except KeyError:
                     stats[metric]["number"] = 1 if value in t_f_count else 0
                     stats[metric]["total"] = 1
+                    part_of_stat = True
             elif prop_metrics_for_stats[metric] == "V":
                 if value != "":
                     if metric == "Total computation time":
@@ -265,11 +272,15 @@ def export_stats_prop(metrics_dictionary, meta_model_dictionary):
                     try:
                         stats[metric]["total"] += 1
                         stats[metric]["values"].append(float(value))
+                        part_of_stat = True
                     except KeyError:
                         stats[metric]["total"] = 1
                         stats[metric]["values"] = [float(value)]
+                        part_of_stat = True
             else:
                 print("Unknown metric type for {}".format(metric))
+        # if part_of_stat:
+        #     print(metrics_dictionary[model]["Model"] + ";" + metrics_dictionary[model]["Property"] + ";" + metrics_dictionary[model]["Path"] + ";" )
     return stats
 
 
