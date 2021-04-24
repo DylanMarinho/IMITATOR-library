@@ -66,6 +66,18 @@ def is_unsolvable(model, prop):
     prop_path = os.path.join(benchmarksDirectory, dir, prop + propExtension)
     return isUnsolvable(model_path, prop_path)
 
+def path_to_prop(model, prop):
+    """
+    Return prop with path
+    :param model: model, with path from benchmark
+    :param prop: prop name
+    :return: prop path
+    """
+    model_path = os.path.join(benchmarksDirectory, model)
+    dir = os.path.dirname(model)
+    prop_path = os.path.join(benchmarksDirectory, dir, prop + propExtension)
+    return prop_path
+
 ################### Parsing files
 def parseMetaData(csvFile):
     """
@@ -383,15 +395,25 @@ def writeHTMLModel(modelName, data, catNames, modelMetNames, propMetNames, sizeM
                 L.append("\t\t<td class='property'></td>")
                 L.append("\t\t<td></td>")
             # Metrics
-            if is_unsolvable(data[modelName]["Path"], prop):
-                L.append("\t\t<td title='' class='TO' colspan={}>{}</td>".format(len(propMetNames), unsolvable_timeout_text))
+            if expected_file != "":
+                timed_out = unsolvable_timeout_text  # if expected is provided, the model is associated to unsolvable
             else:
+                timed_out = is_timed_out(resFile)
+            if timed_out == 0:  # good execution
                 for met in propMetNames:
                     try:
                         L.append("\t\t<td title='{}'>{}</td>".format(met, reduceHTML(metrics[met])))
                     except KeyError:
                         L.append("\t\t<td title='{}'></td>".format(met))
-                # if it is not the last property: add a line
+            elif is_unsolvable(data[modelName]["Path"], prop):
+                L.append("\t\t<td title='Unsolvable' class='TO' colspan={}>{}</td>".format(len(propMetNames), unsolvable_timeout_text))
+            elif timed_out == 1:  # No execution
+                L.append(
+                    "\t\t<td title='Not executed' class='NE' colspan={}>{}</td>".format(len(propMetNames), not_executed_text))
+            else:
+                L.append("\t\t<td title='Termination' class='TO' colspan={}>{}</td>".format(len(propMetNames),
+                                                                                           termination_timeout_text))
+            # if it is not the last property: add a line
             if numberOfDealProps != len((data[modelName])["properties"].keys()):
                 L.append("</tr><tr>")
     L.append("</tr>")

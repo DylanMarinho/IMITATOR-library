@@ -332,6 +332,11 @@ unsolvable_tag = "Unsolvable"
 time_metric = "Total computation time"
 unsolvable_timeout_text = "TO (Uns.)"
 
+termination_keyword = "Termination"
+timeout_mention = "time limit"
+termination_timeout_text = "TO (Term.)"
+
+not_executed_text = "NE"
 
 def files_URL_for_html(file_path):
     """
@@ -359,3 +364,31 @@ def isUnsolvable(modelFile, propFile):
             if "Computation" in parts[0]:
                 unsolvable = unsolvableTag in parts[1]
     return unsolvable
+
+# extract a value from a file and key
+def extract_value(file, key):
+    f = open(file, "r")
+    lines = f.read().split("\n")
+    for l in lines:
+        if key in l.split(":")[0]:
+            return l.split(":")[1]
+    # if no value
+    return ""
+
+def is_timed_out(resFile):
+    """
+    Check if a (model,property) was TO
+    :param resFile: res file of the execution (with path)
+    :return: 0 if good execution, 1 if no exist, timeout_text otherwise
+    """
+    try:
+        open(resFile, "r")
+    except FileNotFoundError:  # execution not done
+        return 1
+
+    if timeout_mention in extract_value(resFile, "Termination"):
+        return termination_timeout_text
+    if isUnsolvable("", resFile):
+        return unsolvable_timeout_text
+    # every case is False, so return 0
+    return 0
