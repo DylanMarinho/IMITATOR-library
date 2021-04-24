@@ -66,18 +66,6 @@ def is_unsolvable(model, prop):
     prop_path = os.path.join(benchmarksDirectory, dir, prop + propExtension)
     return isUnsolvable(model_path, prop_path)
 
-def path_to_prop(model, prop):
-    """
-    Return prop with path
-    :param model: model, with path from benchmark
-    :param prop: prop name
-    :return: prop path
-    """
-    model_path = os.path.join(benchmarksDirectory, model)
-    dir = os.path.dirname(model)
-    prop_path = os.path.join(benchmarksDirectory, dir, prop + propExtension)
-    return prop_path
-
 ################### Parsing files
 def parseMetaData(csvFile):
     """
