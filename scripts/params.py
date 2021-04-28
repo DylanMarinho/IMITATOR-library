@@ -19,10 +19,11 @@ libraryVersion = "V2.0"
 ############################
 
 # Command to imitator, as used in a terminal
-imitatorCmd = os.path.join(root,"imitator-v3.0.0-amd64")
+imitatorCmd = "imitator"
 imitatorTimeoutForModels = 0  # timeout for imitator in second, 0 disables it. Used for model metrics
+imitatorTimeoutForModelsToPDF = 60  # timeout for imitator -imi2PDF in second, 0 disables it. Used for model translation
 imitatorTimeoutForProps = 0  # timeout for imitator in second, 0 disables it. Used for property metrics
-imitatorTimeoutForUnsolvables = 5  # timeout for imitator in second as extra-command for unsolvables
+imitatorTimeoutForUnsolvables = 5  # time-limit for imitator in second as extra-command for unsolvables
 
 ############################
 # Directories
@@ -43,6 +44,10 @@ defaultMetadataFile = "modelsMeta.csv"
 defaultModelMetricsFile = "modelsMetrics.csv"
 defaultPropMetricsFile = "propMetrics.csv"
 defaultHTMLFile = "library.html"
+
+defaultSimulationModels = os.path.join(filesDirectory, "execution_models.txt")
+defaultSimulationProperties = os.path.join(filesDirectory, "execution_properties.txt")
+defaultSimulationJani = os.path.join(filesDirectory, "execution_jani.txt")
 
 ############################
 # File naming parameters

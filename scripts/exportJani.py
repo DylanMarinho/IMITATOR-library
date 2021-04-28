@@ -6,17 +6,19 @@ import csv
 import numpy as np
 from params import *
 
-## For dev imitator here
-imitatorCmd = "/home/dylan/workImitator/imitator/bin/imitator"
-
 parser = argparse.ArgumentParser(description='Generate jani file for library models')
 parser.add_argument("-l", "--library",
                     help='Csv library file for input, in files directory (default: {})'.format(defaultLibraryFile),
                     default=defaultLibraryFile)
 parser.add_argument("-overwrite", "--overwrite",
                     help="Overwrite jani file (default: False)", action='store_true')
-parser.set_defaults(overwrite=False)
+parser.add_argument("-s", "--simulate", help="Generate a file with the run to deal with (default: False). Output: stored at modelMetrics_runs.txt",
+                    action='store_true')
+parser.set_defaults(overwrite=False,simulate=False)
 args = parser.parse_args()
+
+simulate = args.simulate
+list_execution_path_and_file = defaultSimulationJani
 
 libraryFile = args.library
 libraryPathAndFile = os.path.join(filesDirectory, libraryFile)
@@ -60,18 +62,29 @@ def writeJani(imiPath):
         else:
             return path_to_jani
     except FileNotFoundError:
-        # else, write it
         cmd = "{} {} -imi2Jani".format(imitatorCmd, os.path.join(benchmarksDirectory, imiPath))
-        os.system(cmd)
-        # clean with jq
-        cmd = "cat {} | jq > {}.temp && mv {}.temp {}".format(actual_name, actual_name, actual_name, actual_name)
-        os.system(cmd)
-        # remove absolute path
-        cmd = "sed -i 's#{}##g' {}".format(benchmarksDirectory, actual_name)
-        os.system(cmd)
-        # and move it to right place
-        os.system("mkdir -p {}".format(os.path.dirname(path_to_jani)))
-        os.system("mv {} {}".format(actual_name, path_to_jani))
+
+        if simulate:
+            f = open(list_execution_path_and_file, "a")
+            f.write(
+                cmd + " ; " + "cat {} | jq > {}.temp ; mv {}.temp {}".format(actual_name, actual_name, actual_name, actual_name) +
+                " ; " + "sed -i 's#{}##g' {}".format(benchmarksDirectory, actual_name) +
+                " ; " + "mkdir -p {}".format(os.path.dirname(path_to_jani)) +
+                " ; " + "mv {} {}".format(actual_name, path_to_jani) +
+            "\n"
+            )
+        else:
+            # else, write it
+            os.system(cmd)
+            # clean with jq
+            cmd = "cat {} | jq > {}.temp && mv {}.temp {}".format(actual_name, actual_name, actual_name, actual_name)
+            os.system(cmd)
+            # remove absolute path
+            cmd = "sed -i 's#{}##g' {}".format(benchmarksDirectory, actual_name)
+            os.system(cmd)
+            # and move it to right place
+            os.system("mkdir -p {}".format(os.path.dirname(path_to_jani)))
+            os.system("mv {} {}".format(actual_name, path_to_jani))
         return path_to_jani
 
 
@@ -82,5 +95,11 @@ def exportJani(listOfModels):
 
 
 if __name__ == "__main__":
+    if simulate:
+        try:
+            os.remove(list_execution_path_and_file)
+        except FileNotFoundError:
+            pass
+        f = open(list_execution_path_and_file, "w")
     models = listOfModels()
     exportJani(models)

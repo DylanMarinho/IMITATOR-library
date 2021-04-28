@@ -18,7 +18,13 @@ parser.add_argument("-res", "--generateRes", help="Generate res file if it does 
                     action='store_true')
 parser.add_argument("-overwrite", "--overwriteRes",
                     help="Overwrite res file if it does not correspond (default: False)", action='store_true')
+parser.add_argument("-s", "--simulate", help="Generate a file with the run to deal with (default: False). Output: stored at modelMetrics_runs.txt",
+                    action='store_true')
+parser.set_defaults(generateRes=False, overwriteRes=False, simulate=False)
 args = parser.parse_args()
+
+simulate = args.simulate
+list_execution_path_and_file = defaultSimulationProperties
 
 libraryFile = args.library
 libraryPathAndFile = os.path.join(filesDirectory, libraryFile)
@@ -76,20 +82,19 @@ def executeModelPropRun(model_path, property_path, timeout=imitatorTimeoutForPro
         return resFileWithPath
 
     if timeout != 0 and "time" not in extra:
-        timeoutCmd = "-cart-time-limit {} -time-limit {}".format(timeout,
-                                                                 timeout)  # TODO improve it, cart-limit only when ..
+        timeoutCmd = "timeout {} ".format(timeout)
     else:
         timeoutCmd = ""
 
     if extra != "" and extra[0] != " ":
         extra = " " + extra
 
-    cmd = "{} {} {} -output-prefix {} {}{}".format(
+    cmd = "{}{} {} {} -output-prefix {} {}".format(
+        timeoutCmd,
         imitatorCmd,
         modelFile,
         propFile,
         os.path.splitext(resFileWithPath)[0],
-        timeoutCmd,
         extra
     )
     cmd = " ".join(cmd.split())
@@ -103,7 +108,7 @@ def executeModelPropRun(model_path, property_path, timeout=imitatorTimeoutForPro
             if "Command" in line:
                 resCommand = line.split(": ")[1]
                 break
-        toCompareCmd = cmd.replace(benchmarksDirectory, "").replace(resFilesDirectory, "").replace(imitatorCmd,
+        toCompareCmd = cmd.replace(benchmarksDirectory, "").replace(resFilesDirectory+"/", "").replace(imitatorCmd,
                                                                                                    "imitator")
         if toCompareCmd == resCommand or not overwrite:
             print("     *** Res file exist for model {}".format(modelName))
@@ -113,16 +118,26 @@ def executeModelPropRun(model_path, property_path, timeout=imitatorTimeoutForPro
 
     print("     *** Running imitator with model {} and property {}".format(modelName, propName))
 
-    os.system("mkdir -p {}".format(os.path.dirname(resFileWithPath)))  # create the path to res if needed
-    os.system(cmd + " > /dev/null")
+    if simulate:
+        f = open(list_execution_path_and_file, "a")
+        f.write(
+            cmd +   " ; " + "mkdir -p {}".format(os.path.dirname(resFileWithPath)) +
+                    " ; " + "sed -i 's#{}##g' {}".format(benchmarksDirectory, resFileWithPath) +
+                    " ; " + "sed -i 's#{}##g' {}".format(resFilesDirectory+"/", resFileWithPath) +
+                    " ; " + "sed -i 's#{}#{}#g' {}".format(imitatorCmd, "imitator", resFileWithPath) +
+            "\n"
+        )
+    else:
+        os.system("mkdir -p {}".format(os.path.dirname(resFileWithPath)))  # create the path to res if needed
+        os.system(cmd + " > /dev/null")
 
-    # clean res file: delete absolute path
-    cmd = "sed -i 's#{}##g' {}".format(benchmarksDirectory, resFileWithPath)
-    os.system(cmd)
-    cmd = "sed -i 's#{}##g' {}".format(resFilesDirectory, resFileWithPath)
-    os.system(cmd)
-    cmd = "sed -i 's#{}#{}#g' {}".format(imitatorCmd, "imitator", resFileWithPath)
-    os.system(cmd)
+        # clean res file: delete absolute path
+        cmd = "sed -i 's#{}##g' {}".format(benchmarksDirectory, resFileWithPath)
+        os.system(cmd)
+        cmd = "sed -i 's#{}##g' {}".format(resFilesDirectory+"/", resFileWithPath)
+        os.system(cmd)
+        cmd = "sed -i 's#{}#{}#g' {}".format(imitatorCmd, "imitator", resFileWithPath)
+        os.system(cmd)
     return resFileWithPath
 
 
@@ -177,5 +192,11 @@ def exportModelPropMetrics(listOfModelsProps):
 
 
 if __name__ == "__main__":
+    if simulate:
+        try:
+            os.remove(list_execution_path_and_file)
+        except FileNotFoundError:
+            pass
+        f = open(list_execution_path_and_file, "w")
     couples = listOfProperties()
     exportModelPropMetrics(couples)
