@@ -8,7 +8,7 @@ root = "/".join(os.getcwd().split("/")[:-1])
 ############################
 # HTML output params
 ############################
-gitURL = "https://raw.githubusercontent.com/imitator-model-checker/imitator/develop/"
+gitURL = "https://raw.githubusercontent.com/imitator-model-checker/imitator/v3.1.0-beta/"
 filesURL = ""
 colsHTML = ["Benchmark", "Jani", "Source", "Categories", "Metrics", "Properties"]
 metadata_to_print = ["Scalable", "Generated"]
@@ -19,22 +19,23 @@ libraryVersion = "V2.0"
 ############################
 
 # Command to imitator, as used in a terminal
-imitatorCmd = "imitator"
+imitator_cmd = "imitator"
 imitatorTimeoutForModels = 0  # timeout for imitator in second, 0 disables it. Used for model metrics
-imitatorTimeoutForModelsToPDF = 60  # timeout for imitator -imi2PDF in second, 0 disables it. Used for model translation
-imitatorTimeoutForProps = 0  # timeout for imitator in second, 0 disables it. Used for property metrics
-imitatorTimeoutForUnsolvables = 5  # time-limit for imitator in second as extra-command for unsolvables
+imitatorTimeoutForModelsToPDF = 3600 * 7  # timeout for imitator -imi2PDF in second, 0 disables it. Used for model
+# translation
+imitatorTimeoutForProps = 3600 * 7  # timeout for imitator in second, 0 disables it. Used for property metrics
+imitatorTimeoutForUnsolvable = 5  # time-limit for imitator in second as extra-command for unsolvable
 
 ############################
 # Directories
 ############################
 benchmarksLocation = "benchmarks/"
 benchmarksDirectory = os.path.join(root, benchmarksLocation)
-filesDirectory = os.path.join(root, "files")
-resFilesDirectory = os.path.join(filesDirectory, "res")
-pdfFilesDirectory = os.path.join(filesDirectory, "pdf")
-janiFilesDirectory = os.path.join(filesDirectory, "jani")
-expectedResultsFilesDirectory = os.path.join(filesDirectory, "expected")
+files_directory = os.path.join(root, "files")
+resFilesDirectory = os.path.join(files_directory, "res")
+pdfFilesDirectory = os.path.join(files_directory, "pdf")
+janiFilesDirectory = os.path.join(files_directory, "jani")
+expectedResultsFilesDirectory = os.path.join(files_directory, "expected")
 
 ############################
 # Default files
@@ -45,9 +46,9 @@ defaultModelMetricsFile = "modelsMetrics.csv"
 defaultPropMetricsFile = "propMetrics.csv"
 defaultHTMLFile = "library.html"
 
-defaultSimulationModels = os.path.join(filesDirectory, "execution_models.txt")
-defaultSimulationProperties = os.path.join(filesDirectory, "execution_properties.txt")
-defaultSimulationJani = os.path.join(filesDirectory, "execution_jani.txt")
+defaultSimulationModels = os.path.join(files_directory, "execution_models.txt")
+defaultSimulationProperties = os.path.join(files_directory, "execution_properties.txt")
+defaultSimulationJani = os.path.join(files_directory, "execution_jani.txt")
 
 ############################
 # File naming parameters
@@ -86,7 +87,7 @@ exitingHeadImi = " " + "*" * (maxNumberOfPrints - 2) + ")"  # last line of heade
 
 # Keys as in the input csv file, in the order to be written
 # "" to have an empty line in the imitator model head
-keysOfImitatorHeader = [
+keys_of_imitator_header = [
     "Title",
     "Description",
     "Correctness",
@@ -108,7 +109,7 @@ keysOfImitatorHeader = [
 ]
 
 ########## Model metrics
-modelMetricsToKeep = [  # metrics in the res file to keep. Same name as in the res file!
+model_metrics_to_keep = [  # metrics in the res file to keep. Same name as in the res file!
     "Number of IPTAs",
     "Number of clocks",
     "Has invariants?",
@@ -125,7 +126,7 @@ modelMetricsToKeep = [  # metrics in the res file to keep. Same name as in the r
     "Average transitions per IPTA"
 ]
 
-propMetricsToKeep = [  # metrics in the res file to keep. Same name as in the res file!
+prop_metrics_to_keep = [  # metrics in the res file to keep. Same name as in the res file!
     "Total computation time",
     "Number of states",
     "Number of computed states"
@@ -135,77 +136,77 @@ propMetricsToKeep = [  # metrics in the res file to keep. Same name as in the re
 ############################
 # File naming functions
 ############################
-def baseModel(modelPath):
+def base_model(model_path):
     """
-    :param modelPath: imi file (with or without path)
+    :param model_path: imi file (with or without path)
     :return: base of the model, ie. [model] or [bench] of the naming convention
     """
-    modelBase = os.path.basename(modelPath.replace(modelExtension, ""))
-    if modelSep in modelBase:
-        modelBase = modelSep.join(modelBase.split(modelSep)[:-1])
-    return modelBase
+    model_base = os.path.basename(model_path.replace(modelExtension, ""))
+    if modelSep in model_base:
+        model_base = modelSep.join(model_base.split(modelSep)[:-1])
+    return model_base
 
 
-def modelOfProp(propPath):
+def model_of_prop(prop_path):
     """
-    :param propPath: imiprop file (with or without path)
+    :param prop_path: imiprop file (with or without path)
     :return: base of the model prop, ie. [model] or [bench] of the naming convention
     """
-    propBase = os.path.basename(propPath.replace(modelExtension, ""))
-    if propSep in propBase:
-        propBase = propSep.join(propBase.split(propSep)[:-1])
-        return propBase
+    prop_base = os.path.basename(prop_path.replace(modelExtension, ""))
+    if propSep in prop_base:
+        prop_base = propSep.join(prop_base.split(propSep)[:-1])
+        return prop_base
     else:
         print("Property {} does not follow regular naming convention".format(property))
         return ''
 
 
-def algoOfProp(propPath):
+def algo_of_prop(prop_path):
     """
-    :param propPath: imiprop file (with or without path)
+    :param prop_path: imiprop file (with or without path)
     :return: algo of the prop, ie. [algo] of the naming convention
     """
-    propBase = os.path.basename(propPath.replace(modelExtension, ""))
-    if propSep in propBase:
-        propBase = propBase.split(propSep)[-1]
-        return propBase
+    prop_base = os.path.basename(prop_path.replace(modelExtension, ""))
+    if propSep in prop_base:
+        prop_base = prop_base.split(propSep)[-1]
+        return prop_base
     else:
         print("Property {} does not follow regular naming convention".format(property))
         return ''
 
 
-def automaticPdfName(ImiPath):
+def automatic_pdf_name(imi_path):
     """
     Return the path to the output of imitator -imi2PDF
-    :param ImiPath: imi file, with path
+    :param imi_path: imi file, with path
     :return: pdf path
     """
-    return os.path.basename(os.path.splitext(ImiPath)[0]) + "-pta.pdf"  # ie. name outputed by the run
+    return os.path.basename(os.path.splitext(imi_path)[0]) + "-pta.pdf"  # ie. name output by the run
 
 
-def automaticJaniName(ImiPath):
+def automatic_jani_name(imi_path):
     """
     Return the path to the output of imitator -imi2Jani
-    :param ImiPath: imi file, with path
+    :param imi_path: imi file, with path
     :return: jani path
     """
-    return os.path.basename(os.path.splitext(ImiPath)[0]) + ".jani"  # ie. name outputed by the run
+    return os.path.basename(os.path.splitext(imi_path)[0]) + ".jani"  # ie. name output by the run
 
 
-def definePdfPath(ImiPath):
+def define_pdf_path(imi_path):
     """
     Return path to pdf file
-    :param ImiPath: imi file, with path
+    :param imi_path: imi file, with path
     :return: pdf path
     """
     # placed at [root]/files/pdf/.../[modelName]-pta.pdf
-    actual_name = automaticPdfName(ImiPath)
-    pdf_directory = os.path.join(pdfFilesDirectory, os.path.dirname(ImiPath).replace(benchmarksDirectory, ""))
+    actual_name = automatic_pdf_name(imi_path)
+    pdf_directory = os.path.join(pdfFilesDirectory, os.path.dirname(imi_path).replace(benchmarksDirectory, ""))
     pdf_path = os.path.join(pdf_directory, actual_name)
     return pdf_path
 
 
-def defineResModelPath(model_path):
+def define_res_model_path(model_path):
     """
     Define the path to output the res file for a model execution
     :param model_path: path to the model
@@ -217,7 +218,7 @@ def defineResModelPath(model_path):
     return os.path.join(res_directory, model_name) + resExtension
 
 
-def defineResPropertyPath(model_path, property_path):
+def define_res_property_path(model_path, property_path):
     """
     Define the path to output the res file for a property execution
     :param model_path: path to the model
@@ -228,32 +229,32 @@ def defineResPropertyPath(model_path, property_path):
     model_name = os.path.splitext(os.path.basename(model_path))[0]
     prop_name = os.path.splitext(os.path.basename(property_path))[0]
     res_directory = os.path.join(resFilesDirectory, directory)
-    return os.path.join(res_directory, model_name + resNameSep + algoOfProp(prop_name)) + resExtension
+    return os.path.join(res_directory, model_name + resNameSep + algo_of_prop(prop_name)) + resExtension
 
 
-def defineJaniPath(ImiPath):
+def define_jani_path(imi_path):
     """
     Return path to jani file
-    :param ImiPath: imi file, with path
+    :param imi_path: imi file, with path
     :return: jani path
     """
     # placed at [root]/files/jani/.../[modelName].jani
-    actual_name = automaticJaniName(ImiPath)
-    jani_directory = os.path.join(janiFilesDirectory, os.path.dirname(ImiPath).replace(benchmarksDirectory, ""))
+    actual_name = automatic_jani_name(imi_path)
+    jani_directory = os.path.join(janiFilesDirectory, os.path.dirname(imi_path).replace(benchmarksDirectory, ""))
     pdf_path = os.path.join(jani_directory, actual_name)
     return pdf_path
 
 
-def defineExpectedPath(ImiPath, property_path):
+def define_expected_path(imi_path, property_path):
     """
     Return path to expected file
-    :param ImiPath: imi file, with path
+    :param imi_path: imi file, with path
     :param property_path: path to the property (can be without path, it is computed from model_path)
     :return: expected path, "" if it does not exist
     """
-    model_name = os.path.basename(os.path.splitext(ImiPath)[0])
+    model_name = os.path.basename(os.path.splitext(imi_path)[0])
     prop_name = os.path.splitext(os.path.basename(property_path))[0]
-    file = (model_name + resNameSep + algoOfProp(prop_name)) + ".expres"
+    file = (model_name + resNameSep + algo_of_prop(prop_name)) + ".expres"
     path = os.path.join(expectedResultsFilesDirectory, file)
     try:
         open(path, "r")
@@ -262,8 +263,8 @@ def defineExpectedPath(ImiPath, property_path):
         return ""
 
 
-def categoryToHTML(category):
-    correspondance = {
+def category_to_HTML(category):
+    correspondences = {
         "Academic": "Ac.",
         "Automotive": "Auto.",
         "Education": "Educ.",
@@ -278,13 +279,13 @@ def categoryToHTML(category):
         "Unsolvable": "Unsol."
     }
     try:
-        return correspondance[category]
+        return correspondences[category]
     except KeyError:
         return category
 
 
-def metricToHTML(metric):
-    correspondance = {
+def metric_to_HTML(metric):
+    correspondences = {
         # metadata
         "Scalable": "Scal.",
         "Generated": "Gen.",
@@ -309,16 +310,16 @@ def metricToHTML(metric):
         "Number of computed states": "|comp. States|"
     }
     try:
-        return correspondance[metric]
+        return correspondences[metric]
     except KeyError:
         return metric
 
 
-def idOfBenchmark(benchmark):
+def id_of_benchmark(benchmark):
     return "".join(benchmark.split())
 
 
-def reduceHTML(metric):
+def reduce_HTML(metric):
     """
     Make some reducutions for metric HTML display
     :param metric: value of the metric
@@ -335,13 +336,14 @@ def reduceHTML(metric):
 # For the timeout remark in HTML page
 unsolvable_tag = "Unsolvable"
 time_metric = "Total computation time"
-unsolvable_timeout_text = "TO (Uns.)"
+unsolvable_timeout_text = "NE (Uns.)"
 
 termination_keyword = "Termination"
 timeout_mention = "time limit"
 termination_timeout_text = "TO (Term.)"
 
-not_executed_text = "NE"
+not_executed_text = "TO (Term.)"
+
 
 def files_URL_for_html(file_path):
     """
@@ -349,19 +351,21 @@ def files_URL_for_html(file_path):
     :param file_path: absolute path to file
     :return: url path
     """
-    return os.path.join(filesURL, file_path.replace(filesDirectory + "/", ""))
+    return os.path.join(filesURL, file_path.replace(files_directory + "/", ""))
 
 
 unsolvableTag = "Unsolvable"
-def isUnsolvable(modelFile, propFile):
+
+
+def is_unsolvable(model_file, prop_file):
     """
     Check if a (model,property) is Unsolvable (model or prop tagged as Unsolvable)
-    :param modelFile: imi file of the model (with path)
-    :param propFile: imiprop file of the property (with path)
+    :param model_file: imi file of the model (with path)
+    :param prop_file: imiprop file of the property (with path)
     :return: True if one of them has Unsolvable tag, False otherwise
     """
     unsolvable = False
-    f = open(propFile, "r")
+    f = open(prop_file, "r")
     lines = f.read().split("\n")
     for l in lines:
         parts = l.split(":")
@@ -369,6 +373,7 @@ def isUnsolvable(modelFile, propFile):
             if "Computation" in parts[0]:
                 unsolvable = unsolvableTag in parts[1]
     return unsolvable
+
 
 # extract a value from a file and key
 def extract_value(file, key):
@@ -380,20 +385,21 @@ def extract_value(file, key):
     # if no value
     return ""
 
-def is_timed_out(resFile):
+
+def is_timed_out(res_file):
     """
     Check if a (model,property) was TO
-    :param resFile: res file of the execution (with path)
+    :param res_file: res file of the execution (with path)
     :return: 0 if good execution, 1 if no exist, timeout_text otherwise
     """
     try:
-        open(resFile, "r")
+        open(res_file, "r")
     except FileNotFoundError:  # execution not done
         return 1
 
-    if timeout_mention in extract_value(resFile, "Termination"):
+    if timeout_mention in extract_value(res_file, "Termination"):
         return termination_timeout_text
-    if isUnsolvable("", resFile):
+    if is_unsolvable("", res_file):
         return unsolvable_timeout_text
     # every case is False, so return 0
     return 0

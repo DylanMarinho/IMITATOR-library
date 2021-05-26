@@ -4,15 +4,11 @@
 """
 
 import argparse
-import os
 import csv
 import numpy as np
 from params import *
 
 parser = argparse.ArgumentParser(description='Generate stat file of the library')
-# parser.add_argument("-l", "--library",
-#                     help='Csv library file for input, in files directory (default: {})'.format(defaultLibraryFile),
-#                     default=defaultLibraryFile)
 parser.add_argument("-meta", "--modelMetadata",
                     help='Csv model metadata file, in files directory (default: {})'.format(defaultMetadataFile),
                     default=defaultMetadataFile)
@@ -31,36 +27,25 @@ args = parser.parse_args()
 if not args.html and not args.tex:
     args.tex = True
 
-# libraryFile = args.library
-# libraryPathAndFile = os.path.join(filesDirectory, libraryFile)
 metaFile = args.modelMetadata
-metaPathAndFile = os.path.join(filesDirectory, metaFile)
+metaPathAndFile = os.path.join(files_directory, metaFile)
 modelMetricsFile = args.modelMetrics
-modelMetricsPathAndFile = os.path.join(filesDirectory, modelMetricsFile)
+modelMetricsPathAndFile = os.path.join(files_directory, modelMetricsFile)
 propMetricsFile = args.propMetrics
-propMetricsPathAndFile = os.path.join(filesDirectory, propMetricsFile)
+propMetricsPathAndFile = os.path.join(files_directory, propMetricsFile)
 htmlFile = "statistics.html"
-htmlPathAndFile = os.path.join(filesDirectory, htmlFile)
+htmlPathAndFile = os.path.join(files_directory, htmlFile)
 texFile = "statistics.tex"
-texPathAndFile = os.path.join(filesDirectory, texFile)
+texPathAndFile = os.path.join(files_directory, texFile)
 
 # try to open the files
-# todo do it better
-# open(libraryPathAndFile, "r")
 open(modelMetricsPathAndFile, "r")
 if args.html:
     open(htmlPathAndFile, "w")
 if args.tex:
     open(texPathAndFile, "w")
 
-"""
-# metrics in the res file to keep
-    {name: type}
-    type:
-        T/F for true/false: stat = percentage
-        L/U for L/U-PTA: stat = percentage of L/U
-        V for value: stat = avg of values
-"""
+
 metrics_for_stats = {
     "Has invariants?": "T/F",
     "Has clocks with rate <>1?": "T/F",
@@ -85,60 +70,56 @@ prop_metrics_for_stats = {
     "Number of computed states": "V"
 }
 
-"""Parsing"""
+################### Parsing
 
-
-def parseMetaData(csvFile):
+def parse_meta_data(csv_file):
     """
     Parse metadata csv file
-    :param csvFile: Metadata csv file
-    :return: dictionnary of metadata {modelName : {metadata key: value}}
+    :param csv_file: Metadata csv file
+    :return: dictionary of metadata {modelName : {metadata key: value}}
     """
     metadata = {}
-    with open(csvFile, "r") as file:
+    with open(csv_file, "r") as file:
         reader = csv.DictReader(file, delimiter=csvSep)
         for row in reader:
             metadata[row["Title"]] = row
     return metadata
 
 
-def parseModelMetrics(csvFile):
+def parse_model_metrics(csv_file):
     """
     Parse model metrics csv file
-    :param csvFile: Model metrics csv file
+    :param csv_file: Model metrics csv file
     :return: dictionary of metrics {modelName : {metric key: value}}
     """
     metrics = {}
-    with open(csvFile, "r") as file:
+    with open(csv_file, "r") as file:
         reader = csv.DictReader(file, delimiter=csvSep)
         for row in reader:
             metrics[row["Name"]] = row
     return metrics
 
 
-def parsePropMetrics(csvFile):
+def parse_prop_metrics(csv_file):
     """
     Parse model metrics csv file
-    :param csvFile: Prop metrics csv file
+    :param csv_file: Prop metrics csv file
     :return: dictionary of metrics {name : {metric key: value}}
     """
     metrics = {}
-    with open(csvFile, "r") as file:
+    with open(csv_file, "r") as file:
         reader = csv.DictReader(file, delimiter=csvSep)
         for row in reader:
             metrics[row["Model"] + "+" + row["Property"]] = row
     return metrics
 
 
-"""Get names"""
-
-
 ################### Get names
 
-def categoriesNames(metadata):
+def categories_names(metadata):
     """
     Return list of categories
-    :param metadata: Dictionnary of metadata {modelName : {metadata key: value}}
+    :param metadata: dictionary of metadata {modelName : {metadata key: value}}
     :return: List of (sorted) category names
     """
     names = []
@@ -153,20 +134,21 @@ def categoriesNames(metadata):
     return names
 
 
-"""Export stats"""
+################### Export stats
 
 
-def export_stats_metadata(metadata_dictionary, file_to_write=os.path.join(filesDirectory, "stats_metadata.txt")):
+def export_stats_metadata(metadata_dictionary, file_to_write=os.path.join(files_directory, "stats_metadata.txt")):
     """
     Export stats from a metadata dict (here, only categories)
+    :param file_to_write: output file
     :param metadata_dictionary:
     :return: dictionary of stats {stat key: {number: ..}}
     """
     stats = {}
-    catNames = categoriesNames(metadata_dictionary)
+    cat_names = categories_names(metadata_dictionary)
     stats["Categories"] = {}
     stats["Total"] = 0
-    for cat in catNames:
+    for cat in cat_names:
         stats["Categories"][cat] = 0
     for model, data in metadata_dictionary.items():
         stats["Total"] += 1
@@ -178,12 +160,13 @@ def export_stats_metadata(metadata_dictionary, file_to_write=os.path.join(filesD
     txt = "\\hline\\rowHeader{}Category\t&\tNumber of models\t&\tProportion\\\\\\hline\n"
     total = stats["Total"]
     txt += "{}\t&\t{}\t&\t{}\\,\\%\\\\\\hline\n".format("All", total, round(total / total * 100))
-    for cat in catNames:
+    for cat in cat_names:
         number = stats["Categories"][cat]
-        txt += "{}\t&\t{}\t&\t{}\\,\\%\\\\\n".format(cat, number, round(number/total*100))
+        txt += "{}\t&\t{}\t&\t{}\\,\\%\\\\\n".format(cat, number, round(number / total * 100))
     f = open(file_to_write, "w")
     f.write(txt)
     f.close()
+
 
 def export_stats_model(metrics_dictionary):
     """
@@ -236,12 +219,13 @@ def export_stats_prop(metrics_dictionary, meta_model_dictionary):
     t_f_count = ["true"]
     for model, metrics in metrics_dictionary.items():
         # Dont deal with unsolvable models
-        if isUnsolvable(
-            os.path.join(benchmarksDirectory, metrics_dictionary[model]["Path"], metrics_dictionary[model]["Model"] + modelExtension),
-            os.path.join(benchmarksDirectory, metrics_dictionary[model]["Path"], metrics_dictionary[model]["Property"] + propExtension)
-            ):
+        if is_unsolvable(
+                os.path.join(benchmarksDirectory, metrics_dictionary[model]["Path"],
+                             metrics_dictionary[model]["Model"] + modelExtension),
+                os.path.join(benchmarksDirectory, metrics_dictionary[model]["Path"],
+                             metrics_dictionary[model]["Property"] + propExtension)
+        ):
             continue
-
 
         for metric, value in metrics.items():
             part_of_stat = False
@@ -279,8 +263,6 @@ def export_stats_prop(metrics_dictionary, meta_model_dictionary):
                         part_of_stat = True
             else:
                 print("Unknown metric type for {}".format(metric))
-        # if part_of_stat:
-        #     print(metrics_dictionary[model]["Model"] + ";" + metrics_dictionary[model]["Property"] + ";" + metrics_dictionary[model]["Path"] + ";" )
     return stats
 
 
@@ -323,7 +305,7 @@ def write_tex_file(stats_models, stats_props, tex_file=texPathAndFile):
     for metric, values in stats_models.items():
         if metrics_for_stats[metric] == "T/F" or metrics_for_stats[metric] == "L/U":
             txt += " {}".format(metric)
-            txt += " & {} \%".format(round(values["number"] / values["total"] * 100))
+            txt += " & {} \\%".format(round(values["number"] / values["total"] * 100))
             txt += " & "
             txt += " \\\\\n"
     txt += "\\hline"
@@ -333,7 +315,7 @@ def write_tex_file(stats_models, stats_props, tex_file=texPathAndFile):
     discrete = stats_models["Number of discrete variables"]
     discrete_values = [k for k in discrete["values"] if k != 0]
     print(discrete_values)
-    txt += "Number of discrete variables ({} \% for the models) & {} & {} \\".format(
+    txt += "Number of discrete variables ({} \\% for the models) & {} & {} \\".format(
         len(discrete_values) / discrete["total"] * 100,
         round(np.mean(discrete_values)),
         round(np.median(discrete_values))
@@ -353,7 +335,7 @@ def write_tex_file(stats_models, stats_props, tex_file=texPathAndFile):
     for metric, values in stats_props.items():
         if prop_metrics_for_stats[metric] == "T/F":
             txt += " {}".format(metric)
-            txt += " & {} \%".format(round(values["number"] / values["total"] * 100))
+            txt += " & {} \\%".format(round(values["number"] / values["total"] * 100))
             txt += " & "
             txt += " \\\\\n"
     # check number of props
@@ -375,9 +357,9 @@ def write_tex_file(stats_models, stats_props, tex_file=texPathAndFile):
 
 """Main"""
 if __name__ == "__main__":
-    meta = parseMetaData(metaPathAndFile)
-    modelMetrics = parseModelMetrics(modelMetricsPathAndFile)
-    propMetrics = parsePropMetrics(propMetricsPathAndFile)
+    meta = parse_meta_data(metaPathAndFile)
+    modelMetrics = parse_model_metrics(modelMetricsPathAndFile)
+    propMetrics = parse_prop_metrics(propMetricsPathAndFile)
     stats_models = export_stats_model(modelMetrics)
     stats_props = export_stats_prop(propMetrics, meta)
     write_tex_file(stats_models, stats_props, texPathAndFile)

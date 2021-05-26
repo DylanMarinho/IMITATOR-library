@@ -2,8 +2,6 @@
 
 import argparse
 import csv
-import os
-import glob
 from params import *
 
 parser = argparse.ArgumentParser(
@@ -17,7 +15,7 @@ parser.add_argument("-o", "--output",
 args = parser.parse_args()
 
 libraryFile = args.library
-libraryPathAndFile = os.path.join(filesDirectory, libraryFile)
+libraryPathAndFile = os.path.join(files_directory, libraryFile)
 try:
     f = open(libraryPathAndFile, "r")
     f.close()
@@ -26,7 +24,7 @@ except FileNotFoundError:
     exit(0)
 
 metadataFile = args.output
-metadataPathAndFile = os.path.join(filesDirectory, metadataFile)
+metadataPathAndFile = os.path.join(files_directory, metadataFile)
 try:
     f = open(metadataPathAndFile, "w")
     f.close()
@@ -39,11 +37,12 @@ except FileNotFoundError:
 enteringHeadImi = "(" + "*" * 60
 exitingHeadImi = "*" * 60 + ")"
 
-headProps = [k for k in keysOfImitatorHeader if k != ""]
+headProps = [k for k in keys_of_imitator_header if k != ""]
 
 possibleCategoriesSep = [",", ";"]
 
-def listOfModels():
+
+def list_of_models():
     """
     Read library input file and extract models
     :return: List of model paths
@@ -55,28 +54,29 @@ def listOfModels():
             L.append(os.path.join(benchmarksDirectory, row["Path"], row["Model"] + modelExtension))
     return list(set(L))
 
-def parseImi(imiFile):
+
+def parse_imi(imi_file):
     """
     Parse an imi file header.
     NB. For categories, replace with the defined categories separator
-    :param imiFile: imi file of the model (with path)
-    :return: dictionnary with the data {meta data key: value}
+    :param imi_file: imi file of the model (with path)
+    :return: dictionary with the data {meta data key: value}
     """
     try:
-        print("* Parse {}".format(imiFile))
-        f = open(imiFile, "r")
+        print("* Parse {}".format(imi_file))
+        f = open(imi_file, "r")
         lines = f.read().split("\n")
-        isReading = False
+        is_reading = False
         dict = {}
         for line in lines:
-            if not isReading and enteringHeadImi in line:
-                isReading = True
+            if not is_reading and enteringHeadImi in line:
+                is_reading = True
                 print("   ** Begin reading")
-            if isReading and exitingHeadImi in line:
-                isReading = False
+            if is_reading and exitingHeadImi in line:
+                is_reading = False
                 print("   ** End reading")
                 break
-            elif isReading:
+            elif is_reading:
                 if ":" in line:
                     content = line.split(" : ")
                     for prop in headProps:
@@ -88,14 +88,14 @@ def parseImi(imiFile):
                                 for sep in possibleCategoriesSep:
                                     value = value.replace(sep, categoriesSepHeadImi)
                             dict[prop] = value
-        if isReading:
+        if is_reading:
             print("Wrong parsing: never exit")
         return dict
     except FileNotFoundError:
-        print("File not found: ".format(imiFile))
+        print("File not found: ".format(imi_file))
 
 
-def parseModelsMetadata():
+def parse_models_metadata():
     with open(metadataPathAndFile, 'w', newline='') as csvfile:
         fieldnames = ["Title", "Path"]
         for k in headProps:
@@ -103,13 +103,13 @@ def parseModelsMetadata():
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=csvSep)
 
         writer.writeheader()
-        models = listOfModels()
+        models = list_of_models()
         for m in models:
-            dict = parseImi(m)
+            dict = parse_imi(m)
             dict["Title"] = os.path.splitext(os.path.basename(m))[0]
             dict["Path"] = m.replace(benchmarksDirectory, "")
             writer.writerow(dict)
 
 
 if __name__ == "__main__":
-    parseModelsMetadata()
+    parse_models_metadata()

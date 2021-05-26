@@ -1,9 +1,7 @@
 """Write jani"""
 
 import argparse
-import os
 import csv
-import numpy as np
 from params import *
 
 parser = argparse.ArgumentParser(description='Generate jani file for library models')
@@ -12,16 +10,17 @@ parser.add_argument("-l", "--library",
                     default=defaultLibraryFile)
 parser.add_argument("-overwrite", "--overwrite",
                     help="Overwrite jani file (default: False)", action='store_true')
-parser.add_argument("-s", "--simulate", help="Generate a file with the run to deal with (default: False). Output: stored at modelMetrics_runs.txt",
+parser.add_argument("-s", "--simulate",
+                    help="Generate a file with the run to deal with (default: False). Output: stored at modelMetrics_runs.txt",
                     action='store_true')
-parser.set_defaults(overwrite=False,simulate=False)
+parser.set_defaults(overwrite=False, simulate=False)
 args = parser.parse_args()
 
 simulate = args.simulate
 list_execution_path_and_file = defaultSimulationJani
 
 libraryFile = args.library
-libraryPathAndFile = os.path.join(filesDirectory, libraryFile)
+libraryPathAndFile = os.path.join(files_directory, libraryFile)
 
 try:
     f = open(libraryPathAndFile, "r")
@@ -32,7 +31,7 @@ except FileNotFoundError:
 
 
 ### Parsing
-def listOfModels():
+def list_of_models():
     """
     Read library input file and extract models
     :return: List of model paths
@@ -45,14 +44,14 @@ def listOfModels():
     return list(set(L))
 
 
-def writeJani(imiPath):
+def write_jani(imi_path):
     """
     Write and place the Jani outputed by imitator -imi2Jani
-    :param imiPath: path to the imiFile (without benchmark directory)
+    :param imi_path: path to the imiFile (without benchmark directory)
     :return: path to the jani
     """
-    actual_name = automaticJaniName(imiPath)
-    path_to_jani = defineJaniPath(imiPath)
+    actual_name = automatic_jani_name(imi_path)
+    path_to_jani = define_jani_path(imi_path)
 
     try:
         open(path_to_jani, "r")
@@ -62,16 +61,17 @@ def writeJani(imiPath):
         else:
             return path_to_jani
     except FileNotFoundError:
-        cmd = "{} {} -imi2Jani".format(imitatorCmd, os.path.join(benchmarksDirectory, imiPath))
+        cmd = "{} {} -imi2Jani".format(imitator_cmd, os.path.join(benchmarksDirectory, imi_path))
 
         if simulate:
             f = open(list_execution_path_and_file, "a")
             f.write(
-                cmd + " ; " + "cat {} | jq > {}.temp ; mv {}.temp {}".format(actual_name, actual_name, actual_name, actual_name) +
+                cmd + " ; " + "cat {} | jq > {}.temp ; mv {}.temp {}".format(actual_name, actual_name, actual_name,
+                                                                             actual_name) +
                 " ; " + "sed -i 's#{}##g' {}".format(benchmarksDirectory, actual_name) +
                 " ; " + "mkdir -p {}".format(os.path.dirname(path_to_jani)) +
                 " ; " + "mv {} {}".format(actual_name, path_to_jani) +
-            "\n"
+                "\n"
             )
         else:
             # else, write it
@@ -88,10 +88,10 @@ def writeJani(imiPath):
         return path_to_jani
 
 
-def exportJani(listOfModels):
-    print(" * Begin export of Jani files with {} models".format(len(listOfModels)))
-    for model in listOfModels:
-        writeJani(model)
+def export_jani(model_list):
+    print(" * Begin export of Jani files with {} models".format(len(model_list)))
+    for model in model_list:
+        write_jani(model)
 
 
 if __name__ == "__main__":
@@ -101,5 +101,5 @@ if __name__ == "__main__":
         except FileNotFoundError:
             pass
         f = open(list_execution_path_and_file, "w")
-    models = listOfModels()
-    exportJani(models)
+    models = list_of_models()
+    export_jani(models)
