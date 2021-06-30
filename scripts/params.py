@@ -157,7 +157,7 @@ def model_of_prop(prop_path):
         prop_base = propSep.join(prop_base.split(propSep)[:-1])
         return prop_base
     else:
-        print("Property {} does not follow regular naming convention".format(property))
+        print("Property {} ({}) does not follow regular naming convention".format(prop_base, prop_path))
         return ''
 
 
