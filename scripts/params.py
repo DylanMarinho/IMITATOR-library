@@ -57,11 +57,11 @@ defaultSimulationJani = os.path.join(files_directory, "execution_jani.txt")
 ########## Naming separators
 # separation of generated models: [bench]:[ident].imi
 # a "normal" model can't have modelSep in name
-modelSep = ":"
+modelSep = "-"
 # sep of the property: [model]:[prop]. [prop] can not have any ":"
-propSep = ":"
+propSep = "-"
 # sep of a property res file
-resNameSep = ":"
+resNameSep = "-"
 
 ########## Extensions
 modelExtension = ".imi"
