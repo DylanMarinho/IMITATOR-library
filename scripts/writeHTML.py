@@ -52,9 +52,9 @@ open(propMetricsPathAndFile, "r")
 
 
 ################### Calls
-def is_unsolvable(model, prop):
+def isUnsolvable(model, prop):
     """
-    Call isUnsolvable with paths
+    Call is_unsolvable with paths
     :param model: model, with path from benchmark
     :param prop: prop name
     :return: bool
@@ -398,7 +398,7 @@ def write_html_model(model_name, data, cat_names, model_met_names, prop_met_name
                         L.append("\t\t<td title='{}'>{}</td>".format(met, reduce_HTML(metrics[met])))
                     except KeyError:
                         L.append("\t\t<td title='{}'></td>".format(met))
-            elif is_unsolvable(data[model_name]["Path"], prop):
+            elif isUnsolvable(data[model_name]["Path"], prop):
                 L.append("\t\t<td title='Unsolvable' class='NE' colspan={}>{}</td>".format(len(prop_met_names),
                                                                                            unsolvable_timeout_text))
             elif timed_out == 1:  # No execution
