@@ -8,7 +8,7 @@ root = "/".join(os.getcwd().split("/")[:-1])
 ############################
 # HTML output params
 ############################
-gitURL = "https://raw.githubusercontent.com/imitator-model-checker/imitator/v3.1.0-beta/"
+gitURL = "https://raw.githubusercontent.com/imitator-model-checker/imitator/v3.1.0/"
 filesURL = ""
 colsHTML = ["Benchmark", "Jani", "Source", "Categories", "Metrics", "Properties"]
 metadata_to_print = ["Scalable", "Generated"]
