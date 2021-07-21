@@ -183,7 +183,8 @@ def parse_model_res(res_file):
                     sp = line.split(":")
                     metric = " ".join(sp[0].split())
                     value = " ".join(sp[1].split())
-                    metrics_dict[metric] = value
+                    if metric in model_metrics_to_keep:
+                        metrics_dict[metric] = value
     except FileNotFoundError:
         # if file not found, return a blank result
         for metric in model_metrics_to_keep:
