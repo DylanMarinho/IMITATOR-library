@@ -19,4 +19,4 @@ os.system("python3 exportJani.py -s")
 os.system("cat {} {} {} > {}".format(defaultSimulationModels, defaultSimulationJani, defaultSimulationProperties, run))
 
 # execute them
-os.system("parallel -j " + str(number_parralel_executions) + " {} < " + run)
+os.system("parallel -j " + str(number_parralel_executions) + " {} < " + run + "&")
