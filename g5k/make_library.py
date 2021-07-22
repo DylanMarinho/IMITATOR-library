@@ -16,14 +16,14 @@ reservation_cluster = "gros"
 reservation_duration = datetime.timedelta(hours=10)
 
 
-def imitator():
+def imitator(nodes):
     # change imitator branch
     for i in range(len(nodes)):
         SshProcess("cd ~/imitator ; git fetch ; git checkout v3.1.0 ; git pull ; sh build.sh",
                    nodes[i], connection_params=conn_params).run()
 
 
-def put_data(root_files):
+def put_data(root_files, nodes):
     # scripts
     Put(nodes, ['{}'.format(os.path.join(root_files, "scripts"))], connection_params=conn_params).run()
     # benchmarks
@@ -37,7 +37,7 @@ def put_data(root_files):
             nodes[i], conn_params).run()
 
 
-def write_download_scripts(computation_results_dir, local_storage):
+def write_download_scripts(computation_results_dir, local_storage, nodes):
     # write sh script
     text = ""
     text += "cd {}\n".format(os.path.join(local_storage))
@@ -57,7 +57,7 @@ def write_download_scripts(computation_results_dir, local_storage):
     return script_file_path
 
 
-def write_computation_crontab():
+def write_computation_crontab(nodes):
     write_output_cmd = "cd ~/scripts ; sh make-all.sh"
     write_output_frequence = "*/5 * * * *"
     crontab_cmd = "{} {}".format(write_output_frequence, write_output_cmd)
@@ -77,28 +77,29 @@ def make(command, nodes):
 if __name__ == "__main__":
     # make the reservation
     from make_reservation import *
+    print("Reserved nodes:{}".format(nodes))
 
     # library data storage
     root_library_files = os.getcwd()
 
     # make imitator
-    imitator()
+    imitator(nodes)
 
     # put data (scripts)
-    put_data(root_library_files)
+    put_data(root_library_files, nodes)
 
     # storage
     computation_results_dir = "~/files"
     local_storage = os.path.join("~/public", name)
     os.system("mkdir -p {}".format(local_storage))
-    download_script_path = write_download_scripts(computation_results_dir, local_storage)
+    download_script_path = write_download_scripts(computation_results_dir, local_storage, nodes)
 
     # local crontab
     save_crontab_txt = "*/5 * * * * sh {}".format(download_script_path)
     os.system("crontab -l > crontab.txt ; echo \"{}\" >> crontab.txt ; crontab crontab.txt".format(save_crontab_txt))
 
     # computation crontab
-    write_computation_crontab()
+    write_computation_crontab(nodes)
 
     # make_runs
     make("cd ~/scripts && python3 run_g5k.py", nodes)
