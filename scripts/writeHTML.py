@@ -352,7 +352,9 @@ def write_html_model(model_name, data, cat_names, model_met_names, prop_met_name
         res_exist = False
         L.append("\t<!--Properties-->")
         number_of_deal_props = 0
-        for prop, metrics in (data[model_name])["properties"].items():
+        temp_dict = (data[model_name])["properties"]
+        temp_dict = {key: temp_dict[key] for key in sorted(temp_dict.keys())}
+        for prop, metrics in temp_dict.items():
             number_of_deal_props += 1
             expected_file = ""
             res_file = ""
