@@ -15,13 +15,15 @@ parser.add_argument("-o", "--output",
                     default=defaultModelMetricsFile)
 parser.add_argument("-res", "--generateRes", help="Generate res file if it does not exist (default: False)",
                     action='store_true')
+parser.add_argument("-c", "--checksyntax",
+                    help="Run IMITATOR with option checksyntax (default: False)", action='store_true')
 parser.add_argument("-overwrite", "--overwriteRes",
                     help="Overwrite res file if it does not correspond (default: False)", action='store_true')
 parser.add_argument("-pdf", "--pdf", help='Generate needed PDF (default: False)', action='store_true')
 parser.add_argument("-s", "--simulate",
                     help="Generate a file with the run to deal with (default: False). Output: stored at modelMetrics_runs.txt",
                     action='store_true')
-parser.set_defaults(pdf=False, generateRes=False, overwriteRes=False, simulate=False)
+parser.set_defaults(pdf=False, generateRes=False, overwriteRes=False, simulate=False, checksyntax=False)
 args = parser.parse_args()
 
 simulate = args.simulate
@@ -89,7 +91,7 @@ def writePDF(imi_path):
         return path_to_pdf
 
 
-def execute_model_run(model_path, timeout=imitatorTimeoutForModels, generate=False, overwrite=False):
+def execute_model_run(model_path, timeout=imitatorTimeoutForModels, generate=False, overwrite=False, checksyntax=False):
     """
     Execute a run of imitator with a model
     :param model_path: path to the model, without benchmarks directory
@@ -102,18 +104,24 @@ def execute_model_run(model_path, timeout=imitatorTimeoutForModels, generate=Fal
     model_file = os.path.join(benchmarksDirectory, model_path)
     res_file_with_path = define_res_model_path(model_path)
 
-    if not generate:
+    if not generate and not checksyntax:
         return res_file_with_path
+
+    if checksyntax:
+        check_cmd = "-mode checksyntax "
+    else:
+        check_cmd = ""
 
     if timeout != 0:
         timeoutCmd = "timeout {} ".format(timeout)
     else:
         timeoutCmd = ""
 
-    cmd = "{}{} {} -output-prefix {}".format(
+    cmd = "{}{} {} {}-output-prefix {}".format(
         timeoutCmd,
         imitator_cmd,
         model_file,
+        check_cmd,
         os.path.splitext(res_file_with_path)[0]
     )
 
@@ -147,6 +155,7 @@ def execute_model_run(model_path, timeout=imitatorTimeoutForModels, generate=Fal
         )
     else:
         os.system("mkdir -p {}".format(os.path.dirname(res_file_with_path)))  # create the path to res if needed
+        print(cmd)
         os.system(cmd + " > /dev/null")
 
         # clean res file: delete absolute path
@@ -208,7 +217,7 @@ def export_model_metrics(list_of_models):
             # extract metrics
             index = list_of_models.index(model)
             print("   ** Run of model {} ({}/{})".format(model, index + 1, len(list_of_models)))
-            res_file = execute_model_run(model, generate=args.generateRes, overwrite=args.overwriteRes)
+            res_file = execute_model_run(model, generate=args.generateRes, overwrite=args.overwriteRes, checksyntax=args.checksyntax)
             metrics = parse_model_res(res_file)
             metrics["Name"] = os.path.basename(os.path.splitext(model)[0])
             metrics["Path"] = os.path.dirname(model).replace(benchmarksDirectory, "")
