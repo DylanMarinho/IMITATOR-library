@@ -1,0 +1,593 @@
+{
+  "jani-version": 1,
+  "name": "Fischer/FischerAHV93/FischerAHV93.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "is_0"
+    },
+    {
+      "name": "is_0_prime"
+    },
+    {
+      "name": "is_1"
+    },
+    {
+      "name": "is_1_prime"
+    },
+    {
+      "name": "is_2"
+    },
+    {
+      "name": "is_2_prime"
+    },
+    {
+      "name": "set_0"
+    },
+    {
+      "name": "set_0_prime"
+    },
+    {
+      "name": "set_1"
+    },
+    {
+      "name": "set_2_prime"
+    }
+  ],
+  "variables": [
+    {
+      "name": "x",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "x_prime",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "a",
+      "type": "real"
+    },
+    {
+      "name": "b",
+      "type": "real"
+    },
+    {
+      "name": "c",
+      "type": "real"
+    },
+    {
+      "name": "d",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "lock",
+      "locations": [
+        {
+          "name": "lock0"
+        },
+        {
+          "name": "lock1"
+        },
+        {
+          "name": "lock2"
+        }
+      ],
+      "initial_locations": [
+        "lock0"
+      ],
+      "edges": [
+        {
+          "location": "lock0",
+          "destinations": [
+            {
+              "location": "lock0"
+            }
+          ]
+        },
+        {
+          "location": "lock0",
+          "destinations": [
+            {
+              "location": "lock0"
+            }
+          ]
+        },
+        {
+          "location": "lock0",
+          "destinations": [
+            {
+              "location": "lock1"
+            }
+          ]
+        },
+        {
+          "location": "lock0",
+          "destinations": [
+            {
+              "location": "lock2"
+            }
+          ]
+        },
+        {
+          "location": "lock1",
+          "destinations": [
+            {
+              "location": "lock1"
+            }
+          ]
+        },
+        {
+          "location": "lock1",
+          "destinations": [
+            {
+              "location": "lock1"
+            }
+          ]
+        },
+        {
+          "location": "lock1",
+          "destinations": [
+            {
+              "location": "lock0"
+            }
+          ]
+        },
+        {
+          "location": "lock1",
+          "destinations": [
+            {
+              "location": "lock0"
+            }
+          ]
+        },
+        {
+          "location": "lock1",
+          "destinations": [
+            {
+              "location": "lock2"
+            }
+          ]
+        },
+        {
+          "location": "lock2",
+          "destinations": [
+            {
+              "location": "lock2"
+            }
+          ]
+        },
+        {
+          "location": "lock2",
+          "destinations": [
+            {
+              "location": "lock2"
+            }
+          ]
+        },
+        {
+          "location": "lock2",
+          "destinations": [
+            {
+              "location": "lock1"
+            }
+          ]
+        },
+        {
+          "location": "lock2",
+          "destinations": [
+            {
+              "location": "lock0"
+            }
+          ]
+        },
+        {
+          "location": "lock2",
+          "destinations": [
+            {
+              "location": "lock0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "P1",
+      "locations": [
+        {
+          "name": "P1_0"
+        },
+        {
+          "name": "P1_1"
+        },
+        {
+          "name": "P1_2"
+        },
+        {
+          "name": "P1_3"
+        },
+        {
+          "name": "P1_4"
+        }
+      ],
+      "initial_locations": [
+        "P1_0"
+      ],
+      "edges": [
+        {
+          "location": "P1_0",
+          "destinations": [
+            {
+              "location": "P1_0"
+            }
+          ]
+        },
+        {
+          "location": "P1_0",
+          "destinations": [
+            {
+              "location": "P1_1"
+            }
+          ]
+        },
+        {
+          "location": "P1_1",
+          "destinations": [
+            {
+              "location": "P1_1"
+            }
+          ]
+        },
+        {
+          "location": "P1_1",
+          "destinations": [
+            {
+              "location": "P1_2",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "P1_2",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "≥",
+              "left": "x",
+              "right": "c"
+            },
+            "right": {
+              "op": "≥",
+              "left": "d",
+              "right": "x"
+            }
+          },
+          "destinations": [
+            {
+              "location": "P1_3",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "P1_3",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "≥",
+              "left": "x",
+              "right": "a"
+            },
+            "right": {
+              "op": "≥",
+              "left": "b",
+              "right": "x"
+            }
+          },
+          "destinations": [
+            {
+              "location": "P1_1"
+            }
+          ]
+        },
+        {
+          "location": "P1_3",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "≥",
+              "left": "x",
+              "right": "a"
+            },
+            "right": {
+              "op": "≥",
+              "left": "b",
+              "right": "x"
+            }
+          },
+          "destinations": [
+            {
+              "location": "P1_4"
+            }
+          ]
+        },
+        {
+          "location": "P1_4",
+          "destinations": [
+            {
+              "location": "P1_4"
+            }
+          ]
+        },
+        {
+          "location": "P1_4",
+          "destinations": [
+            {
+              "location": "P1_0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "P2",
+      "locations": [
+        {
+          "name": "P2_0"
+        },
+        {
+          "name": "P2_1"
+        },
+        {
+          "name": "P2_2"
+        },
+        {
+          "name": "P2_3"
+        },
+        {
+          "name": "P2_4"
+        }
+      ],
+      "initial_locations": [
+        "P2_0"
+      ],
+      "edges": [
+        {
+          "location": "P2_0",
+          "destinations": [
+            {
+              "location": "P2_0"
+            }
+          ]
+        },
+        {
+          "location": "P2_0",
+          "destinations": [
+            {
+              "location": "P2_1"
+            }
+          ]
+        },
+        {
+          "location": "P2_1",
+          "destinations": [
+            {
+              "location": "P2_1"
+            }
+          ]
+        },
+        {
+          "location": "P2_1",
+          "destinations": [
+            {
+              "location": "P2_2",
+              "assignments": [
+                {
+                  "ref": "x_prime",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "P2_2",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "≥",
+              "left": "x_prime",
+              "right": "c"
+            },
+            "right": {
+              "op": "≥",
+              "left": "d",
+              "right": "x_prime"
+            }
+          },
+          "destinations": [
+            {
+              "location": "P2_3",
+              "assignments": [
+                {
+                  "ref": "x_prime",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "P2_3",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "≥",
+              "left": "x_prime",
+              "right": "a"
+            },
+            "right": {
+              "op": "≥",
+              "left": "b",
+              "right": "x_prime"
+            }
+          },
+          "destinations": [
+            {
+              "location": "P2_1"
+            }
+          ]
+        },
+        {
+          "location": "P2_3",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "≥",
+              "left": "x_prime",
+              "right": "a"
+            },
+            "right": {
+              "op": "≥",
+              "left": "b",
+              "right": "x_prime"
+            }
+          },
+          "destinations": [
+            {
+              "location": "P2_4"
+            }
+          ]
+        },
+        {
+          "location": "P2_4",
+          "destinations": [
+            {
+              "location": "P2_4"
+            }
+          ]
+        },
+        {
+          "location": "P2_4",
+          "destinations": [
+            {
+              "location": "P2_0"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "lock"
+      },
+      {
+        "automaton": "P1"
+      },
+      {
+        "automaton": "P2"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "is_0",
+          "is_0",
+          null
+        ],
+        "result": "is_0"
+      },
+      {
+        "synchronise": [
+          "is_0_prime",
+          null,
+          "is_0_prime"
+        ],
+        "result": "is_0_prime"
+      },
+      {
+        "synchronise": [
+          "is_1",
+          "is_1",
+          null
+        ],
+        "result": "is_1"
+      },
+      {
+        "synchronise": [
+          "is_1_prime",
+          null,
+          "is_1_prime"
+        ],
+        "result": "is_1_prime"
+      },
+      {
+        "synchronise": [
+          "is_2",
+          "is_2",
+          null
+        ],
+        "result": "is_2"
+      },
+      {
+        "synchronise": [
+          "is_2_prime",
+          null,
+          "is_2_prime"
+        ],
+        "result": "is_2_prime"
+      },
+      {
+        "synchronise": [
+          "set_0",
+          "set_0",
+          null
+        ],
+        "result": "set_0"
+      },
+      {
+        "synchronise": [
+          "set_0_prime",
+          null,
+          "set_0_prime"
+        ],
+        "result": "set_0_prime"
+      },
+      {
+        "synchronise": [
+          "set_1",
+          "set_1",
+          null
+        ],
+        "result": "set_1"
+      },
+      {
+        "synchronise": [
+          "set_2_prime",
+          null,
+          "set_2_prime"
+        ],
+        "result": "set_2_prime"
+      }
+    ]
+  }
+}

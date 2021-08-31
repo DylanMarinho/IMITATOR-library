@@ -1,0 +1,8 @@
+BEGIN EXPECTED CONSTRAINT
+  q >= 0
+& r >= q
+& i*p + q = r,
+	 i in {0, 1, 2, …}
+END EXPECTED CONSTRAINT
+
+(* This constraint is an expected result, and was manually written since IMITATOR is not able to infer a result on this model. This expected result is provided without any warranty. *)

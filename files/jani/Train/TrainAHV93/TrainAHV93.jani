@@ -1,0 +1,411 @@
+{
+  "jani-version": 1,
+  "name": "Train/TrainAHV93/TrainAHV93.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "approach"
+    },
+    {
+      "name": "inn"
+    },
+    {
+      "name": "out"
+    },
+    {
+      "name": "exit"
+    },
+    {
+      "name": "lower"
+    },
+    {
+      "name": "up"
+    },
+    {
+      "name": "down"
+    },
+    {
+      "name": "raise"
+    }
+  ],
+  "variables": [
+    {
+      "name": "x",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "y",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "z",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "a",
+      "type": "real"
+    },
+    {
+      "name": "b",
+      "type": "real"
+    },
+    {
+      "name": "c",
+      "type": "real"
+    },
+    {
+      "name": "d",
+      "type": "real"
+    },
+    {
+      "name": "e",
+      "type": "real"
+    },
+    {
+      "name": "f",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "train",
+      "locations": [
+        {
+          "name": "train0"
+        },
+        {
+          "name": "train1"
+        },
+        {
+          "name": "train2"
+        },
+        {
+          "name": "train3"
+        }
+      ],
+      "initial_locations": [
+        "train0"
+      ],
+      "edges": [
+        {
+          "location": "train0",
+          "destinations": [
+            {
+              "location": "train1",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "train1",
+          "guard": {
+            "op": "≥",
+            "left": "x",
+            "right": "a"
+          },
+          "destinations": [
+            {
+              "location": "train2"
+            }
+          ]
+        },
+        {
+          "location": "train2",
+          "destinations": [
+            {
+              "location": "train3"
+            }
+          ]
+        },
+        {
+          "location": "train3",
+          "guard": {
+            "op": "≥",
+            "left": "b",
+            "right": "x"
+          },
+          "destinations": [
+            {
+              "location": "train0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gate",
+      "locations": [
+        {
+          "name": "gate0"
+        },
+        {
+          "name": "gate1"
+        },
+        {
+          "name": "gate2"
+        },
+        {
+          "name": "gate3"
+        }
+      ],
+      "initial_locations": [
+        "gate0"
+      ],
+      "edges": [
+        {
+          "location": "gate0",
+          "destinations": [
+            {
+              "location": "gate1",
+              "assignments": [
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "gate1",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "≥",
+              "left": "y",
+              "right": "c"
+            },
+            "right": {
+              "op": "≥",
+              "left": "d",
+              "right": "y"
+            }
+          },
+          "destinations": [
+            {
+              "location": "gate2"
+            }
+          ]
+        },
+        {
+          "location": "gate2",
+          "destinations": [
+            {
+              "location": "gate3",
+              "assignments": [
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "gate3",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "≥",
+              "left": "y",
+              "right": "c"
+            },
+            "right": {
+              "op": "≥",
+              "left": "d",
+              "right": "y"
+            }
+          },
+          "destinations": [
+            {
+              "location": "gate0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "controller",
+      "locations": [
+        {
+          "name": "controller0"
+        },
+        {
+          "name": "controller1"
+        },
+        {
+          "name": "controller2"
+        },
+        {
+          "name": "controller3"
+        }
+      ],
+      "initial_locations": [
+        "controller0"
+      ],
+      "edges": [
+        {
+          "location": "controller0",
+          "destinations": [
+            {
+              "location": "controller1",
+              "assignments": [
+                {
+                  "ref": "z",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "controller1",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "≥",
+              "left": "z",
+              "right": "e"
+            },
+            "right": {
+              "op": "≥",
+              "left": "f",
+              "right": "z"
+            }
+          },
+          "destinations": [
+            {
+              "location": "controller2"
+            }
+          ]
+        },
+        {
+          "location": "controller2",
+          "destinations": [
+            {
+              "location": "controller3",
+              "assignments": [
+                {
+                  "ref": "z",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "controller3",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "≥",
+              "left": "z",
+              "right": "e"
+            },
+            "right": {
+              "op": "≥",
+              "left": "f",
+              "right": "z"
+            }
+          },
+          "destinations": [
+            {
+              "location": "controller0"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "train"
+      },
+      {
+        "automaton": "gate"
+      },
+      {
+        "automaton": "controller"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "approach",
+          null,
+          "approach"
+        ],
+        "result": "approach"
+      },
+      {
+        "synchronise": [
+          "inn",
+          null,
+          null
+        ],
+        "result": "inn"
+      },
+      {
+        "synchronise": [
+          "out",
+          null,
+          null
+        ],
+        "result": "out"
+      },
+      {
+        "synchronise": [
+          "exit",
+          null,
+          "exit"
+        ],
+        "result": "exit"
+      },
+      {
+        "synchronise": [
+          null,
+          "lower",
+          "lower"
+        ],
+        "result": "lower"
+      },
+      {
+        "synchronise": [
+          null,
+          "up",
+          null
+        ],
+        "result": "up"
+      },
+      {
+        "synchronise": [
+          null,
+          "down",
+          null
+        ],
+        "result": "down"
+      },
+      {
+        "synchronise": [
+          null,
+          "raise",
+          "raise"
+        ],
+        "result": "raise"
+      }
+    ]
+  }
+}

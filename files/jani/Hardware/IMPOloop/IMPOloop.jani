@@ -1,0 +1,840 @@
+{
+  "jani-version": 1,
+  "name": "Hardware/IMPOloop/IMPOloop.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "qUp"
+    },
+    {
+      "name": "qDown"
+    },
+    {
+      "name": "n1Up"
+    },
+    {
+      "name": "n1Down"
+    },
+    {
+      "name": "iDown"
+    },
+    {
+      "name": "n2Up"
+    },
+    {
+      "name": "n2Down"
+    },
+    {
+      "name": "n3Up"
+    },
+    {
+      "name": "n3Down"
+    }
+  ],
+  "variables": [
+    {
+      "name": "ckNot1",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "ckNot2",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "ckNot3",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "ckAnd",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "ckEnv",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "di_l",
+      "type": "real"
+    },
+    {
+      "name": "di_u",
+      "type": "real"
+    },
+    {
+      "name": "dNot1_l",
+      "type": "real"
+    },
+    {
+      "name": "dNot1_u",
+      "type": "real"
+    },
+    {
+      "name": "dNot2_l",
+      "type": "real"
+    },
+    {
+      "name": "dNot2_u",
+      "type": "real"
+    },
+    {
+      "name": "dNot3_l",
+      "type": "real"
+    },
+    {
+      "name": "dNot3_u",
+      "type": "real"
+    },
+    {
+      "name": "dAnd_l",
+      "type": "real"
+    },
+    {
+      "name": "dAnd_u",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "Not1Gate",
+      "locations": [
+        {
+          "name": "Not100",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dNot1_u",
+              "right": "ckNot1"
+            }
+          }
+        },
+        {
+          "name": "Not101"
+        },
+        {
+          "name": "Not110"
+        },
+        {
+          "name": "Not111",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dNot1_u",
+              "right": "ckNot1"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "Not111"
+      ],
+      "edges": [
+        {
+          "location": "Not100",
+          "destinations": [
+            {
+              "location": "Not110"
+            }
+          ]
+        },
+        {
+          "location": "Not100",
+          "guard": {
+            "op": ">",
+            "left": "ckNot1",
+            "right": "dNot1_l"
+          },
+          "destinations": [
+            {
+              "location": "Not101"
+            }
+          ]
+        },
+        {
+          "location": "Not101",
+          "destinations": [
+            {
+              "location": "Not111",
+              "assignments": [
+                {
+                  "ref": "ckNot1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Not110",
+          "destinations": [
+            {
+              "location": "Not100",
+              "assignments": [
+                {
+                  "ref": "ckNot1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Not111",
+          "destinations": [
+            {
+              "location": "Not101"
+            }
+          ]
+        },
+        {
+          "location": "Not111",
+          "guard": {
+            "op": ">",
+            "left": "ckNot1",
+            "right": "dNot1_l"
+          },
+          "destinations": [
+            {
+              "location": "Not110"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Not2Gate",
+      "locations": [
+        {
+          "name": "Not200",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dNot2_u",
+              "right": "ckNot2"
+            }
+          }
+        },
+        {
+          "name": "Not201"
+        },
+        {
+          "name": "Not210"
+        },
+        {
+          "name": "Not211",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dNot2_u",
+              "right": "ckNot2"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "Not210"
+      ],
+      "edges": [
+        {
+          "location": "Not200",
+          "guard": {
+            "op": ">",
+            "left": "ckNot2",
+            "right": "dNot2_l"
+          },
+          "destinations": [
+            {
+              "location": "Not201"
+            }
+          ]
+        },
+        {
+          "location": "Not210",
+          "destinations": [
+            {
+              "location": "Not200",
+              "assignments": [
+                {
+                  "ref": "ckNot2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Not211",
+          "destinations": [
+            {
+              "location": "Not201"
+            }
+          ]
+        },
+        {
+          "location": "Not211",
+          "guard": {
+            "op": ">",
+            "left": "ckNot2",
+            "right": "dNot2_l"
+          },
+          "destinations": [
+            {
+              "location": "Not210"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Not3Gate",
+      "locations": [
+        {
+          "name": "Not300",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dNot3_u",
+              "right": "ckNot3"
+            }
+          }
+        },
+        {
+          "name": "Not301"
+        },
+        {
+          "name": "Not310"
+        },
+        {
+          "name": "Not311",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dNot3_u",
+              "right": "ckNot3"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "Not310"
+      ],
+      "edges": [
+        {
+          "location": "Not300",
+          "destinations": [
+            {
+              "location": "Not310"
+            }
+          ]
+        },
+        {
+          "location": "Not300",
+          "guard": {
+            "op": ">",
+            "left": "ckNot3",
+            "right": "dNot3_l"
+          },
+          "destinations": [
+            {
+              "location": "Not301"
+            }
+          ]
+        },
+        {
+          "location": "Not301",
+          "destinations": [
+            {
+              "location": "Not311",
+              "assignments": [
+                {
+                  "ref": "ckNot3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Not310",
+          "destinations": [
+            {
+              "location": "Not300",
+              "assignments": [
+                {
+                  "ref": "ckNot3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Not311",
+          "destinations": [
+            {
+              "location": "Not301"
+            }
+          ]
+        },
+        {
+          "location": "Not311",
+          "guard": {
+            "op": ">",
+            "left": "ckNot3",
+            "right": "dNot3_l"
+          },
+          "destinations": [
+            {
+              "location": "Not310"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AndGate",
+      "locations": [
+        {
+          "name": "And000"
+        },
+        {
+          "name": "And001",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dAnd_u",
+              "right": "ckAnd"
+            }
+          }
+        },
+        {
+          "name": "And010"
+        },
+        {
+          "name": "And011",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dAnd_u",
+              "right": "ckAnd"
+            }
+          }
+        },
+        {
+          "name": "And100"
+        },
+        {
+          "name": "And101",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dAnd_u",
+              "right": "ckAnd"
+            }
+          }
+        },
+        {
+          "name": "And110",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dAnd_u",
+              "right": "ckAnd"
+            }
+          }
+        },
+        {
+          "name": "And111"
+        }
+      ],
+      "initial_locations": [
+        "And001"
+      ],
+      "edges": [
+        {
+          "location": "And000",
+          "destinations": [
+            {
+              "location": "And100"
+            }
+          ]
+        },
+        {
+          "location": "And000",
+          "destinations": [
+            {
+              "location": "And010"
+            }
+          ]
+        },
+        {
+          "location": "And001",
+          "destinations": [
+            {
+              "location": "And101",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "And001",
+          "destinations": [
+            {
+              "location": "And011",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "And001",
+          "guard": {
+            "op": ">",
+            "left": "ckAnd",
+            "right": "dAnd_l"
+          },
+          "destinations": [
+            {
+              "location": "And000"
+            }
+          ]
+        },
+        {
+          "location": "And010",
+          "destinations": [
+            {
+              "location": "And110",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "And010",
+          "destinations": [
+            {
+              "location": "And000"
+            }
+          ]
+        },
+        {
+          "location": "And011",
+          "destinations": [
+            {
+              "location": "And111"
+            }
+          ]
+        },
+        {
+          "location": "And011",
+          "destinations": [
+            {
+              "location": "And001",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "And011",
+          "guard": {
+            "op": ">",
+            "left": "ckAnd",
+            "right": "dAnd_l"
+          },
+          "destinations": [
+            {
+              "location": "And010"
+            }
+          ]
+        },
+        {
+          "location": "And100",
+          "destinations": [
+            {
+              "location": "And000"
+            }
+          ]
+        },
+        {
+          "location": "And100",
+          "destinations": [
+            {
+              "location": "And110",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "And101",
+          "destinations": [
+            {
+              "location": "And001",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "And101",
+          "destinations": [
+            {
+              "location": "And111"
+            }
+          ]
+        },
+        {
+          "location": "And101",
+          "guard": {
+            "op": ">",
+            "left": "ckAnd",
+            "right": "dAnd_l"
+          },
+          "destinations": [
+            {
+              "location": "And100"
+            }
+          ]
+        },
+        {
+          "location": "And110",
+          "destinations": [
+            {
+              "location": "And010"
+            }
+          ]
+        },
+        {
+          "location": "And110",
+          "destinations": [
+            {
+              "location": "And100"
+            }
+          ]
+        },
+        {
+          "location": "And110",
+          "guard": {
+            "op": ">",
+            "left": "ckAnd",
+            "right": "dAnd_l"
+          },
+          "destinations": [
+            {
+              "location": "And111"
+            }
+          ]
+        },
+        {
+          "location": "And111",
+          "destinations": [
+            {
+              "location": "And011",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "And111",
+          "destinations": [
+            {
+              "location": "And101",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "EnvI",
+      "locations": [
+        {
+          "name": "EnvI1",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "di_u",
+              "right": "ckEnv"
+            }
+          }
+        },
+        {
+          "name": "EnvI0"
+        }
+      ],
+      "initial_locations": [
+        "EnvI1"
+      ],
+      "edges": [
+        {
+          "location": "EnvI1",
+          "guard": {
+            "op": ">",
+            "left": "ckEnv",
+            "right": "di_l"
+          },
+          "destinations": [
+            {
+              "location": "EnvI0"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "Not1Gate"
+      },
+      {
+        "automaton": "Not2Gate"
+      },
+      {
+        "automaton": "Not3Gate"
+      },
+      {
+        "automaton": "AndGate"
+      },
+      {
+        "automaton": "EnvI"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "qUp",
+          null,
+          null,
+          "qUp",
+          null
+        ],
+        "result": "qUp"
+      },
+      {
+        "synchronise": [
+          "qDown",
+          null,
+          null,
+          "qDown",
+          null
+        ],
+        "result": "qDown"
+      },
+      {
+        "synchronise": [
+          "n1Up",
+          null,
+          "n1Up",
+          null,
+          null
+        ],
+        "result": "n1Up"
+      },
+      {
+        "synchronise": [
+          "n1Down",
+          null,
+          "n1Down",
+          null,
+          null
+        ],
+        "result": "n1Down"
+      },
+      {
+        "synchronise": [
+          null,
+          "iDown",
+          null,
+          null,
+          "iDown"
+        ],
+        "result": "iDown"
+      },
+      {
+        "synchronise": [
+          null,
+          "n2Up",
+          null,
+          "n2Up",
+          null
+        ],
+        "result": "n2Up"
+      },
+      {
+        "synchronise": [
+          null,
+          "n2Down",
+          null,
+          "n2Down",
+          null
+        ],
+        "result": "n2Down"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "n3Up",
+          "n3Up",
+          null
+        ],
+        "result": "n3Up"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "n3Down",
+          "n3Down",
+          null
+        ],
+        "result": "n3Down"
+      }
+    ]
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "jani-version": 1,
+  "name": "Unsolvable/EFSynth/ALR15_fig1/ALR15_fig1.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [],
+  "variables": [
+    {
+      "name": "x",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "y",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "p",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "pta",
+      "locations": [
+        {
+          "name": "l1"
+        },
+        {
+          "name": "l2"
+        },
+        {
+          "name": "l3"
+        },
+        {
+          "name": "l4"
+        }
+      ],
+      "initial_locations": [
+        "l1"
+      ],
+      "edges": [
+        {
+          "location": "l1",
+          "guard": {
+            "op": "=",
+            "left": "x",
+            "right": 1
+          },
+          "destinations": [
+            {
+              "location": "l2",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "l1",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": ">",
+              "left": "x",
+              "right": 1
+            },
+            "right": {
+              "op": "=",
+              "left": "y",
+              "right": 0
+            }
+          },
+          "destinations": [
+            {
+              "location": "l4"
+            }
+          ]
+        },
+        {
+          "location": "l2",
+          "guard": {
+            "op": "=",
+            "left": "y",
+            "right": 1
+          },
+          "destinations": [
+            {
+              "location": "l3",
+              "assignments": [
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "l3",
+          "guard": {
+            "op": ">",
+            "left": "p",
+            "right": "y"
+          },
+          "destinations": [
+            {
+              "location": "l1",
+              "assignments": [
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "pta"
+      }
+    ],
+    "syncs": []
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "jani-version": 1,
+  "name": "Unsolvable/EFSynth/Synth_pNplusq/synthpNplusq.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [],
+  "variables": [
+    {
+      "name": "x",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "y",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "p",
+      "type": "real"
+    },
+    {
+      "name": "q",
+      "type": "real"
+    },
+    {
+      "name": "r",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "pta",
+      "locations": [
+        {
+          "name": "l1"
+        },
+        {
+          "name": "lGoal"
+        }
+      ],
+      "initial_locations": [
+        "l1"
+      ],
+      "edges": [
+        {
+          "location": "l1",
+          "guard": {
+            "op": "=",
+            "left": "p",
+            "right": "x"
+          },
+          "destinations": [
+            {
+              "location": "l1",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "l1",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "=",
+              "left": "q",
+              "right": "x"
+            },
+            "right": {
+              "op": "=",
+              "left": "r",
+              "right": "y"
+            }
+          },
+          "destinations": [
+            {
+              "location": "lGoal"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "pta"
+      }
+    ],
+    "syncs": []
+  }
+}

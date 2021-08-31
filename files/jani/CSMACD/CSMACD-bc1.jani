@@ -1,0 +1,997 @@
+{
+  "jani-version": 1,
+  "name": "CSMACD/CSMACD-bc1.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "send1"
+    },
+    {
+      "name": "send2"
+    },
+    {
+      "name": "end1"
+    },
+    {
+      "name": "end2"
+    },
+    {
+      "name": "busy1"
+    },
+    {
+      "name": "busy2"
+    },
+    {
+      "name": "cd"
+    },
+    {
+      "name": "prob1"
+    },
+    {
+      "name": "prob2"
+    }
+  ],
+  "variables": [
+    {
+      "name": "x1",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "x2",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "y",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "lambda",
+      "type": "real"
+    },
+    {
+      "name": "sigma",
+      "type": "real"
+    },
+    {
+      "name": "timeslot",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "medium",
+      "locations": [
+        {
+          "name": "Init"
+        },
+        {
+          "name": "Transmit"
+        },
+        {
+          "name": "Collide",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "sigma",
+              "right": "y"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "Init"
+      ],
+      "edges": [
+        {
+          "location": "Init",
+          "destinations": [
+            {
+              "location": "Transmit",
+              "assignments": [
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Init",
+          "destinations": [
+            {
+              "location": "Transmit",
+              "assignments": [
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Transmit",
+          "guard": {
+            "op": ">",
+            "left": "sigma",
+            "right": "y"
+          },
+          "destinations": [
+            {
+              "location": "Collide",
+              "assignments": [
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Transmit",
+          "guard": {
+            "op": ">",
+            "left": "sigma",
+            "right": "y"
+          },
+          "destinations": [
+            {
+              "location": "Collide",
+              "assignments": [
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Transmit",
+          "guard": {
+            "op": ">",
+            "left": "y",
+            "right": "sigma"
+          },
+          "destinations": [
+            {
+              "location": "Transmit"
+            }
+          ]
+        },
+        {
+          "location": "Transmit",
+          "guard": {
+            "op": ">",
+            "left": "y",
+            "right": "sigma"
+          },
+          "destinations": [
+            {
+              "location": "Transmit"
+            }
+          ]
+        },
+        {
+          "location": "Transmit",
+          "destinations": [
+            {
+              "location": "Init",
+              "assignments": [
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Transmit",
+          "destinations": [
+            {
+              "location": "Init",
+              "assignments": [
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Collide",
+          "guard": {
+            "op": ">",
+            "left": "sigma",
+            "right": "y"
+          },
+          "destinations": [
+            {
+              "location": "Init",
+              "assignments": [
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sender1",
+      "locations": [
+        {
+          "name": "Init1"
+        },
+        {
+          "name": "Transmit1",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "lambda",
+              "right": "x1"
+            }
+          }
+        },
+        {
+          "name": "Collide1",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 0,
+              "right": "x1"
+            }
+          }
+        },
+        {
+          "name": "Wait1_0",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 0,
+              "right": "x1"
+            }
+          }
+        },
+        {
+          "name": "Wait1_1",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "timeslot",
+              "right": "x1"
+            }
+          }
+        },
+        {
+          "name": "Wait1_2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": {
+                "op": "*",
+                "left": 2,
+                "right": "timeslot"
+              },
+              "right": "x1"
+            }
+          }
+        },
+        {
+          "name": "Wait1_3",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": {
+                "op": "*",
+                "left": 3,
+                "right": "timeslot"
+              },
+              "right": "x1"
+            }
+          }
+        },
+        {
+          "name": "Done1",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 0,
+              "right": "x1"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "Init1"
+      ],
+      "edges": [
+        {
+          "location": "Init1",
+          "destinations": [
+            {
+              "location": "Transmit1"
+            }
+          ]
+        },
+        {
+          "location": "Transmit1",
+          "guard": {
+            "op": "=",
+            "left": "lambda",
+            "right": "x1"
+          },
+          "destinations": [
+            {
+              "location": "Done1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Transmit1",
+          "destinations": [
+            {
+              "location": "Collide1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Collide1",
+          "destinations": [
+            {
+              "location": "Wait1_3"
+            }
+          ]
+        },
+        {
+          "location": "Collide1",
+          "destinations": [
+            {
+              "location": "Wait1_2"
+            }
+          ]
+        },
+        {
+          "location": "Collide1",
+          "destinations": [
+            {
+              "location": "Wait1_1"
+            }
+          ]
+        },
+        {
+          "location": "Collide1",
+          "destinations": [
+            {
+              "location": "Wait1_0"
+            }
+          ]
+        },
+        {
+          "location": "Wait1_0",
+          "guard": {
+            "op": "=",
+            "left": "x1",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "Collide1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Wait1_0",
+          "guard": {
+            "op": "=",
+            "left": "x1",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "Transmit1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Wait1_1",
+          "guard": {
+            "op": "=",
+            "left": "timeslot",
+            "right": "x1"
+          },
+          "destinations": [
+            {
+              "location": "Collide1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Wait1_1",
+          "guard": {
+            "op": "=",
+            "left": "timeslot",
+            "right": "x1"
+          },
+          "destinations": [
+            {
+              "location": "Transmit1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Wait1_2",
+          "guard": {
+            "op": "=",
+            "left": {
+              "op": "*",
+              "left": 2,
+              "right": "timeslot"
+            },
+            "right": "x1"
+          },
+          "destinations": [
+            {
+              "location": "Collide1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Wait1_2",
+          "guard": {
+            "op": "=",
+            "left": {
+              "op": "*",
+              "left": 2,
+              "right": "timeslot"
+            },
+            "right": "x1"
+          },
+          "destinations": [
+            {
+              "location": "Transmit1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Wait1_3",
+          "guard": {
+            "op": "=",
+            "left": {
+              "op": "*",
+              "left": 3,
+              "right": "timeslot"
+            },
+            "right": "x1"
+          },
+          "destinations": [
+            {
+              "location": "Collide1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Wait1_3",
+          "guard": {
+            "op": "=",
+            "left": {
+              "op": "*",
+              "left": 3,
+              "right": "timeslot"
+            },
+            "right": "x1"
+          },
+          "destinations": [
+            {
+              "location": "Transmit1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sender2",
+      "locations": [
+        {
+          "name": "Init2",
+          "time-progress": {
+            "exp": {
+              "op": "=",
+              "left": "x2",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "Transmit2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "lambda",
+              "right": "x2"
+            }
+          }
+        },
+        {
+          "name": "Collide2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 0,
+              "right": "x2"
+            }
+          }
+        },
+        {
+          "name": "Wait2_0",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 0,
+              "right": "x2"
+            }
+          }
+        },
+        {
+          "name": "Wait2_1",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "timeslot",
+              "right": "x2"
+            }
+          }
+        },
+        {
+          "name": "Wait2_2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": {
+                "op": "*",
+                "left": 2,
+                "right": "timeslot"
+              },
+              "right": "x2"
+            }
+          }
+        },
+        {
+          "name": "Wait2_3",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": {
+                "op": "*",
+                "left": 3,
+                "right": "timeslot"
+              },
+              "right": "x2"
+            }
+          }
+        },
+        {
+          "name": "Done2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 0,
+              "right": "x2"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "Init2"
+      ],
+      "edges": [
+        {
+          "location": "Init2",
+          "guard": {
+            "op": "=",
+            "left": "x2",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "Transmit2"
+            }
+          ]
+        },
+        {
+          "location": "Transmit2",
+          "guard": {
+            "op": "=",
+            "left": "lambda",
+            "right": "x2"
+          },
+          "destinations": [
+            {
+              "location": "Done2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Transmit2",
+          "destinations": [
+            {
+              "location": "Collide2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Collide2",
+          "destinations": [
+            {
+              "location": "Wait2_3"
+            }
+          ]
+        },
+        {
+          "location": "Collide2",
+          "destinations": [
+            {
+              "location": "Wait2_2"
+            }
+          ]
+        },
+        {
+          "location": "Collide2",
+          "destinations": [
+            {
+              "location": "Wait2_1"
+            }
+          ]
+        },
+        {
+          "location": "Collide2",
+          "destinations": [
+            {
+              "location": "Wait2_0"
+            }
+          ]
+        },
+        {
+          "location": "Wait2_0",
+          "guard": {
+            "op": "=",
+            "left": "x2",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "Collide2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Wait2_0",
+          "guard": {
+            "op": "=",
+            "left": "x2",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "Transmit2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Wait2_1",
+          "guard": {
+            "op": "=",
+            "left": "timeslot",
+            "right": "x2"
+          },
+          "destinations": [
+            {
+              "location": "Collide2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Wait2_1",
+          "guard": {
+            "op": "=",
+            "left": "timeslot",
+            "right": "x2"
+          },
+          "destinations": [
+            {
+              "location": "Transmit2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Wait2_2",
+          "guard": {
+            "op": "=",
+            "left": {
+              "op": "*",
+              "left": 2,
+              "right": "timeslot"
+            },
+            "right": "x2"
+          },
+          "destinations": [
+            {
+              "location": "Collide2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Wait2_2",
+          "guard": {
+            "op": "=",
+            "left": {
+              "op": "*",
+              "left": 2,
+              "right": "timeslot"
+            },
+            "right": "x2"
+          },
+          "destinations": [
+            {
+              "location": "Transmit2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Wait2_3",
+          "guard": {
+            "op": "=",
+            "left": {
+              "op": "*",
+              "left": 3,
+              "right": "timeslot"
+            },
+            "right": "x2"
+          },
+          "destinations": [
+            {
+              "location": "Collide2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Wait2_3",
+          "guard": {
+            "op": "=",
+            "left": {
+              "op": "*",
+              "left": 3,
+              "right": "timeslot"
+            },
+            "right": "x2"
+          },
+          "destinations": [
+            {
+              "location": "Transmit2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "medium"
+      },
+      {
+        "automaton": "sender1"
+      },
+      {
+        "automaton": "sender2"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "send1",
+          "send1",
+          null
+        ],
+        "result": "send1"
+      },
+      {
+        "synchronise": [
+          "send2",
+          null,
+          "send2"
+        ],
+        "result": "send2"
+      },
+      {
+        "synchronise": [
+          "end1",
+          "end1",
+          null
+        ],
+        "result": "end1"
+      },
+      {
+        "synchronise": [
+          "end2",
+          null,
+          "end2"
+        ],
+        "result": "end2"
+      },
+      {
+        "synchronise": [
+          "busy1",
+          "busy1",
+          null
+        ],
+        "result": "busy1"
+      },
+      {
+        "synchronise": [
+          "busy2",
+          null,
+          "busy2"
+        ],
+        "result": "busy2"
+      },
+      {
+        "synchronise": [
+          "cd",
+          "cd",
+          "cd"
+        ],
+        "result": "cd"
+      },
+      {
+        "synchronise": [
+          null,
+          "prob1",
+          null
+        ],
+        "result": "prob1"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "prob2"
+        ],
+        "result": "prob2"
+      }
+    ]
+  }
+}

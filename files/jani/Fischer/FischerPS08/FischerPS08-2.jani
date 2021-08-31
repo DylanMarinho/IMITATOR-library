@@ -1,0 +1,488 @@
+{
+  "jani-version": 1,
+  "name": "Fischer/FischerPS08/FischerPS08-2.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "Start1"
+    },
+    {
+      "name": "SetX1"
+    },
+    {
+      "name": "Enter1"
+    },
+    {
+      "name": "SetX01"
+    },
+    {
+      "name": "Start2"
+    },
+    {
+      "name": "SetX2"
+    },
+    {
+      "name": "Enter2"
+    },
+    {
+      "name": "SetX02"
+    }
+  ],
+  "variables": [
+    {
+      "name": "x1",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "x2",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "nb",
+      "type": "real",
+      "initial_value": 0
+    },
+    {
+      "name": "delta",
+      "type": "real"
+    },
+    {
+      "name": "Delta",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "process1",
+      "locations": [
+        {
+          "name": "idle1"
+        },
+        {
+          "name": "trying1"
+        },
+        {
+          "name": "waiting1"
+        },
+        {
+          "name": "critical1"
+        }
+      ],
+      "initial_locations": [
+        "idle1"
+      ],
+      "edges": [
+        {
+          "location": "idle1",
+          "destinations": [
+            {
+              "location": "trying1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "trying1",
+          "guard": {
+            "op": "≥",
+            "left": "delta",
+            "right": "x1"
+          },
+          "destinations": [
+            {
+              "location": "waiting1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "waiting1",
+          "guard": {
+            "op": "≥",
+            "left": "x1",
+            "right": "Delta"
+          },
+          "destinations": [
+            {
+              "location": "critical1",
+              "assignments": [
+                {
+                  "ref": "nb",
+                  "value": {
+                    "op": "+",
+                    "left": "nb",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "critical1",
+          "destinations": [
+            {
+              "location": "idle1",
+              "assignments": [
+                {
+                  "ref": "nb",
+                  "value": {
+                    "op": "-",
+                    "left": "nb",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "process2",
+      "locations": [
+        {
+          "name": "idle2"
+        },
+        {
+          "name": "trying2"
+        },
+        {
+          "name": "waiting2"
+        },
+        {
+          "name": "critical2"
+        }
+      ],
+      "initial_locations": [
+        "idle2"
+      ],
+      "edges": [
+        {
+          "location": "idle2",
+          "destinations": [
+            {
+              "location": "trying2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "trying2",
+          "guard": {
+            "op": "≥",
+            "left": "delta",
+            "right": "x2"
+          },
+          "destinations": [
+            {
+              "location": "waiting2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "waiting2",
+          "guard": {
+            "op": "≥",
+            "left": "x2",
+            "right": "Delta"
+          },
+          "destinations": [
+            {
+              "location": "critical2",
+              "assignments": [
+                {
+                  "ref": "nb",
+                  "value": {
+                    "op": "+",
+                    "left": "nb",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "critical2",
+          "destinations": [
+            {
+              "location": "idle2",
+              "assignments": [
+                {
+                  "ref": "nb",
+                  "value": {
+                    "op": "-",
+                    "left": "nb",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "variable",
+      "locations": [
+        {
+          "name": "Val0"
+        },
+        {
+          "name": "Val1"
+        },
+        {
+          "name": "Val2"
+        }
+      ],
+      "initial_locations": [
+        "Val0"
+      ],
+      "edges": [
+        {
+          "location": "Val0",
+          "destinations": [
+            {
+              "location": "Val0"
+            }
+          ]
+        },
+        {
+          "location": "Val0",
+          "destinations": [
+            {
+              "location": "Val0"
+            }
+          ]
+        },
+        {
+          "location": "Val0",
+          "destinations": [
+            {
+              "location": "Val1"
+            }
+          ]
+        },
+        {
+          "location": "Val0",
+          "destinations": [
+            {
+              "location": "Val2"
+            }
+          ]
+        },
+        {
+          "location": "Val1",
+          "destinations": [
+            {
+              "location": "Val1"
+            }
+          ]
+        },
+        {
+          "location": "Val1",
+          "destinations": [
+            {
+              "location": "Val0"
+            }
+          ]
+        },
+        {
+          "location": "Val1",
+          "destinations": [
+            {
+              "location": "Val1"
+            }
+          ]
+        },
+        {
+          "location": "Val1",
+          "destinations": [
+            {
+              "location": "Val2"
+            }
+          ]
+        },
+        {
+          "location": "Val2",
+          "destinations": [
+            {
+              "location": "Val2"
+            }
+          ]
+        },
+        {
+          "location": "Val2",
+          "destinations": [
+            {
+              "location": "Val0"
+            }
+          ]
+        },
+        {
+          "location": "Val2",
+          "destinations": [
+            {
+              "location": "Val1"
+            }
+          ]
+        },
+        {
+          "location": "Val2",
+          "destinations": [
+            {
+              "location": "Val2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "observer",
+      "locations": [
+        {
+          "name": "obs_OK"
+        },
+        {
+          "name": "obs_BAD"
+        }
+      ],
+      "initial_locations": [
+        "obs_OK"
+      ],
+      "edges": [
+        {
+          "location": "obs_OK",
+          "guard": {
+            "op": "=",
+            "left": "nb",
+            "right": 2
+          },
+          "destinations": [
+            {
+              "location": "obs_BAD"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "process1"
+      },
+      {
+        "automaton": "process2"
+      },
+      {
+        "automaton": "variable"
+      },
+      {
+        "automaton": "observer"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "Start1",
+          null,
+          "Start1",
+          null
+        ],
+        "result": "Start1"
+      },
+      {
+        "synchronise": [
+          "SetX1",
+          null,
+          "SetX1",
+          null
+        ],
+        "result": "SetX1"
+      },
+      {
+        "synchronise": [
+          "Enter1",
+          null,
+          "Enter1",
+          null
+        ],
+        "result": "Enter1"
+      },
+      {
+        "synchronise": [
+          "SetX01",
+          null,
+          "SetX01",
+          null
+        ],
+        "result": "SetX01"
+      },
+      {
+        "synchronise": [
+          null,
+          "Start2",
+          "Start2",
+          null
+        ],
+        "result": "Start2"
+      },
+      {
+        "synchronise": [
+          null,
+          "SetX2",
+          "SetX2",
+          null
+        ],
+        "result": "SetX2"
+      },
+      {
+        "synchronise": [
+          null,
+          "Enter2",
+          "Enter2",
+          null
+        ],
+        "result": "Enter2"
+      },
+      {
+        "synchronise": [
+          null,
+          "SetX02",
+          "SetX02",
+          null
+        ],
+        "result": "SetX02"
+      }
+    ]
+  }
+}

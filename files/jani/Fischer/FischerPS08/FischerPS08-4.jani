@@ -1,0 +1,990 @@
+{
+  "jani-version": 1,
+  "name": "Fischer/FischerPS08/FischerPS08-4.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "Start1"
+    },
+    {
+      "name": "SetX1"
+    },
+    {
+      "name": "Enter1"
+    },
+    {
+      "name": "SetX01"
+    },
+    {
+      "name": "Start2"
+    },
+    {
+      "name": "SetX2"
+    },
+    {
+      "name": "Enter2"
+    },
+    {
+      "name": "SetX02"
+    },
+    {
+      "name": "Start3"
+    },
+    {
+      "name": "SetX3"
+    },
+    {
+      "name": "Enter3"
+    },
+    {
+      "name": "SetX03"
+    },
+    {
+      "name": "Start4"
+    },
+    {
+      "name": "SetX4"
+    },
+    {
+      "name": "Enter4"
+    },
+    {
+      "name": "SetX04"
+    }
+  ],
+  "variables": [
+    {
+      "name": "x1",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "x2",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "x3",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "x4",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "nb",
+      "type": "real",
+      "initial_value": 0
+    },
+    {
+      "name": "delta",
+      "type": "real"
+    },
+    {
+      "name": "Delta",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "process1",
+      "locations": [
+        {
+          "name": "idle1"
+        },
+        {
+          "name": "trying1"
+        },
+        {
+          "name": "waiting1"
+        },
+        {
+          "name": "critical1"
+        }
+      ],
+      "initial_locations": [
+        "idle1"
+      ],
+      "edges": [
+        {
+          "location": "idle1",
+          "destinations": [
+            {
+              "location": "trying1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "trying1",
+          "guard": {
+            "op": "≥",
+            "left": "delta",
+            "right": "x1"
+          },
+          "destinations": [
+            {
+              "location": "waiting1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "waiting1",
+          "guard": {
+            "op": "≥",
+            "left": "x1",
+            "right": "Delta"
+          },
+          "destinations": [
+            {
+              "location": "critical1",
+              "assignments": [
+                {
+                  "ref": "nb",
+                  "value": {
+                    "op": "+",
+                    "left": "nb",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "critical1",
+          "destinations": [
+            {
+              "location": "idle1",
+              "assignments": [
+                {
+                  "ref": "nb",
+                  "value": {
+                    "op": "-",
+                    "left": "nb",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "process2",
+      "locations": [
+        {
+          "name": "idle2"
+        },
+        {
+          "name": "trying2"
+        },
+        {
+          "name": "waiting2"
+        },
+        {
+          "name": "critical2"
+        }
+      ],
+      "initial_locations": [
+        "idle2"
+      ],
+      "edges": [
+        {
+          "location": "idle2",
+          "destinations": [
+            {
+              "location": "trying2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "trying2",
+          "guard": {
+            "op": "≥",
+            "left": "delta",
+            "right": "x2"
+          },
+          "destinations": [
+            {
+              "location": "waiting2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "waiting2",
+          "guard": {
+            "op": "≥",
+            "left": "x2",
+            "right": "Delta"
+          },
+          "destinations": [
+            {
+              "location": "critical2",
+              "assignments": [
+                {
+                  "ref": "nb",
+                  "value": {
+                    "op": "+",
+                    "left": "nb",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "critical2",
+          "destinations": [
+            {
+              "location": "idle2",
+              "assignments": [
+                {
+                  "ref": "nb",
+                  "value": {
+                    "op": "-",
+                    "left": "nb",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "process3",
+      "locations": [
+        {
+          "name": "idle3"
+        },
+        {
+          "name": "trying3"
+        },
+        {
+          "name": "waiting3"
+        },
+        {
+          "name": "critical3"
+        }
+      ],
+      "initial_locations": [
+        "idle3"
+      ],
+      "edges": [
+        {
+          "location": "idle3",
+          "destinations": [
+            {
+              "location": "trying3",
+              "assignments": [
+                {
+                  "ref": "x3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "trying3",
+          "guard": {
+            "op": "≥",
+            "left": "delta",
+            "right": "x3"
+          },
+          "destinations": [
+            {
+              "location": "waiting3",
+              "assignments": [
+                {
+                  "ref": "x3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "waiting3",
+          "guard": {
+            "op": "≥",
+            "left": "x3",
+            "right": "Delta"
+          },
+          "destinations": [
+            {
+              "location": "critical3",
+              "assignments": [
+                {
+                  "ref": "nb",
+                  "value": {
+                    "op": "+",
+                    "left": "nb",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "critical3",
+          "destinations": [
+            {
+              "location": "idle3",
+              "assignments": [
+                {
+                  "ref": "nb",
+                  "value": {
+                    "op": "-",
+                    "left": "nb",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "process4",
+      "locations": [
+        {
+          "name": "idle4"
+        },
+        {
+          "name": "trying4"
+        },
+        {
+          "name": "waiting4"
+        },
+        {
+          "name": "critical4"
+        }
+      ],
+      "initial_locations": [
+        "idle4"
+      ],
+      "edges": [
+        {
+          "location": "idle4",
+          "destinations": [
+            {
+              "location": "trying4",
+              "assignments": [
+                {
+                  "ref": "x4",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "trying4",
+          "guard": {
+            "op": "≥",
+            "left": "delta",
+            "right": "x4"
+          },
+          "destinations": [
+            {
+              "location": "waiting4",
+              "assignments": [
+                {
+                  "ref": "x4",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "waiting4",
+          "guard": {
+            "op": "≥",
+            "left": "x4",
+            "right": "Delta"
+          },
+          "destinations": [
+            {
+              "location": "critical4",
+              "assignments": [
+                {
+                  "ref": "nb",
+                  "value": {
+                    "op": "+",
+                    "left": "nb",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "critical4",
+          "destinations": [
+            {
+              "location": "idle4",
+              "assignments": [
+                {
+                  "ref": "nb",
+                  "value": {
+                    "op": "-",
+                    "left": "nb",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "variable",
+      "locations": [
+        {
+          "name": "Val0"
+        },
+        {
+          "name": "Val1"
+        },
+        {
+          "name": "Val2"
+        },
+        {
+          "name": "Val3"
+        },
+        {
+          "name": "Val4"
+        }
+      ],
+      "initial_locations": [
+        "Val0"
+      ],
+      "edges": [
+        {
+          "location": "Val0",
+          "destinations": [
+            {
+              "location": "Val0"
+            }
+          ]
+        },
+        {
+          "location": "Val0",
+          "destinations": [
+            {
+              "location": "Val0"
+            }
+          ]
+        },
+        {
+          "location": "Val0",
+          "destinations": [
+            {
+              "location": "Val0"
+            }
+          ]
+        },
+        {
+          "location": "Val0",
+          "destinations": [
+            {
+              "location": "Val0"
+            }
+          ]
+        },
+        {
+          "location": "Val0",
+          "destinations": [
+            {
+              "location": "Val1"
+            }
+          ]
+        },
+        {
+          "location": "Val0",
+          "destinations": [
+            {
+              "location": "Val2"
+            }
+          ]
+        },
+        {
+          "location": "Val0",
+          "destinations": [
+            {
+              "location": "Val3"
+            }
+          ]
+        },
+        {
+          "location": "Val0",
+          "destinations": [
+            {
+              "location": "Val4"
+            }
+          ]
+        },
+        {
+          "location": "Val1",
+          "destinations": [
+            {
+              "location": "Val1"
+            }
+          ]
+        },
+        {
+          "location": "Val1",
+          "destinations": [
+            {
+              "location": "Val0"
+            }
+          ]
+        },
+        {
+          "location": "Val1",
+          "destinations": [
+            {
+              "location": "Val1"
+            }
+          ]
+        },
+        {
+          "location": "Val1",
+          "destinations": [
+            {
+              "location": "Val2"
+            }
+          ]
+        },
+        {
+          "location": "Val1",
+          "destinations": [
+            {
+              "location": "Val3"
+            }
+          ]
+        },
+        {
+          "location": "Val1",
+          "destinations": [
+            {
+              "location": "Val4"
+            }
+          ]
+        },
+        {
+          "location": "Val2",
+          "destinations": [
+            {
+              "location": "Val2"
+            }
+          ]
+        },
+        {
+          "location": "Val2",
+          "destinations": [
+            {
+              "location": "Val0"
+            }
+          ]
+        },
+        {
+          "location": "Val2",
+          "destinations": [
+            {
+              "location": "Val1"
+            }
+          ]
+        },
+        {
+          "location": "Val2",
+          "destinations": [
+            {
+              "location": "Val2"
+            }
+          ]
+        },
+        {
+          "location": "Val2",
+          "destinations": [
+            {
+              "location": "Val3"
+            }
+          ]
+        },
+        {
+          "location": "Val2",
+          "destinations": [
+            {
+              "location": "Val4"
+            }
+          ]
+        },
+        {
+          "location": "Val3",
+          "destinations": [
+            {
+              "location": "Val3"
+            }
+          ]
+        },
+        {
+          "location": "Val3",
+          "destinations": [
+            {
+              "location": "Val0"
+            }
+          ]
+        },
+        {
+          "location": "Val3",
+          "destinations": [
+            {
+              "location": "Val1"
+            }
+          ]
+        },
+        {
+          "location": "Val3",
+          "destinations": [
+            {
+              "location": "Val2"
+            }
+          ]
+        },
+        {
+          "location": "Val3",
+          "destinations": [
+            {
+              "location": "Val3"
+            }
+          ]
+        },
+        {
+          "location": "Val3",
+          "destinations": [
+            {
+              "location": "Val4"
+            }
+          ]
+        },
+        {
+          "location": "Val4",
+          "destinations": [
+            {
+              "location": "Val4"
+            }
+          ]
+        },
+        {
+          "location": "Val4",
+          "destinations": [
+            {
+              "location": "Val0"
+            }
+          ]
+        },
+        {
+          "location": "Val4",
+          "destinations": [
+            {
+              "location": "Val1"
+            }
+          ]
+        },
+        {
+          "location": "Val4",
+          "destinations": [
+            {
+              "location": "Val2"
+            }
+          ]
+        },
+        {
+          "location": "Val4",
+          "destinations": [
+            {
+              "location": "Val3"
+            }
+          ]
+        },
+        {
+          "location": "Val4",
+          "destinations": [
+            {
+              "location": "Val4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "observer",
+      "locations": [
+        {
+          "name": "obs_OK"
+        },
+        {
+          "name": "obs_BAD"
+        }
+      ],
+      "initial_locations": [
+        "obs_OK"
+      ],
+      "edges": [
+        {
+          "location": "obs_OK",
+          "guard": {
+            "op": "=",
+            "left": "nb",
+            "right": 2
+          },
+          "destinations": [
+            {
+              "location": "obs_BAD"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "process1"
+      },
+      {
+        "automaton": "process2"
+      },
+      {
+        "automaton": "process3"
+      },
+      {
+        "automaton": "process4"
+      },
+      {
+        "automaton": "variable"
+      },
+      {
+        "automaton": "observer"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "Start1",
+          null,
+          null,
+          null,
+          "Start1",
+          null
+        ],
+        "result": "Start1"
+      },
+      {
+        "synchronise": [
+          "SetX1",
+          null,
+          null,
+          null,
+          "SetX1",
+          null
+        ],
+        "result": "SetX1"
+      },
+      {
+        "synchronise": [
+          "Enter1",
+          null,
+          null,
+          null,
+          "Enter1",
+          null
+        ],
+        "result": "Enter1"
+      },
+      {
+        "synchronise": [
+          "SetX01",
+          null,
+          null,
+          null,
+          "SetX01",
+          null
+        ],
+        "result": "SetX01"
+      },
+      {
+        "synchronise": [
+          null,
+          "Start2",
+          null,
+          null,
+          "Start2",
+          null
+        ],
+        "result": "Start2"
+      },
+      {
+        "synchronise": [
+          null,
+          "SetX2",
+          null,
+          null,
+          "SetX2",
+          null
+        ],
+        "result": "SetX2"
+      },
+      {
+        "synchronise": [
+          null,
+          "Enter2",
+          null,
+          null,
+          "Enter2",
+          null
+        ],
+        "result": "Enter2"
+      },
+      {
+        "synchronise": [
+          null,
+          "SetX02",
+          null,
+          null,
+          "SetX02",
+          null
+        ],
+        "result": "SetX02"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "Start3",
+          null,
+          "Start3",
+          null
+        ],
+        "result": "Start3"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "SetX3",
+          null,
+          "SetX3",
+          null
+        ],
+        "result": "SetX3"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "Enter3",
+          null,
+          "Enter3",
+          null
+        ],
+        "result": "Enter3"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "SetX03",
+          null,
+          "SetX03",
+          null
+        ],
+        "result": "SetX03"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          "Start4",
+          "Start4",
+          null
+        ],
+        "result": "Start4"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          "SetX4",
+          "SetX4",
+          null
+        ],
+        "result": "SetX4"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          "Enter4",
+          "Enter4",
+          null
+        ],
+        "result": "Enter4"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          "SetX04",
+          "SetX04",
+          null
+        ],
+        "result": "SetX04"
+      }
+    ]
+  }
+}

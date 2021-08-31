@@ -1,0 +1,1016 @@
+{
+  "jani-version": 1,
+  "name": "Hardware/AndOr/AndOr.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "aUp"
+    },
+    {
+      "name": "aDown"
+    },
+    {
+      "name": "bUp"
+    },
+    {
+      "name": "bDown"
+    },
+    {
+      "name": "tUp"
+    },
+    {
+      "name": "tDown"
+    },
+    {
+      "name": "xUp"
+    },
+    {
+      "name": "xDown"
+    }
+  ],
+  "variables": [
+    {
+      "name": "ckOr",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "ckAnd",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "cka",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "ckb",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "dA_High_l",
+      "type": "real"
+    },
+    {
+      "name": "dA_High_u",
+      "type": "real"
+    },
+    {
+      "name": "dA_Low_l",
+      "type": "real"
+    },
+    {
+      "name": "dA_Low_u",
+      "type": "real"
+    },
+    {
+      "name": "dB_High_l",
+      "type": "real"
+    },
+    {
+      "name": "dB_High_u",
+      "type": "real"
+    },
+    {
+      "name": "dB_Low_l",
+      "type": "real"
+    },
+    {
+      "name": "dB_Low_u",
+      "type": "real"
+    },
+    {
+      "name": "dOr_l",
+      "type": "real"
+    },
+    {
+      "name": "dOr_u",
+      "type": "real"
+    },
+    {
+      "name": "dAnd_l",
+      "type": "real"
+    },
+    {
+      "name": "dAnd_u",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "input",
+      "locations": [
+        {
+          "name": "InputInit",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dB_High_u",
+              "right": "ckb"
+            }
+          }
+        },
+        {
+          "name": "Input2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dA_High_u",
+              "right": "cka"
+            }
+          }
+        },
+        {
+          "name": "Input3",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dB_Low_u",
+              "right": "ckb"
+            }
+          }
+        },
+        {
+          "name": "Input4",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dA_Low_u",
+              "right": "cka"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "InputInit"
+      ],
+      "edges": [
+        {
+          "location": "InputInit",
+          "guard": {
+            "op": ">",
+            "left": "ckb",
+            "right": "dB_High_l"
+          },
+          "destinations": [
+            {
+              "location": "Input2",
+              "assignments": [
+                {
+                  "ref": "ckb",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Input2",
+          "guard": {
+            "op": ">",
+            "left": "cka",
+            "right": "dA_High_l"
+          },
+          "destinations": [
+            {
+              "location": "Input3",
+              "assignments": [
+                {
+                  "ref": "cka",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Input3",
+          "guard": {
+            "op": ">",
+            "left": "ckb",
+            "right": "dB_Low_l"
+          },
+          "destinations": [
+            {
+              "location": "Input4",
+              "assignments": [
+                {
+                  "ref": "ckb",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Input4",
+          "guard": {
+            "op": ">",
+            "left": "cka",
+            "right": "dA_Low_l"
+          },
+          "destinations": [
+            {
+              "location": "InputInit",
+              "assignments": [
+                {
+                  "ref": "cka",
+                  "value": 0
+                },
+                {
+                  "ref": "ckb",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "andGate",
+      "locations": [
+        {
+          "name": "And000",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckAnd",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "And001",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "dAnd_u",
+                "right": "ckAnd"
+              },
+              "right": {
+                "op": ">",
+                "left": "ckAnd",
+                "right": 0
+              }
+            }
+          }
+        },
+        {
+          "name": "And010",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckAnd",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "And011",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "dAnd_u",
+                "right": "ckAnd"
+              },
+              "right": {
+                "op": ">",
+                "left": "ckAnd",
+                "right": 0
+              }
+            }
+          }
+        },
+        {
+          "name": "And100",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckAnd",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "And101",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "dAnd_u",
+                "right": "ckAnd"
+              },
+              "right": {
+                "op": ">",
+                "left": "ckAnd",
+                "right": 0
+              }
+            }
+          }
+        },
+        {
+          "name": "And110",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "dAnd_u",
+                "right": "ckAnd"
+              },
+              "right": {
+                "op": ">",
+                "left": "ckAnd",
+                "right": 0
+              }
+            }
+          }
+        },
+        {
+          "name": "And111",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckAnd",
+              "right": 0
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "And111"
+      ],
+      "edges": [
+        {
+          "location": "And000",
+          "destinations": [
+            {
+              "location": "And100"
+            }
+          ]
+        },
+        {
+          "location": "And000",
+          "destinations": [
+            {
+              "location": "And010"
+            }
+          ]
+        },
+        {
+          "location": "And001",
+          "destinations": [
+            {
+              "location": "And101",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "And001",
+          "destinations": [
+            {
+              "location": "And011",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "And001",
+          "guard": {
+            "op": ">",
+            "left": "ckAnd",
+            "right": "dAnd_l"
+          },
+          "destinations": [
+            {
+              "location": "And000"
+            }
+          ]
+        },
+        {
+          "location": "And010",
+          "destinations": [
+            {
+              "location": "And110",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "And010",
+          "destinations": [
+            {
+              "location": "And000"
+            }
+          ]
+        },
+        {
+          "location": "And011",
+          "destinations": [
+            {
+              "location": "And111"
+            }
+          ]
+        },
+        {
+          "location": "And011",
+          "destinations": [
+            {
+              "location": "And001",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "And011",
+          "guard": {
+            "op": ">",
+            "left": "ckAnd",
+            "right": "dAnd_l"
+          },
+          "destinations": [
+            {
+              "location": "And010"
+            }
+          ]
+        },
+        {
+          "location": "And100",
+          "destinations": [
+            {
+              "location": "And000"
+            }
+          ]
+        },
+        {
+          "location": "And100",
+          "destinations": [
+            {
+              "location": "And110",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "And101",
+          "destinations": [
+            {
+              "location": "And001",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "And101",
+          "destinations": [
+            {
+              "location": "And111"
+            }
+          ]
+        },
+        {
+          "location": "And101",
+          "guard": {
+            "op": ">",
+            "left": "ckAnd",
+            "right": "dAnd_l"
+          },
+          "destinations": [
+            {
+              "location": "And100"
+            }
+          ]
+        },
+        {
+          "location": "And110",
+          "destinations": [
+            {
+              "location": "And010"
+            }
+          ]
+        },
+        {
+          "location": "And110",
+          "destinations": [
+            {
+              "location": "And100"
+            }
+          ]
+        },
+        {
+          "location": "And110",
+          "guard": {
+            "op": ">",
+            "left": "ckAnd",
+            "right": "dAnd_l"
+          },
+          "destinations": [
+            {
+              "location": "And111"
+            }
+          ]
+        },
+        {
+          "location": "And111",
+          "destinations": [
+            {
+              "location": "And011",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "And111",
+          "destinations": [
+            {
+              "location": "And101",
+              "assignments": [
+                {
+                  "ref": "ckAnd",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "orGate",
+      "locations": [
+        {
+          "name": "Or000",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckOr",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "Or001",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "dOr_u",
+                "right": "ckOr"
+              },
+              "right": {
+                "op": ">",
+                "left": "ckOr",
+                "right": 0
+              }
+            }
+          }
+        },
+        {
+          "name": "Or010",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "dOr_u",
+                "right": "ckOr"
+              },
+              "right": {
+                "op": ">",
+                "left": "ckOr",
+                "right": 0
+              }
+            }
+          }
+        },
+        {
+          "name": "Or011",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckOr",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "Or100",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "dOr_u",
+                "right": "ckOr"
+              },
+              "right": {
+                "op": ">",
+                "left": "ckOr",
+                "right": 0
+              }
+            }
+          }
+        },
+        {
+          "name": "Or101",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckOr",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "Or110",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "dOr_u",
+                "right": "ckOr"
+              },
+              "right": {
+                "op": ">",
+                "left": "ckOr",
+                "right": 0
+              }
+            }
+          }
+        },
+        {
+          "name": "Or111",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckOr",
+              "right": 0
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "Or111"
+      ],
+      "edges": [
+        {
+          "location": "Or000",
+          "destinations": [
+            {
+              "location": "Or100",
+              "assignments": [
+                {
+                  "ref": "ckOr",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Or000",
+          "destinations": [
+            {
+              "location": "Or010",
+              "assignments": [
+                {
+                  "ref": "ckOr",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Or001",
+          "destinations": [
+            {
+              "location": "Or101"
+            }
+          ]
+        },
+        {
+          "location": "Or001",
+          "destinations": [
+            {
+              "location": "Or011"
+            }
+          ]
+        },
+        {
+          "location": "Or001",
+          "guard": {
+            "op": ">",
+            "left": "ckOr",
+            "right": "dOr_l"
+          },
+          "destinations": [
+            {
+              "location": "Or000"
+            }
+          ]
+        },
+        {
+          "location": "Or010",
+          "destinations": [
+            {
+              "location": "Or110",
+              "assignments": [
+                {
+                  "ref": "ckOr",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Or010",
+          "destinations": [
+            {
+              "location": "Or000"
+            }
+          ]
+        },
+        {
+          "location": "Or010",
+          "guard": {
+            "op": ">",
+            "left": "ckOr",
+            "right": "dOr_l"
+          },
+          "destinations": [
+            {
+              "location": "Or011"
+            }
+          ]
+        },
+        {
+          "location": "Or011",
+          "destinations": [
+            {
+              "location": "Or111"
+            }
+          ]
+        },
+        {
+          "location": "Or011",
+          "destinations": [
+            {
+              "location": "Or001",
+              "assignments": [
+                {
+                  "ref": "ckOr",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Or100",
+          "destinations": [
+            {
+              "location": "Or000"
+            }
+          ]
+        },
+        {
+          "location": "Or100",
+          "destinations": [
+            {
+              "location": "Or110",
+              "assignments": [
+                {
+                  "ref": "ckOr",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Or100",
+          "guard": {
+            "op": ">",
+            "left": "ckOr",
+            "right": "dOr_l"
+          },
+          "destinations": [
+            {
+              "location": "Or101"
+            }
+          ]
+        },
+        {
+          "location": "Or101",
+          "destinations": [
+            {
+              "location": "Or001",
+              "assignments": [
+                {
+                  "ref": "ckOr",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Or101",
+          "destinations": [
+            {
+              "location": "Or111"
+            }
+          ]
+        },
+        {
+          "location": "Or110",
+          "destinations": [
+            {
+              "location": "Or010",
+              "assignments": [
+                {
+                  "ref": "ckOr",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Or110",
+          "destinations": [
+            {
+              "location": "Or100",
+              "assignments": [
+                {
+                  "ref": "ckOr",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Or110",
+          "guard": {
+            "op": ">",
+            "left": "ckOr",
+            "right": "dOr_l"
+          },
+          "destinations": [
+            {
+              "location": "Or111"
+            }
+          ]
+        },
+        {
+          "location": "Or111",
+          "destinations": [
+            {
+              "location": "Or011"
+            }
+          ]
+        },
+        {
+          "location": "Or111",
+          "destinations": [
+            {
+              "location": "Or101"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "input"
+      },
+      {
+        "automaton": "andGate"
+      },
+      {
+        "automaton": "orGate"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "aUp",
+          null,
+          "aUp"
+        ],
+        "result": "aUp"
+      },
+      {
+        "synchronise": [
+          "aDown",
+          null,
+          "aDown"
+        ],
+        "result": "aDown"
+      },
+      {
+        "synchronise": [
+          "bUp",
+          "bUp",
+          null
+        ],
+        "result": "bUp"
+      },
+      {
+        "synchronise": [
+          "bDown",
+          "bDown",
+          null
+        ],
+        "result": "bDown"
+      },
+      {
+        "synchronise": [
+          null,
+          "tUp",
+          "tUp"
+        ],
+        "result": "tUp"
+      },
+      {
+        "synchronise": [
+          null,
+          "tDown",
+          "tDown"
+        ],
+        "result": "tDown"
+      },
+      {
+        "synchronise": [
+          null,
+          "xUp",
+          "xUp"
+        ],
+        "result": "xUp"
+      },
+      {
+        "synchronise": [
+          null,
+          "xDown",
+          "xDown"
+        ],
+        "result": "xDown"
+      }
+    ]
+  }
+}

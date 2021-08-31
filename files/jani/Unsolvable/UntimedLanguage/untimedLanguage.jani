@@ -1,0 +1,282 @@
+{
+  "jani-version": 1,
+  "name": "Unsolvable/UntimedLanguage/untimedLanguage.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "a"
+    },
+    {
+      "name": "b"
+    },
+    {
+      "name": "c"
+    }
+  ],
+  "variables": [
+    {
+      "name": "x",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "y",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "p",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "pta",
+      "locations": [
+        {
+          "name": "l1",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": 1,
+                "right": "x"
+              },
+              "right": {
+                "op": ">",
+                "left": "p",
+                "right": "y"
+              }
+            }
+          }
+        },
+        {
+          "name": "l2",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": 1,
+                "right": "x"
+              },
+              "right": {
+                "op": ">",
+                "left": "p",
+                "right": "y"
+              }
+            }
+          }
+        },
+        {
+          "name": "l3",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": 1,
+                "right": "x"
+              },
+              "right": {
+                "op": ">",
+                "left": "p",
+                "right": "y"
+              }
+            }
+          }
+        },
+        {
+          "name": "l4"
+        }
+      ],
+      "initial_locations": [
+        "l1"
+      ],
+      "edges": [
+        {
+          "location": "l1",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "=",
+              "left": "x",
+              "right": 1
+            },
+            "right": {
+              "op": "=",
+              "left": "p",
+              "right": "y"
+            }
+          },
+          "destinations": [
+            {
+              "location": "l2",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                },
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "l1",
+          "guard": {
+            "op": "=",
+            "left": "x",
+            "right": 1
+          },
+          "destinations": [
+            {
+              "location": "l1",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "l2",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "=",
+              "left": "x",
+              "right": 1
+            },
+            "right": {
+              "op": "=",
+              "left": "p",
+              "right": "y"
+            }
+          },
+          "destinations": [
+            {
+              "location": "l3",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                },
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "l2",
+          "guard": {
+            "op": "=",
+            "left": "x",
+            "right": 1
+          },
+          "destinations": [
+            {
+              "location": "l2",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "l3",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "=",
+              "left": "x",
+              "right": 1
+            },
+            "right": {
+              "op": "=",
+              "left": "p",
+              "right": "y"
+            }
+          },
+          "destinations": [
+            {
+              "location": "l4",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                },
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "l3",
+          "guard": {
+            "op": "=",
+            "left": "x",
+            "right": 1
+          },
+          "destinations": [
+            {
+              "location": "l3",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "pta"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "a"
+        ],
+        "result": "a"
+      },
+      {
+        "synchronise": [
+          "b"
+        ],
+        "result": "b"
+      },
+      {
+        "synchronise": [
+          "c"
+        ],
+        "result": "c"
+      }
+    ]
+  }
+}

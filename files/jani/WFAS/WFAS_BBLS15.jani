@@ -1,0 +1,553 @@
+{
+  "jani-version": 1,
+  "name": "WFAS/WFAS_BBLS15.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "result1"
+    },
+    {
+      "name": "wakeup1"
+    },
+    {
+      "name": "result2"
+    },
+    {
+      "name": "wakeup2"
+    }
+  ],
+  "variables": [
+    {
+      "name": "x1",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "x2",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "x",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "y",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "p1",
+      "type": "real"
+    },
+    {
+      "name": "p2",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "sensor1",
+      "locations": [
+        {
+          "name": "idle"
+        },
+        {
+          "name": "awake",
+          "time-progress": {
+            "exp": {
+              "op": "≥",
+              "left": 3,
+              "right": "x1"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "idle"
+      ],
+      "edges": [
+        {
+          "location": "idle",
+          "destinations": [
+            {
+              "location": "awake",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "awake",
+          "destinations": [
+            {
+              "location": "awake"
+            }
+          ]
+        },
+        {
+          "location": "awake",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "≥",
+              "left": "x1",
+              "right": 2
+            },
+            "right": {
+              "op": "≥",
+              "left": 3,
+              "right": "x1"
+            }
+          },
+          "destinations": [
+            {
+              "location": "idle"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sensor2",
+      "locations": [
+        {
+          "name": "idle"
+        },
+        {
+          "name": "awake",
+          "time-progress": {
+            "exp": {
+              "op": "≥",
+              "left": 17,
+              "right": "x2"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "idle"
+      ],
+      "edges": [
+        {
+          "location": "idle",
+          "destinations": [
+            {
+              "location": "awake",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "awake",
+          "destinations": [
+            {
+              "location": "awake"
+            }
+          ]
+        },
+        {
+          "location": "awake",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "≥",
+              "left": "x2",
+              "right": 16
+            },
+            "right": {
+              "op": "≥",
+              "left": 17,
+              "right": "x2"
+            }
+          },
+          "destinations": [
+            {
+              "location": "idle"
+            }
+          ]
+        },
+        {
+          "location": "awake",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "≥",
+              "left": "x2",
+              "right": 2
+            },
+            "right": {
+              "op": "≥",
+              "left": 3,
+              "right": "x2"
+            }
+          },
+          "destinations": [
+            {
+              "location": "idle"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "controller",
+      "locations": [
+        {
+          "name": "cont_1",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "≥",
+                "left": 2,
+                "right": "x"
+              },
+              "right": {
+                "op": ">",
+                "left": 20,
+                "right": "y"
+              }
+            }
+          }
+        },
+        {
+          "name": "cont_2",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "p1",
+                "right": "x"
+              },
+              "right": {
+                "op": ">",
+                "left": 20,
+                "right": "y"
+              }
+            }
+          }
+        },
+        {
+          "name": "cont_3",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "≥",
+                "left": 2,
+                "right": "x"
+              },
+              "right": {
+                "op": ">",
+                "left": 20,
+                "right": "y"
+              }
+            }
+          }
+        },
+        {
+          "name": "cont_4",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "p2",
+                "right": "x"
+              },
+              "right": {
+                "op": ">",
+                "left": 20,
+                "right": "y"
+              }
+            }
+          }
+        },
+        {
+          "name": "fail"
+        },
+        {
+          "name": "timeout"
+        }
+      ],
+      "initial_locations": [
+        "cont_1"
+      ],
+      "edges": [
+        {
+          "location": "cont_1",
+          "destinations": [
+            {
+              "location": "fail"
+            }
+          ]
+        },
+        {
+          "location": "cont_1",
+          "destinations": [
+            {
+              "location": "fail"
+            }
+          ]
+        },
+        {
+          "location": "cont_1",
+          "guard": {
+            "op": "≥",
+            "left": 2,
+            "right": "x"
+          },
+          "destinations": [
+            {
+              "location": "cont_2"
+            }
+          ]
+        },
+        {
+          "location": "cont_1",
+          "guard": {
+            "op": "=",
+            "left": "y",
+            "right": 20
+          },
+          "destinations": [
+            {
+              "location": "timeout"
+            }
+          ]
+        },
+        {
+          "location": "cont_2",
+          "destinations": [
+            {
+              "location": "fail"
+            }
+          ]
+        },
+        {
+          "location": "cont_2",
+          "guard": {
+            "op": "=",
+            "left": "p1",
+            "right": "x"
+          },
+          "destinations": [
+            {
+              "location": "cont_3",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "cont_2",
+          "guard": {
+            "op": "≥",
+            "left": "p1",
+            "right": "x"
+          },
+          "destinations": [
+            {
+              "location": "cont_3",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "cont_2",
+          "guard": {
+            "op": "=",
+            "left": "y",
+            "right": 20
+          },
+          "destinations": [
+            {
+              "location": "timeout"
+            }
+          ]
+        },
+        {
+          "location": "cont_3",
+          "destinations": [
+            {
+              "location": "fail"
+            }
+          ]
+        },
+        {
+          "location": "cont_3",
+          "destinations": [
+            {
+              "location": "fail"
+            }
+          ]
+        },
+        {
+          "location": "cont_3",
+          "guard": {
+            "op": "≥",
+            "left": 2,
+            "right": "x"
+          },
+          "destinations": [
+            {
+              "location": "cont_4"
+            }
+          ]
+        },
+        {
+          "location": "cont_3",
+          "guard": {
+            "op": "=",
+            "left": "y",
+            "right": 20
+          },
+          "destinations": [
+            {
+              "location": "timeout"
+            }
+          ]
+        },
+        {
+          "location": "cont_4",
+          "destinations": [
+            {
+              "location": "fail"
+            }
+          ]
+        },
+        {
+          "location": "cont_4",
+          "guard": {
+            "op": "=",
+            "left": "p2",
+            "right": "x"
+          },
+          "destinations": [
+            {
+              "location": "cont_1",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                },
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "cont_4",
+          "guard": {
+            "op": "≥",
+            "left": "p2",
+            "right": "x"
+          },
+          "destinations": [
+            {
+              "location": "cont_1",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                },
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "cont_4",
+          "guard": {
+            "op": "=",
+            "left": "y",
+            "right": 20
+          },
+          "destinations": [
+            {
+              "location": "timeout"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "sensor1"
+      },
+      {
+        "automaton": "sensor2"
+      },
+      {
+        "automaton": "controller"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "result1",
+          null,
+          "result1"
+        ],
+        "result": "result1"
+      },
+      {
+        "synchronise": [
+          "wakeup1",
+          null,
+          "wakeup1"
+        ],
+        "result": "wakeup1"
+      },
+      {
+        "synchronise": [
+          null,
+          "result2",
+          "result2"
+        ],
+        "result": "result2"
+      },
+      {
+        "synchronise": [
+          null,
+          "wakeup2",
+          "wakeup2"
+        ],
+        "result": "wakeup2"
+      }
+    ]
+  }
+}

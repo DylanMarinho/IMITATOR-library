@@ -1,0 +1,234 @@
+{
+  "jani-version": 1,
+  "name": "ATM/fig1_DCLXZL18-fixed.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [],
+  "variables": [
+    {
+      "name": "x",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "y",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "z",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "p1",
+      "type": "real"
+    },
+    {
+      "name": "p2",
+      "type": "real"
+    },
+    {
+      "name": "p3",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "pta",
+      "locations": [
+        {
+          "name": "Idle"
+        },
+        {
+          "name": "Start",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "p1",
+              "right": "z"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "p2",
+                "right": "y"
+              },
+              "right": {
+                "op": ">",
+                "left": "p1",
+                "right": "z"
+              }
+            }
+          }
+        },
+        {
+          "name": "Withdrawals",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "p3",
+              "right": "x"
+            }
+          }
+        },
+        {
+          "name": "Check",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "p3",
+              "right": "x"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "Idle"
+      ],
+      "edges": [
+        {
+          "location": "Idle",
+          "destinations": [
+            {
+              "location": "Start",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                },
+                {
+                  "ref": "y",
+                  "value": 0
+                },
+                {
+                  "ref": "z",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Start",
+          "guard": {
+            "op": "=",
+            "left": "p1",
+            "right": "z"
+          },
+          "destinations": [
+            {
+              "location": "Idle"
+            }
+          ]
+        },
+        {
+          "location": "Start",
+          "guard": {
+            "op": ">",
+            "left": "p1",
+            "right": "z"
+          },
+          "destinations": [
+            {
+              "location": "Login",
+              "assignments": [
+                {
+                  "ref": "y",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Login",
+          "guard": {
+            "op": "=",
+            "left": "p1",
+            "right": "z"
+          },
+          "destinations": [
+            {
+              "location": "Idle"
+            }
+          ]
+        },
+        {
+          "location": "Login",
+          "destinations": [
+            {
+              "location": "Withdrawals",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Login",
+          "guard": {
+            "op": "=",
+            "left": "p2",
+            "right": "y"
+          },
+          "destinations": [
+            {
+              "location": "Start"
+            }
+          ]
+        },
+        {
+          "location": "Login",
+          "destinations": [
+            {
+              "location": "Check",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "Withdrawals",
+          "destinations": [
+            {
+              "location": "Login"
+            }
+          ]
+        },
+        {
+          "location": "Check",
+          "destinations": [
+            {
+              "location": "Login"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "pta"
+      }
+    ],
+    "syncs": []
+  }
+}

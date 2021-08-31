@@ -1,0 +1,1720 @@
+{
+  "jani-version": 1,
+  "name": "RCP/RCP_CS01.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "snd_ack12"
+    },
+    {
+      "name": "rcv_ack21"
+    },
+    {
+      "name": "snd_idle12"
+    },
+    {
+      "name": "rcv_idle21"
+    },
+    {
+      "name": "snd_req12"
+    },
+    {
+      "name": "rcv_req21"
+    },
+    {
+      "name": "root1"
+    },
+    {
+      "name": "child1"
+    },
+    {
+      "name": "snd_ack21"
+    },
+    {
+      "name": "rcv_ack12"
+    },
+    {
+      "name": "snd_idle21"
+    },
+    {
+      "name": "rcv_idle12"
+    },
+    {
+      "name": "snd_req21"
+    },
+    {
+      "name": "rcv_req12"
+    },
+    {
+      "name": "root2"
+    },
+    {
+      "name": "child2"
+    }
+  ],
+  "variables": [
+    {
+      "name": "x1",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "x2",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "x12",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "y12",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "x21",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "y21",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "s1",
+      "type": "real",
+      "initial_value": 0
+    },
+    {
+      "name": "s2",
+      "type": "real",
+      "initial_value": 0
+    },
+    {
+      "name": "s12",
+      "type": "real",
+      "initial_value": 0
+    },
+    {
+      "name": "sprime12",
+      "type": "real",
+      "initial_value": 0
+    },
+    {
+      "name": "s21",
+      "type": "real",
+      "initial_value": 0
+    },
+    {
+      "name": "sprime21",
+      "type": "real",
+      "initial_value": 0
+    },
+    {
+      "name": "rc_fast_min",
+      "type": "real"
+    },
+    {
+      "name": "rc_fast_max",
+      "type": "real"
+    },
+    {
+      "name": "rc_slow_min",
+      "type": "real"
+    },
+    {
+      "name": "rc_slow_max",
+      "type": "real"
+    },
+    {
+      "name": "delay",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "node1",
+      "locations": [
+        {
+          "name": "rcont1"
+        },
+        {
+          "name": "fast1",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "rc_fast_max",
+              "right": "x1"
+            }
+          }
+        },
+        {
+          "name": "slow1",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "rc_slow_max",
+              "right": "x1"
+            }
+          }
+        },
+        {
+          "name": "sample1"
+        },
+        {
+          "name": "snt_req1"
+        },
+        {
+          "name": "almost_child1"
+        },
+        {
+          "name": "child1"
+        },
+        {
+          "name": "almost_root1"
+        },
+        {
+          "name": "root1"
+        }
+      ],
+      "initial_locations": [
+        "rcont1"
+      ],
+      "edges": [
+        {
+          "location": "rcont1",
+          "destinations": [
+            {
+              "location": "slow1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "rcont1",
+          "destinations": [
+            {
+              "location": "fast1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "rcont1",
+          "destinations": [
+            {
+              "location": "rcont1",
+              "assignments": [
+                {
+                  "ref": "s1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "rcont1",
+          "destinations": [
+            {
+              "location": "rcont1",
+              "assignments": [
+                {
+                  "ref": "s1",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "rcont1",
+          "destinations": [
+            {
+              "location": "rcont1",
+              "assignments": [
+                {
+                  "ref": "s1",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "fast1",
+          "guard": {
+            "op": ">",
+            "left": "x1",
+            "right": "rc_fast_min"
+          },
+          "destinations": [
+            {
+              "location": "sample1"
+            }
+          ]
+        },
+        {
+          "location": "fast1",
+          "destinations": [
+            {
+              "location": "fast1",
+              "assignments": [
+                {
+                  "ref": "s1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "fast1",
+          "destinations": [
+            {
+              "location": "fast1",
+              "assignments": [
+                {
+                  "ref": "s1",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "fast1",
+          "destinations": [
+            {
+              "location": "fast1",
+              "assignments": [
+                {
+                  "ref": "s1",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "slow1",
+          "guard": {
+            "op": ">",
+            "left": "x1",
+            "right": "rc_slow_min"
+          },
+          "destinations": [
+            {
+              "location": "sample1"
+            }
+          ]
+        },
+        {
+          "location": "slow1",
+          "destinations": [
+            {
+              "location": "slow1",
+              "assignments": [
+                {
+                  "ref": "s1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "slow1",
+          "destinations": [
+            {
+              "location": "slow1",
+              "assignments": [
+                {
+                  "ref": "s1",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "slow1",
+          "destinations": [
+            {
+              "location": "slow1",
+              "assignments": [
+                {
+                  "ref": "s1",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "sample1",
+          "guard": {
+            "op": "=",
+            "left": "s1",
+            "right": 1
+          },
+          "destinations": [
+            {
+              "location": "snt_req1"
+            }
+          ]
+        },
+        {
+          "location": "sample1",
+          "guard": {
+            "op": "=",
+            "left": "s1",
+            "right": 2
+          },
+          "destinations": [
+            {
+              "location": "almost_root1"
+            }
+          ]
+        },
+        {
+          "location": "snt_req1",
+          "destinations": [
+            {
+              "location": "rcont1",
+              "assignments": [
+                {
+                  "ref": "s1",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "snt_req1",
+          "destinations": [
+            {
+              "location": "almost_child1",
+              "assignments": [
+                {
+                  "ref": "s1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "almost_child1",
+          "destinations": [
+            {
+              "location": "child1"
+            }
+          ]
+        },
+        {
+          "location": "almost_root1",
+          "destinations": [
+            {
+              "location": "root1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "node2",
+      "locations": [
+        {
+          "name": "rcont2"
+        },
+        {
+          "name": "fast2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "rc_fast_max",
+              "right": "x2"
+            }
+          }
+        },
+        {
+          "name": "slow2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "rc_slow_max",
+              "right": "x2"
+            }
+          }
+        },
+        {
+          "name": "sample2"
+        },
+        {
+          "name": "snt_req2"
+        },
+        {
+          "name": "almost_child2"
+        },
+        {
+          "name": "child2"
+        },
+        {
+          "name": "almost_root2"
+        },
+        {
+          "name": "root2"
+        }
+      ],
+      "initial_locations": [
+        "rcont2"
+      ],
+      "edges": [
+        {
+          "location": "rcont2",
+          "destinations": [
+            {
+              "location": "slow2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "rcont2",
+          "destinations": [
+            {
+              "location": "fast2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "rcont2",
+          "destinations": [
+            {
+              "location": "rcont2",
+              "assignments": [
+                {
+                  "ref": "s2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "rcont2",
+          "destinations": [
+            {
+              "location": "rcont2",
+              "assignments": [
+                {
+                  "ref": "s2",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "rcont2",
+          "destinations": [
+            {
+              "location": "rcont2",
+              "assignments": [
+                {
+                  "ref": "s2",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "fast2",
+          "guard": {
+            "op": ">",
+            "left": "x2",
+            "right": "rc_fast_min"
+          },
+          "destinations": [
+            {
+              "location": "sample2"
+            }
+          ]
+        },
+        {
+          "location": "fast2",
+          "destinations": [
+            {
+              "location": "fast2",
+              "assignments": [
+                {
+                  "ref": "s2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "fast2",
+          "destinations": [
+            {
+              "location": "fast2",
+              "assignments": [
+                {
+                  "ref": "s2",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "fast2",
+          "destinations": [
+            {
+              "location": "fast2",
+              "assignments": [
+                {
+                  "ref": "s2",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "slow2",
+          "guard": {
+            "op": ">",
+            "left": "x2",
+            "right": "rc_slow_min"
+          },
+          "destinations": [
+            {
+              "location": "sample2"
+            }
+          ]
+        },
+        {
+          "location": "slow2",
+          "destinations": [
+            {
+              "location": "slow2",
+              "assignments": [
+                {
+                  "ref": "s2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "slow2",
+          "destinations": [
+            {
+              "location": "slow2",
+              "assignments": [
+                {
+                  "ref": "s2",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "slow2",
+          "destinations": [
+            {
+              "location": "slow2",
+              "assignments": [
+                {
+                  "ref": "s2",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "sample2",
+          "guard": {
+            "op": "=",
+            "left": "s2",
+            "right": 1
+          },
+          "destinations": [
+            {
+              "location": "snt_req2"
+            }
+          ]
+        },
+        {
+          "location": "sample2",
+          "guard": {
+            "op": "=",
+            "left": "s2",
+            "right": 2
+          },
+          "destinations": [
+            {
+              "location": "almost_root2"
+            }
+          ]
+        },
+        {
+          "location": "snt_req2",
+          "destinations": [
+            {
+              "location": "rcont2",
+              "assignments": [
+                {
+                  "ref": "s2",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "snt_req2",
+          "destinations": [
+            {
+              "location": "almost_child2",
+              "assignments": [
+                {
+                  "ref": "s2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "almost_child2",
+          "destinations": [
+            {
+              "location": "child2"
+            }
+          ]
+        },
+        {
+          "location": "almost_root2",
+          "destinations": [
+            {
+              "location": "root2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wire12",
+      "locations": [
+        {
+          "name": "empty12"
+        },
+        {
+          "name": "bufone12",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "delay",
+              "right": "y12"
+            }
+          }
+        },
+        {
+          "name": "buftwo12",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "delay",
+              "right": "x12"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "empty12"
+      ],
+      "edges": [
+        {
+          "location": "empty12",
+          "destinations": [
+            {
+              "location": "bufone12",
+              "assignments": [
+                {
+                  "ref": "x12",
+                  "value": 0
+                },
+                {
+                  "ref": "y12",
+                  "value": 0
+                },
+                {
+                  "ref": "s12",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "empty12",
+          "destinations": [
+            {
+              "location": "bufone12",
+              "assignments": [
+                {
+                  "ref": "x12",
+                  "value": 0
+                },
+                {
+                  "ref": "y12",
+                  "value": 0
+                },
+                {
+                  "ref": "s12",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "empty12",
+          "destinations": [
+            {
+              "location": "bufone12",
+              "assignments": [
+                {
+                  "ref": "x12",
+                  "value": 0
+                },
+                {
+                  "ref": "y12",
+                  "value": 0
+                },
+                {
+                  "ref": "s12",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "bufone12",
+          "destinations": [
+            {
+              "location": "buftwo12",
+              "assignments": [
+                {
+                  "ref": "y12",
+                  "value": 0
+                },
+                {
+                  "ref": "sprime12",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "bufone12",
+          "guard": {
+            "op": "=",
+            "left": "s12",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "bufone12"
+            }
+          ]
+        },
+        {
+          "location": "bufone12",
+          "destinations": [
+            {
+              "location": "buftwo12",
+              "assignments": [
+                {
+                  "ref": "y12",
+                  "value": 0
+                },
+                {
+                  "ref": "sprime12",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "bufone12",
+          "guard": {
+            "op": "=",
+            "left": "s12",
+            "right": 1
+          },
+          "destinations": [
+            {
+              "location": "bufone12"
+            }
+          ]
+        },
+        {
+          "location": "bufone12",
+          "destinations": [
+            {
+              "location": "buftwo12",
+              "assignments": [
+                {
+                  "ref": "y12",
+                  "value": 0
+                },
+                {
+                  "ref": "sprime12",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "bufone12",
+          "guard": {
+            "op": "=",
+            "left": "s12",
+            "right": 2
+          },
+          "destinations": [
+            {
+              "location": "bufone12"
+            }
+          ]
+        },
+        {
+          "location": "bufone12",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "=",
+              "left": "s12",
+              "right": 0
+            },
+            "right": {
+              "op": "≥",
+              "left": "y12",
+              "right": 0
+            }
+          },
+          "destinations": [
+            {
+              "location": "empty12"
+            }
+          ]
+        },
+        {
+          "location": "bufone12",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "=",
+              "left": "s12",
+              "right": 1
+            },
+            "right": {
+              "op": "≥",
+              "left": "y12",
+              "right": 0
+            }
+          },
+          "destinations": [
+            {
+              "location": "empty12"
+            }
+          ]
+        },
+        {
+          "location": "bufone12",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "=",
+              "left": "s12",
+              "right": 2
+            },
+            "right": {
+              "op": "≥",
+              "left": "y12",
+              "right": 0
+            }
+          },
+          "destinations": [
+            {
+              "location": "empty12"
+            }
+          ]
+        },
+        {
+          "location": "buftwo12",
+          "guard": {
+            "op": "=",
+            "left": "sprime12",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "buftwo12"
+            }
+          ]
+        },
+        {
+          "location": "buftwo12",
+          "guard": {
+            "op": "=",
+            "left": "sprime12",
+            "right": 1
+          },
+          "destinations": [
+            {
+              "location": "buftwo12"
+            }
+          ]
+        },
+        {
+          "location": "buftwo12",
+          "guard": {
+            "op": "=",
+            "left": "sprime12",
+            "right": 2
+          },
+          "destinations": [
+            {
+              "location": "buftwo12"
+            }
+          ]
+        },
+        {
+          "location": "buftwo12",
+          "guard": {
+            "op": "≥",
+            "left": "x12",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "bufone12",
+              "assignments": [
+                {
+                  "ref": "sprime12",
+                  "value": "s12"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "buftwo12",
+          "guard": {
+            "op": "≥",
+            "left": "x12",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "bufone12",
+              "assignments": [
+                {
+                  "ref": "sprime12",
+                  "value": "s12"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "buftwo12",
+          "guard": {
+            "op": "≥",
+            "left": "x12",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "bufone12",
+              "assignments": [
+                {
+                  "ref": "sprime12",
+                  "value": "s12"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wire21",
+      "locations": [
+        {
+          "name": "empty21"
+        },
+        {
+          "name": "bufone21",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "delay",
+              "right": "y21"
+            }
+          }
+        },
+        {
+          "name": "buftwo21",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "delay",
+              "right": "x21"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "empty21"
+      ],
+      "edges": [
+        {
+          "location": "empty21",
+          "destinations": [
+            {
+              "location": "bufone21",
+              "assignments": [
+                {
+                  "ref": "x21",
+                  "value": 0
+                },
+                {
+                  "ref": "y21",
+                  "value": 0
+                },
+                {
+                  "ref": "s21",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "empty21",
+          "destinations": [
+            {
+              "location": "bufone21",
+              "assignments": [
+                {
+                  "ref": "x21",
+                  "value": 0
+                },
+                {
+                  "ref": "y21",
+                  "value": 0
+                },
+                {
+                  "ref": "s21",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "empty21",
+          "destinations": [
+            {
+              "location": "bufone21",
+              "assignments": [
+                {
+                  "ref": "x21",
+                  "value": 0
+                },
+                {
+                  "ref": "y21",
+                  "value": 0
+                },
+                {
+                  "ref": "s21",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "bufone21",
+          "destinations": [
+            {
+              "location": "buftwo21",
+              "assignments": [
+                {
+                  "ref": "y21",
+                  "value": 0
+                },
+                {
+                  "ref": "sprime21",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "bufone21",
+          "guard": {
+            "op": "=",
+            "left": "s21",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "bufone21"
+            }
+          ]
+        },
+        {
+          "location": "bufone21",
+          "destinations": [
+            {
+              "location": "buftwo21",
+              "assignments": [
+                {
+                  "ref": "y21",
+                  "value": 0
+                },
+                {
+                  "ref": "sprime21",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "bufone21",
+          "guard": {
+            "op": "=",
+            "left": "s21",
+            "right": 1
+          },
+          "destinations": [
+            {
+              "location": "bufone21"
+            }
+          ]
+        },
+        {
+          "location": "bufone21",
+          "destinations": [
+            {
+              "location": "buftwo21",
+              "assignments": [
+                {
+                  "ref": "y21",
+                  "value": 0
+                },
+                {
+                  "ref": "sprime21",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "bufone21",
+          "guard": {
+            "op": "=",
+            "left": "s21",
+            "right": 2
+          },
+          "destinations": [
+            {
+              "location": "bufone21"
+            }
+          ]
+        },
+        {
+          "location": "bufone21",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "=",
+              "left": "s21",
+              "right": 0
+            },
+            "right": {
+              "op": "≥",
+              "left": "y21",
+              "right": 0
+            }
+          },
+          "destinations": [
+            {
+              "location": "empty21"
+            }
+          ]
+        },
+        {
+          "location": "bufone21",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "=",
+              "left": "s21",
+              "right": 1
+            },
+            "right": {
+              "op": "≥",
+              "left": "y21",
+              "right": 0
+            }
+          },
+          "destinations": [
+            {
+              "location": "empty21"
+            }
+          ]
+        },
+        {
+          "location": "bufone21",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "=",
+              "left": "s21",
+              "right": 2
+            },
+            "right": {
+              "op": "≥",
+              "left": "y21",
+              "right": 0
+            }
+          },
+          "destinations": [
+            {
+              "location": "empty21"
+            }
+          ]
+        },
+        {
+          "location": "buftwo21",
+          "guard": {
+            "op": "=",
+            "left": "sprime21",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "buftwo21"
+            }
+          ]
+        },
+        {
+          "location": "buftwo21",
+          "guard": {
+            "op": "=",
+            "left": "sprime21",
+            "right": 1
+          },
+          "destinations": [
+            {
+              "location": "buftwo21"
+            }
+          ]
+        },
+        {
+          "location": "buftwo21",
+          "guard": {
+            "op": "=",
+            "left": "sprime21",
+            "right": 2
+          },
+          "destinations": [
+            {
+              "location": "buftwo21"
+            }
+          ]
+        },
+        {
+          "location": "buftwo21",
+          "guard": {
+            "op": "≥",
+            "left": "x21",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "bufone21",
+              "assignments": [
+                {
+                  "ref": "sprime21",
+                  "value": "s21"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "buftwo21",
+          "guard": {
+            "op": "≥",
+            "left": "x21",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "bufone21",
+              "assignments": [
+                {
+                  "ref": "sprime21",
+                  "value": "s21"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "buftwo21",
+          "guard": {
+            "op": "≥",
+            "left": "x21",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "bufone21",
+              "assignments": [
+                {
+                  "ref": "sprime21",
+                  "value": "s21"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "s1o",
+      "locations": [
+        {
+          "name": "S1oStart"
+        },
+        {
+          "name": "S1o1"
+        },
+        {
+          "name": "S1o2"
+        },
+        {
+          "name": "S1o3"
+        },
+        {
+          "name": "S1o4"
+        },
+        {
+          "name": "S1oEnd"
+        }
+      ],
+      "initial_locations": [
+        "S1oStart"
+      ],
+      "edges": [
+        {
+          "location": "S1oStart",
+          "destinations": [
+            {
+              "location": "S1o1"
+            }
+          ]
+        },
+        {
+          "location": "S1oStart",
+          "destinations": [
+            {
+              "location": "S1o2"
+            }
+          ]
+        },
+        {
+          "location": "S1oStart",
+          "destinations": [
+            {
+              "location": "S1o3"
+            }
+          ]
+        },
+        {
+          "location": "S1oStart",
+          "destinations": [
+            {
+              "location": "S1o4"
+            }
+          ]
+        },
+        {
+          "location": "S1o1",
+          "destinations": [
+            {
+              "location": "S1oEnd"
+            }
+          ]
+        },
+        {
+          "location": "S1o2",
+          "destinations": [
+            {
+              "location": "S1oEnd"
+            }
+          ]
+        },
+        {
+          "location": "S1o3",
+          "destinations": [
+            {
+              "location": "S1oEnd"
+            }
+          ]
+        },
+        {
+          "location": "S1o4",
+          "destinations": [
+            {
+              "location": "S1oEnd"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "node1"
+      },
+      {
+        "automaton": "node2"
+      },
+      {
+        "automaton": "wire12"
+      },
+      {
+        "automaton": "wire21"
+      },
+      {
+        "automaton": "s1o"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "snd_ack12",
+          null,
+          "snd_ack12",
+          null,
+          null
+        ],
+        "result": "snd_ack12"
+      },
+      {
+        "synchronise": [
+          "rcv_ack21",
+          null,
+          null,
+          "rcv_ack21",
+          null
+        ],
+        "result": "rcv_ack21"
+      },
+      {
+        "synchronise": [
+          "snd_idle12",
+          null,
+          "snd_idle12",
+          null,
+          null
+        ],
+        "result": "snd_idle12"
+      },
+      {
+        "synchronise": [
+          "rcv_idle21",
+          null,
+          null,
+          "rcv_idle21",
+          null
+        ],
+        "result": "rcv_idle21"
+      },
+      {
+        "synchronise": [
+          "snd_req12",
+          null,
+          "snd_req12",
+          null,
+          null
+        ],
+        "result": "snd_req12"
+      },
+      {
+        "synchronise": [
+          "rcv_req21",
+          null,
+          null,
+          "rcv_req21",
+          null
+        ],
+        "result": "rcv_req21"
+      },
+      {
+        "synchronise": [
+          "root1",
+          null,
+          null,
+          null,
+          "root1"
+        ],
+        "result": "root1"
+      },
+      {
+        "synchronise": [
+          "child1",
+          null,
+          null,
+          null,
+          "child1"
+        ],
+        "result": "child1"
+      },
+      {
+        "synchronise": [
+          null,
+          "snd_ack21",
+          null,
+          "snd_ack21",
+          null
+        ],
+        "result": "snd_ack21"
+      },
+      {
+        "synchronise": [
+          null,
+          "rcv_ack12",
+          "rcv_ack12",
+          null,
+          null
+        ],
+        "result": "rcv_ack12"
+      },
+      {
+        "synchronise": [
+          null,
+          "snd_idle21",
+          null,
+          "snd_idle21",
+          null
+        ],
+        "result": "snd_idle21"
+      },
+      {
+        "synchronise": [
+          null,
+          "rcv_idle12",
+          "rcv_idle12",
+          null,
+          null
+        ],
+        "result": "rcv_idle12"
+      },
+      {
+        "synchronise": [
+          null,
+          "snd_req21",
+          null,
+          "snd_req21",
+          null
+        ],
+        "result": "snd_req21"
+      },
+      {
+        "synchronise": [
+          null,
+          "rcv_req12",
+          "rcv_req12",
+          null,
+          null
+        ],
+        "result": "rcv_req12"
+      },
+      {
+        "synchronise": [
+          null,
+          "root2",
+          null,
+          null,
+          "root2"
+        ],
+        "result": "root2"
+      },
+      {
+        "synchronise": [
+          null,
+          "child2",
+          null,
+          null,
+          "child2"
+        ],
+        "result": "child2"
+      }
+    ]
+  }
+}

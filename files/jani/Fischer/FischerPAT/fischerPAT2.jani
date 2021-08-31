@@ -1,0 +1,563 @@
+{
+  "jani-version": 1,
+  "name": "Fischer/FischerPAT/fischerPAT2.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "access_1"
+    },
+    {
+      "name": "enter_1"
+    },
+    {
+      "name": "exit_1"
+    },
+    {
+      "name": "no_access_1"
+    },
+    {
+      "name": "try_1"
+    },
+    {
+      "name": "update_1"
+    },
+    {
+      "name": "access_2"
+    },
+    {
+      "name": "enter_2"
+    },
+    {
+      "name": "exit_2"
+    },
+    {
+      "name": "no_access_2"
+    },
+    {
+      "name": "try_2"
+    },
+    {
+      "name": "update_2"
+    }
+  ],
+  "variables": [
+    {
+      "name": "x1",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "x2",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "turn",
+      "type": "real",
+      "initial_value": -1
+    },
+    {
+      "name": "counter",
+      "type": "real",
+      "initial_value": 0
+    },
+    {
+      "name": "delta",
+      "type": "real"
+    },
+    {
+      "name": "epsilon",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "proc1",
+      "locations": [
+        {
+          "name": "idle1"
+        },
+        {
+          "name": "active1",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "delta",
+              "right": "x1"
+            }
+          }
+        },
+        {
+          "name": "check1"
+        },
+        {
+          "name": "access1"
+        },
+        {
+          "name": "CS1"
+        }
+      ],
+      "initial_locations": [
+        "idle1"
+      ],
+      "edges": [
+        {
+          "location": "idle1",
+          "guard": {
+            "op": "=",
+            "left": "turn",
+            "right": -1
+          },
+          "destinations": [
+            {
+              "location": "active1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "active1",
+          "destinations": [
+            {
+              "location": "check1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                },
+                {
+                  "ref": "turn",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "check1",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "=",
+              "left": "turn",
+              "right": 1
+            },
+            "right": {
+              "op": ">",
+              "left": "x1",
+              "right": "epsilon"
+            }
+          },
+          "destinations": [
+            {
+              "location": "access1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "check1",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "≥",
+              "left": "turn",
+              "right": 1
+            },
+            "right": {
+              "op": ">",
+              "left": "x1",
+              "right": "epsilon"
+            }
+          },
+          "destinations": [
+            {
+              "location": "idle1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "check1",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "<",
+              "left": "turn",
+              "right": 1
+            },
+            "right": {
+              "op": ">",
+              "left": "x1",
+              "right": "epsilon"
+            }
+          },
+          "destinations": [
+            {
+              "location": "idle1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "access1",
+          "destinations": [
+            {
+              "location": "CS1",
+              "assignments": [
+                {
+                  "ref": "counter",
+                  "value": {
+                    "op": "+",
+                    "left": "counter",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "CS1",
+          "destinations": [
+            {
+              "location": "idle1",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                },
+                {
+                  "ref": "turn",
+                  "value": -1
+                },
+                {
+                  "ref": "counter",
+                  "value": {
+                    "op": "-",
+                    "left": "counter",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "proc2",
+      "locations": [
+        {
+          "name": "idle2"
+        },
+        {
+          "name": "active2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "delta",
+              "right": "x2"
+            }
+          }
+        },
+        {
+          "name": "check2"
+        },
+        {
+          "name": "access2"
+        },
+        {
+          "name": "CS2"
+        }
+      ],
+      "initial_locations": [
+        "idle2"
+      ],
+      "edges": [
+        {
+          "location": "idle2",
+          "guard": {
+            "op": "=",
+            "left": "turn",
+            "right": -1
+          },
+          "destinations": [
+            {
+              "location": "active2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "active2",
+          "destinations": [
+            {
+              "location": "check2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                },
+                {
+                  "ref": "turn",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "check2",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "=",
+              "left": "turn",
+              "right": 2
+            },
+            "right": {
+              "op": ">",
+              "left": "x2",
+              "right": "epsilon"
+            }
+          },
+          "destinations": [
+            {
+              "location": "access2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "check2",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "≥",
+              "left": "turn",
+              "right": 2
+            },
+            "right": {
+              "op": ">",
+              "left": "x2",
+              "right": "epsilon"
+            }
+          },
+          "destinations": [
+            {
+              "location": "idle2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "check2",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "<",
+              "left": "turn",
+              "right": 2
+            },
+            "right": {
+              "op": ">",
+              "left": "x2",
+              "right": "epsilon"
+            }
+          },
+          "destinations": [
+            {
+              "location": "idle2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "access2",
+          "destinations": [
+            {
+              "location": "CS2",
+              "assignments": [
+                {
+                  "ref": "counter",
+                  "value": {
+                    "op": "+",
+                    "left": "counter",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "CS2",
+          "destinations": [
+            {
+              "location": "idle2",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                },
+                {
+                  "ref": "turn",
+                  "value": -1
+                },
+                {
+                  "ref": "counter",
+                  "value": {
+                    "op": "-",
+                    "left": "counter",
+                    "right": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "proc1"
+      },
+      {
+        "automaton": "proc2"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "access_1",
+          null
+        ],
+        "result": "access_1"
+      },
+      {
+        "synchronise": [
+          "enter_1",
+          null
+        ],
+        "result": "enter_1"
+      },
+      {
+        "synchronise": [
+          "exit_1",
+          null
+        ],
+        "result": "exit_1"
+      },
+      {
+        "synchronise": [
+          "no_access_1",
+          null
+        ],
+        "result": "no_access_1"
+      },
+      {
+        "synchronise": [
+          "try_1",
+          null
+        ],
+        "result": "try_1"
+      },
+      {
+        "synchronise": [
+          "update_1",
+          null
+        ],
+        "result": "update_1"
+      },
+      {
+        "synchronise": [
+          null,
+          "access_2"
+        ],
+        "result": "access_2"
+      },
+      {
+        "synchronise": [
+          null,
+          "enter_2"
+        ],
+        "result": "enter_2"
+      },
+      {
+        "synchronise": [
+          null,
+          "exit_2"
+        ],
+        "result": "exit_2"
+      },
+      {
+        "synchronise": [
+          null,
+          "no_access_2"
+        ],
+        "result": "no_access_2"
+      },
+      {
+        "synchronise": [
+          null,
+          "try_2"
+        ],
+        "result": "try_2"
+      },
+      {
+        "synchronise": [
+          null,
+          "update_2"
+        ],
+        "result": "update_2"
+      }
+    ]
+  }
+}

@@ -1,0 +1,313 @@
+{
+  "jani-version": 1,
+  "name": "NuclearPlant/NuclearPlant.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "startHeating"
+    },
+    {
+      "name": "tooHot"
+    },
+    {
+      "name": "triggerAlarm"
+    },
+    {
+      "name": "startWatering"
+    },
+    {
+      "name": "endWatering"
+    },
+    {
+      "name": "restart"
+    }
+  ],
+  "variables": [
+    {
+      "name": "x1",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "x2",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "p1",
+      "type": "real"
+    },
+    {
+      "name": "p2",
+      "type": "real"
+    },
+    {
+      "name": "p3",
+      "type": "real"
+    },
+    {
+      "name": "p4",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "plant",
+      "locations": [
+        {
+          "name": "normal"
+        },
+        {
+          "name": "heating",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "p1",
+                "right": "x1"
+              },
+              "right": {
+                "op": ">",
+                "left": "p2",
+                "right": "x2"
+              }
+            }
+          }
+        },
+        {
+          "name": "ringing",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "p1",
+                "right": "x1"
+              },
+              "right": {
+                "op": ">",
+                "left": "p3",
+                "right": "x2"
+              }
+            }
+          }
+        },
+        {
+          "name": "watering",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "p1",
+                "right": "x1"
+              },
+              "right": {
+                "op": ">",
+                "left": "p4",
+                "right": "x2"
+              }
+            }
+          }
+        },
+        {
+          "name": "stopped"
+        },
+        {
+          "name": "boom"
+        }
+      ],
+      "initial_locations": [
+        "normal"
+      ],
+      "edges": [
+        {
+          "location": "normal",
+          "destinations": [
+            {
+              "location": "heating",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                },
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "heating",
+          "guard": {
+            "op": ">",
+            "left": "x1",
+            "right": "p1"
+          },
+          "destinations": [
+            {
+              "location": "boom"
+            }
+          ]
+        },
+        {
+          "location": "heating",
+          "guard": {
+            "op": "=",
+            "left": "p2",
+            "right": "x2"
+          },
+          "destinations": [
+            {
+              "location": "ringing",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "ringing",
+          "guard": {
+            "op": ">",
+            "left": "x1",
+            "right": "p1"
+          },
+          "destinations": [
+            {
+              "location": "boom"
+            }
+          ]
+        },
+        {
+          "location": "ringing",
+          "guard": {
+            "op": "=",
+            "left": "p3",
+            "right": "x2"
+          },
+          "destinations": [
+            {
+              "location": "watering",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "watering",
+          "guard": {
+            "op": ">",
+            "left": "x1",
+            "right": "p1"
+          },
+          "destinations": [
+            {
+              "location": "boom"
+            }
+          ]
+        },
+        {
+          "location": "watering",
+          "guard": {
+            "op": ">",
+            "left": "p4",
+            "right": "x2"
+          },
+          "destinations": [
+            {
+              "location": "stopped",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                },
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "stopped",
+          "destinations": [
+            {
+              "location": "normal",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                },
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "plant"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "startHeating"
+        ],
+        "result": "startHeating"
+      },
+      {
+        "synchronise": [
+          "tooHot"
+        ],
+        "result": "tooHot"
+      },
+      {
+        "synchronise": [
+          "triggerAlarm"
+        ],
+        "result": "triggerAlarm"
+      },
+      {
+        "synchronise": [
+          "startWatering"
+        ],
+        "result": "startWatering"
+      },
+      {
+        "synchronise": [
+          "endWatering"
+        ],
+        "result": "endWatering"
+      },
+      {
+        "synchronise": [
+          "restart"
+        ],
+        "result": "restart"
+      }
+    ]
+  }
+}

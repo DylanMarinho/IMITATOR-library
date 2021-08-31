@@ -1,0 +1,940 @@
+{
+  "jani-version": 1,
+  "name": "ProdCons/Pipeline_KP12_3_3.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "ProdReset"
+    },
+    {
+      "name": "Feed2"
+    },
+    {
+      "name": "ConsReset"
+    },
+    {
+      "name": "Feed5"
+    },
+    {
+      "name": "Node1Process1"
+    },
+    {
+      "name": "Node1Process2"
+    },
+    {
+      "name": "Node1Process3"
+    },
+    {
+      "name": "Feed3"
+    },
+    {
+      "name": "Node2Process1"
+    },
+    {
+      "name": "Node2Process2"
+    },
+    {
+      "name": "Node2Process3"
+    },
+    {
+      "name": "Feed4"
+    },
+    {
+      "name": "Node3Process1"
+    },
+    {
+      "name": "Node3Process2"
+    },
+    {
+      "name": "Node3Process3"
+    }
+  ],
+  "variables": [
+    {
+      "name": "xprod",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "xnode1",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "xnode2",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "xnode3",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "xcons",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "xtotal",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "a",
+      "type": "real"
+    },
+    {
+      "name": "b",
+      "type": "real"
+    },
+    {
+      "name": "c",
+      "type": "real"
+    },
+    {
+      "name": "d",
+      "type": "real"
+    },
+    {
+      "name": "e",
+      "type": "real"
+    },
+    {
+      "name": "f",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "Producer",
+      "locations": [
+        {
+          "name": "prodReady",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "d",
+              "right": "xprod"
+            }
+          }
+        },
+        {
+          "name": "prodWaiting",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "b",
+              "right": "xprod"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "prodReady"
+      ],
+      "edges": [
+        {
+          "location": "prodReady",
+          "guard": {
+            "op": ">",
+            "left": "xprod",
+            "right": "c"
+          },
+          "destinations": [
+            {
+              "location": "prodWaiting",
+              "assignments": [
+                {
+                  "ref": "xprod",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "prodWaiting",
+          "guard": {
+            "op": ">",
+            "left": "xprod",
+            "right": "a"
+          },
+          "destinations": [
+            {
+              "location": "prodReady",
+              "assignments": [
+                {
+                  "ref": "xprod",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Consumer",
+      "locations": [
+        {
+          "name": "consReady",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "d",
+              "right": "xcons"
+            }
+          }
+        },
+        {
+          "name": "consWaiting",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "b",
+              "right": "xcons"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "consReady"
+      ],
+      "edges": [
+        {
+          "location": "consReady",
+          "guard": {
+            "op": ">",
+            "left": "xcons",
+            "right": "c"
+          },
+          "destinations": [
+            {
+              "location": "consWaiting",
+              "assignments": [
+                {
+                  "ref": "xcons",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "consWaiting",
+          "guard": {
+            "op": ">",
+            "left": "xcons",
+            "right": "a"
+          },
+          "destinations": [
+            {
+              "location": "consReady",
+              "assignments": [
+                {
+                  "ref": "xcons",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Node1",
+      "locations": [
+        {
+          "name": "node1Ready",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "d",
+              "right": "xnode1"
+            }
+          }
+        },
+        {
+          "name": "intermediate1",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "f",
+              "right": "xnode1"
+            }
+          }
+        },
+        {
+          "name": "intermediate2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "f",
+              "right": "xnode1"
+            }
+          }
+        },
+        {
+          "name": "intermediate3",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "f",
+              "right": "xnode1"
+            }
+          }
+        },
+        {
+          "name": "send",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "d",
+              "right": "xnode1"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "node1Ready"
+      ],
+      "edges": [
+        {
+          "location": "node1Ready",
+          "guard": {
+            "op": ">",
+            "left": "xnode1",
+            "right": "c"
+          },
+          "destinations": [
+            {
+              "location": "intermediate1",
+              "assignments": [
+                {
+                  "ref": "xnode1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "intermediate1",
+          "guard": {
+            "op": ">",
+            "left": "xnode1",
+            "right": "e"
+          },
+          "destinations": [
+            {
+              "location": "intermediate2",
+              "assignments": [
+                {
+                  "ref": "xnode1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "intermediate2",
+          "guard": {
+            "op": ">",
+            "left": "xnode1",
+            "right": "e"
+          },
+          "destinations": [
+            {
+              "location": "intermediate3",
+              "assignments": [
+                {
+                  "ref": "xnode1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "intermediate3",
+          "guard": {
+            "op": ">",
+            "left": "xnode1",
+            "right": "e"
+          },
+          "destinations": [
+            {
+              "location": "send",
+              "assignments": [
+                {
+                  "ref": "xnode1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "send",
+          "guard": {
+            "op": ">",
+            "left": "xnode1",
+            "right": "c"
+          },
+          "destinations": [
+            {
+              "location": "node1Ready",
+              "assignments": [
+                {
+                  "ref": "xnode1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Node2",
+      "locations": [
+        {
+          "name": "node2Ready",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "d",
+              "right": "xnode2"
+            }
+          }
+        },
+        {
+          "name": "intermediate1",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "f",
+              "right": "xnode2"
+            }
+          }
+        },
+        {
+          "name": "intermediate2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "f",
+              "right": "xnode2"
+            }
+          }
+        },
+        {
+          "name": "intermediate3",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "f",
+              "right": "xnode2"
+            }
+          }
+        },
+        {
+          "name": "send",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "d",
+              "right": "xnode2"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "node2Ready"
+      ],
+      "edges": [
+        {
+          "location": "node2Ready",
+          "guard": {
+            "op": ">",
+            "left": "xnode2",
+            "right": "c"
+          },
+          "destinations": [
+            {
+              "location": "intermediate1",
+              "assignments": [
+                {
+                  "ref": "xnode2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "intermediate1",
+          "guard": {
+            "op": ">",
+            "left": "xnode2",
+            "right": "e"
+          },
+          "destinations": [
+            {
+              "location": "intermediate2",
+              "assignments": [
+                {
+                  "ref": "xnode2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "intermediate2",
+          "guard": {
+            "op": ">",
+            "left": "xnode2",
+            "right": "e"
+          },
+          "destinations": [
+            {
+              "location": "intermediate3",
+              "assignments": [
+                {
+                  "ref": "xnode2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "intermediate3",
+          "guard": {
+            "op": ">",
+            "left": "xnode2",
+            "right": "e"
+          },
+          "destinations": [
+            {
+              "location": "send",
+              "assignments": [
+                {
+                  "ref": "xnode2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "send",
+          "guard": {
+            "op": ">",
+            "left": "xnode2",
+            "right": "c"
+          },
+          "destinations": [
+            {
+              "location": "node2Ready",
+              "assignments": [
+                {
+                  "ref": "xnode2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Node3",
+      "locations": [
+        {
+          "name": "node3Ready",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "d",
+              "right": "xnode3"
+            }
+          }
+        },
+        {
+          "name": "intermediate1",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "f",
+              "right": "xnode3"
+            }
+          }
+        },
+        {
+          "name": "intermediate2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "f",
+              "right": "xnode3"
+            }
+          }
+        },
+        {
+          "name": "intermediate3",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "f",
+              "right": "xnode3"
+            }
+          }
+        },
+        {
+          "name": "send",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "d",
+              "right": "xnode3"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "node3Ready"
+      ],
+      "edges": [
+        {
+          "location": "node3Ready",
+          "guard": {
+            "op": ">",
+            "left": "xnode3",
+            "right": "c"
+          },
+          "destinations": [
+            {
+              "location": "intermediate1",
+              "assignments": [
+                {
+                  "ref": "xnode3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "intermediate1",
+          "guard": {
+            "op": ">",
+            "left": "xnode3",
+            "right": "e"
+          },
+          "destinations": [
+            {
+              "location": "intermediate2",
+              "assignments": [
+                {
+                  "ref": "xnode3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "intermediate2",
+          "guard": {
+            "op": ">",
+            "left": "xnode3",
+            "right": "e"
+          },
+          "destinations": [
+            {
+              "location": "intermediate3",
+              "assignments": [
+                {
+                  "ref": "xnode3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "intermediate3",
+          "guard": {
+            "op": ">",
+            "left": "xnode3",
+            "right": "e"
+          },
+          "destinations": [
+            {
+              "location": "send",
+              "assignments": [
+                {
+                  "ref": "xnode3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "send",
+          "guard": {
+            "op": ">",
+            "left": "xnode3",
+            "right": "c"
+          },
+          "destinations": [
+            {
+              "location": "node3Ready",
+              "assignments": [
+                {
+                  "ref": "xnode3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "observer",
+      "locations": [
+        {
+          "name": "waiting",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 5,
+              "right": "xtotal"
+            }
+          }
+        },
+        {
+          "name": "finished"
+        }
+      ],
+      "initial_locations": [
+        "waiting"
+      ],
+      "edges": [
+        {
+          "location": "waiting",
+          "guard": {
+            "op": "=",
+            "left": "xtotal",
+            "right": 5
+          },
+          "destinations": [
+            {
+              "location": "finished"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "Producer"
+      },
+      {
+        "automaton": "Consumer"
+      },
+      {
+        "automaton": "Node1"
+      },
+      {
+        "automaton": "Node2"
+      },
+      {
+        "automaton": "Node3"
+      },
+      {
+        "automaton": "observer"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "ProdReset",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "result": "ProdReset"
+      },
+      {
+        "synchronise": [
+          "Feed2",
+          null,
+          "Feed2",
+          null,
+          null,
+          null
+        ],
+        "result": "Feed2"
+      },
+      {
+        "synchronise": [
+          null,
+          "ConsReset",
+          null,
+          null,
+          null,
+          null
+        ],
+        "result": "ConsReset"
+      },
+      {
+        "synchronise": [
+          null,
+          "Feed5",
+          null,
+          null,
+          "Feed5",
+          null
+        ],
+        "result": "Feed5"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "Node1Process1",
+          null,
+          null,
+          null
+        ],
+        "result": "Node1Process1"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "Node1Process2",
+          null,
+          null,
+          null
+        ],
+        "result": "Node1Process2"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "Node1Process3",
+          null,
+          null,
+          null
+        ],
+        "result": "Node1Process3"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "Feed3",
+          "Feed3",
+          null,
+          null
+        ],
+        "result": "Feed3"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          "Node2Process1",
+          null,
+          null
+        ],
+        "result": "Node2Process1"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          "Node2Process2",
+          null,
+          null
+        ],
+        "result": "Node2Process2"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          "Node2Process3",
+          null,
+          null
+        ],
+        "result": "Node2Process3"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          "Feed4",
+          "Feed4",
+          null
+        ],
+        "result": "Feed4"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          null,
+          "Node3Process1",
+          null
+        ],
+        "result": "Node3Process1"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          null,
+          "Node3Process2",
+          null
+        ],
+        "result": "Node3Process2"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          null,
+          "Node3Process3",
+          null
+        ],
+        "result": "Node3Process3"
+      }
+    ]
+  }
+}

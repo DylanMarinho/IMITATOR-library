@@ -1,0 +1,1637 @@
+{
+  "jani-version": 1,
+  "name": "SIMOP/simop2.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "PLCbeg"
+    },
+    {
+      "name": "COMin0"
+    },
+    {
+      "name": "COMin1"
+    },
+    {
+      "name": "PLCout0"
+    },
+    {
+      "name": "PLCout1"
+    },
+    {
+      "name": "CNreq0"
+    },
+    {
+      "name": "CNreq1"
+    },
+    {
+      "name": "NCrep0"
+    },
+    {
+      "name": "NCrep1"
+    },
+    {
+      "name": "NRreq0"
+    },
+    {
+      "name": "NRreq1"
+    },
+    {
+      "name": "RNrep0"
+    },
+    {
+      "name": "RNrep1"
+    },
+    {
+      "name": "SIGout0"
+    },
+    {
+      "name": "SIGin1"
+    },
+    {
+      "name": "SIGout1"
+    }
+  ],
+  "variables": [
+    {
+      "name": "PLCclk",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "COMclk",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "NETclk",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "RIOclk",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "ENVclk",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "tt",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "yy",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "zz",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "COMct",
+      "type": "real"
+    },
+    {
+      "name": "SIGmrt",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "PLC",
+      "locations": [
+        {
+          "name": "PLCinit"
+        },
+        {
+          "name": "PLC1",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 600,
+              "right": "PLCclk"
+            }
+          }
+        },
+        {
+          "name": "PLC3",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 600,
+              "right": "PLCclk"
+            }
+          }
+        },
+        {
+          "name": "PLC4",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 600,
+              "right": "PLCclk"
+            }
+          }
+        },
+        {
+          "name": "PLC5",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 0,
+              "right": "yy"
+            }
+          }
+        },
+        {
+          "name": "PLC6",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 600,
+              "right": "PLCclk"
+            }
+          }
+        },
+        {
+          "name": "PLC7",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 600,
+              "right": "PLCclk"
+            }
+          }
+        },
+        {
+          "name": "PLC9",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 600,
+              "right": "PLCclk"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "PLCinit"
+      ],
+      "edges": [
+        {
+          "location": "PLCinit",
+          "destinations": [
+            {
+              "location": "PLC1",
+              "assignments": [
+                {
+                  "ref": "PLCclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "PLC1",
+          "destinations": [
+            {
+              "location": "PLC1"
+            }
+          ]
+        },
+        {
+          "location": "PLC1",
+          "guard": {
+            "op": ">",
+            "left": "PLCclk",
+            "right": 100
+          },
+          "destinations": [
+            {
+              "location": "PLC3"
+            }
+          ]
+        },
+        {
+          "location": "PLC3",
+          "guard": {
+            "op": "=",
+            "left": "PLCclk",
+            "right": 600
+          },
+          "destinations": [
+            {
+              "location": "PLC1",
+              "assignments": [
+                {
+                  "ref": "PLCclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "PLC3",
+          "destinations": [
+            {
+              "location": "PLC6"
+            }
+          ]
+        },
+        {
+          "location": "PLC3",
+          "destinations": [
+            {
+              "location": "PLC3"
+            }
+          ]
+        },
+        {
+          "location": "PLC4",
+          "destinations": [
+            {
+              "location": "PLC4"
+            }
+          ]
+        },
+        {
+          "location": "PLC4",
+          "guard": {
+            "op": ">",
+            "left": "PLCclk",
+            "right": 100
+          },
+          "destinations": [
+            {
+              "location": "PLC5",
+              "assignments": [
+                {
+                  "ref": "yy",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "PLC5",
+          "guard": {
+            "op": "=",
+            "left": "yy",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "PLC6"
+            }
+          ]
+        },
+        {
+          "location": "PLC5",
+          "destinations": [
+            {
+              "location": "PLC5"
+            }
+          ]
+        },
+        {
+          "location": "PLC6",
+          "guard": {
+            "op": "=",
+            "left": "PLCclk",
+            "right": 600
+          },
+          "destinations": [
+            {
+              "location": "PLC7",
+              "assignments": [
+                {
+                  "ref": "PLCclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "PLC6",
+          "destinations": [
+            {
+              "location": "PLC6"
+            }
+          ]
+        },
+        {
+          "location": "PLC7",
+          "destinations": [
+            {
+              "location": "PLC7"
+            }
+          ]
+        },
+        {
+          "location": "PLC7",
+          "guard": {
+            "op": ">",
+            "left": "PLCclk",
+            "right": 100
+          },
+          "destinations": [
+            {
+              "location": "PLC9"
+            }
+          ]
+        },
+        {
+          "location": "PLC9",
+          "guard": {
+            "op": "=",
+            "left": "PLCclk",
+            "right": 600
+          },
+          "destinations": [
+            {
+              "location": "PLC7",
+              "assignments": [
+                {
+                  "ref": "PLCclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "PLC9",
+          "destinations": [
+            {
+              "location": "PLC9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "COM",
+      "locations": [
+        {
+          "name": "COMinit"
+        },
+        {
+          "name": "COM1"
+        },
+        {
+          "name": "COM2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 25,
+              "right": "COMclk"
+            }
+          }
+        },
+        {
+          "name": "COM3",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "COMct",
+              "right": "COMclk"
+            }
+          }
+        },
+        {
+          "name": "COM4",
+          "time-progress": {
+            "exp": {
+              "op": "=",
+              "left": "tt",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "COM5",
+          "time-progress": {
+            "exp": {
+              "op": "=",
+              "left": "tt",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "COM6",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "COMct",
+              "right": "COMclk"
+            }
+          }
+        },
+        {
+          "name": "COM7",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 25,
+              "right": "COMclk"
+            }
+          }
+        },
+        {
+          "name": "COM8",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "COMct",
+              "right": "COMclk"
+            }
+          }
+        },
+        {
+          "name": "COM9",
+          "time-progress": {
+            "exp": {
+              "op": "=",
+              "left": "tt",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "COM10",
+          "time-progress": {
+            "exp": {
+              "op": "=",
+              "left": "tt",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "COM11",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "COMct",
+              "right": "COMclk"
+            }
+          }
+        },
+        {
+          "name": "COM12",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 25,
+              "right": "COMclk"
+            }
+          }
+        },
+        {
+          "name": "COM13",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "COMct",
+              "right": "COMclk"
+            }
+          }
+        },
+        {
+          "name": "COM14",
+          "time-progress": {
+            "exp": {
+              "op": "=",
+              "left": "tt",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "COM15",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "COMct",
+              "right": "COMclk"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "COMinit"
+      ],
+      "edges": [
+        {
+          "location": "COMinit",
+          "destinations": [
+            {
+              "location": "COM1"
+            }
+          ]
+        },
+        {
+          "location": "COM1",
+          "destinations": [
+            {
+              "location": "COM2",
+              "assignments": [
+                {
+                  "ref": "COMclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "COM1",
+          "destinations": [
+            {
+              "location": "COM1"
+            }
+          ]
+        },
+        {
+          "location": "COM2",
+          "guard": {
+            "op": "=",
+            "left": "COMclk",
+            "right": 25
+          },
+          "destinations": [
+            {
+              "location": "COM3"
+            }
+          ]
+        },
+        {
+          "location": "COM2",
+          "destinations": [
+            {
+              "location": "COM2"
+            }
+          ]
+        },
+        {
+          "location": "COM3",
+          "destinations": [
+            {
+              "location": "COM4",
+              "assignments": [
+                {
+                  "ref": "tt",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "COM3",
+          "destinations": [
+            {
+              "location": "COM3"
+            }
+          ]
+        },
+        {
+          "location": "COM3",
+          "destinations": [
+            {
+              "location": "COM5",
+              "assignments": [
+                {
+                  "ref": "tt",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "COM4",
+          "guard": {
+            "op": "=",
+            "left": "tt",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "COM6"
+            }
+          ]
+        },
+        {
+          "location": "COM5",
+          "guard": {
+            "op": "=",
+            "left": "tt",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "COM6"
+            }
+          ]
+        },
+        {
+          "location": "COM6",
+          "guard": {
+            "op": "=",
+            "left": "COMct",
+            "right": "COMclk"
+          },
+          "destinations": [
+            {
+              "location": "COM2",
+              "assignments": [
+                {
+                  "ref": "COMclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "COM6",
+          "destinations": [
+            {
+              "location": "COM6"
+            }
+          ]
+        },
+        {
+          "location": "COM6",
+          "destinations": [
+            {
+              "location": "COM11"
+            }
+          ]
+        },
+        {
+          "location": "COM7",
+          "guard": {
+            "op": "=",
+            "left": "COMclk",
+            "right": 25
+          },
+          "destinations": [
+            {
+              "location": "COM8"
+            }
+          ]
+        },
+        {
+          "location": "COM7",
+          "destinations": [
+            {
+              "location": "COM7"
+            }
+          ]
+        },
+        {
+          "location": "COM8",
+          "destinations": [
+            {
+              "location": "COM9",
+              "assignments": [
+                {
+                  "ref": "tt",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "COM8",
+          "destinations": [
+            {
+              "location": "COM8"
+            }
+          ]
+        },
+        {
+          "location": "COM8",
+          "destinations": [
+            {
+              "location": "COM10",
+              "assignments": [
+                {
+                  "ref": "tt",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "COM9",
+          "guard": {
+            "op": "=",
+            "left": "tt",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "COM11"
+            }
+          ]
+        },
+        {
+          "location": "COM10",
+          "guard": {
+            "op": "=",
+            "left": "tt",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "COM11"
+            }
+          ]
+        },
+        {
+          "location": "COM11",
+          "guard": {
+            "op": "=",
+            "left": "COMct",
+            "right": "COMclk"
+          },
+          "destinations": [
+            {
+              "location": "COM12",
+              "assignments": [
+                {
+                  "ref": "COMclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "COM11",
+          "destinations": [
+            {
+              "location": "COM11"
+            }
+          ]
+        },
+        {
+          "location": "COM12",
+          "guard": {
+            "op": "=",
+            "left": "COMclk",
+            "right": 25
+          },
+          "destinations": [
+            {
+              "location": "COM13"
+            }
+          ]
+        },
+        {
+          "location": "COM12",
+          "destinations": [
+            {
+              "location": "COM12"
+            }
+          ]
+        },
+        {
+          "location": "COM13",
+          "destinations": [
+            {
+              "location": "COM14",
+              "assignments": [
+                {
+                  "ref": "tt",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "COM13",
+          "destinations": [
+            {
+              "location": "COM13"
+            }
+          ]
+        },
+        {
+          "location": "COM14",
+          "guard": {
+            "op": "=",
+            "left": "tt",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "COM15"
+            }
+          ]
+        },
+        {
+          "location": "COM15",
+          "guard": {
+            "op": "=",
+            "left": "COMct",
+            "right": "COMclk"
+          },
+          "destinations": [
+            {
+              "location": "COM12",
+              "assignments": [
+                {
+                  "ref": "COMclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "COM15",
+          "destinations": [
+            {
+              "location": "COM15"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "NET",
+      "locations": [
+        {
+          "name": "NET1"
+        },
+        {
+          "name": "NET2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 10,
+              "right": "NETclk"
+            }
+          }
+        },
+        {
+          "name": "NET3"
+        },
+        {
+          "name": "NET4",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 10,
+              "right": "NETclk"
+            }
+          }
+        },
+        {
+          "name": "NET5",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 10,
+              "right": "NETclk"
+            }
+          }
+        },
+        {
+          "name": "NET6"
+        },
+        {
+          "name": "NET7",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 10,
+              "right": "NETclk"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "NET1"
+      ],
+      "edges": [
+        {
+          "location": "NET1",
+          "destinations": [
+            {
+              "location": "NET2",
+              "assignments": [
+                {
+                  "ref": "NETclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "NET1",
+          "destinations": [
+            {
+              "location": "NET5",
+              "assignments": [
+                {
+                  "ref": "NETclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "NET2",
+          "guard": {
+            "op": "=",
+            "left": "NETclk",
+            "right": 10
+          },
+          "destinations": [
+            {
+              "location": "NET3"
+            }
+          ]
+        },
+        {
+          "location": "NET3",
+          "destinations": [
+            {
+              "location": "NET4",
+              "assignments": [
+                {
+                  "ref": "NETclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "NET3",
+          "destinations": [
+            {
+              "location": "NET7",
+              "assignments": [
+                {
+                  "ref": "NETclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "NET4",
+          "guard": {
+            "op": "=",
+            "left": "NETclk",
+            "right": 10
+          },
+          "destinations": [
+            {
+              "location": "NET1"
+            }
+          ]
+        },
+        {
+          "location": "NET5",
+          "guard": {
+            "op": "=",
+            "left": "NETclk",
+            "right": 10
+          },
+          "destinations": [
+            {
+              "location": "NET6"
+            }
+          ]
+        },
+        {
+          "location": "NET6",
+          "destinations": [
+            {
+              "location": "NET7",
+              "assignments": [
+                {
+                  "ref": "NETclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "NET7",
+          "guard": {
+            "op": "=",
+            "left": "NETclk",
+            "right": 10
+          },
+          "destinations": [
+            {
+              "location": "NET1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "RIO",
+      "locations": [
+        {
+          "name": "RIO1"
+        },
+        {
+          "name": "RIO2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 70,
+              "right": "RIOclk"
+            }
+          }
+        },
+        {
+          "name": "RIO3",
+          "time-progress": {
+            "exp": {
+              "op": "=",
+              "left": "zz",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "RIO4",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 70,
+              "right": "RIOclk"
+            }
+          }
+        },
+        {
+          "name": "RIO5",
+          "time-progress": {
+            "exp": {
+              "op": "=",
+              "left": "zz",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "RIO6"
+        },
+        {
+          "name": "RIO7",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 70,
+              "right": "RIOclk"
+            }
+          }
+        },
+        {
+          "name": "RIO8",
+          "time-progress": {
+            "exp": {
+              "op": "=",
+              "left": "zz",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "RIO9",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 70,
+              "right": "RIOclk"
+            }
+          }
+        },
+        {
+          "name": "RIO10",
+          "time-progress": {
+            "exp": {
+              "op": "=",
+              "left": "zz",
+              "right": 0
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "RIO1"
+      ],
+      "edges": [
+        {
+          "location": "RIO1",
+          "destinations": [
+            {
+              "location": "RIO2",
+              "assignments": [
+                {
+                  "ref": "RIOclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "RIO2",
+          "guard": {
+            "op": "=",
+            "left": "RIOclk",
+            "right": 70
+          },
+          "destinations": [
+            {
+              "location": "RIO3",
+              "assignments": [
+                {
+                  "ref": "zz",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "RIO2",
+          "destinations": [
+            {
+              "location": "RIO4"
+            }
+          ]
+        },
+        {
+          "location": "RIO3",
+          "guard": {
+            "op": "=",
+            "left": "zz",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "RIO1"
+            }
+          ]
+        },
+        {
+          "location": "RIO4",
+          "guard": {
+            "op": "=",
+            "left": "RIOclk",
+            "right": 70
+          },
+          "destinations": [
+            {
+              "location": "RIO5",
+              "assignments": [
+                {
+                  "ref": "zz",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "RIO5",
+          "guard": {
+            "op": "=",
+            "left": "zz",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "RIO6"
+            }
+          ]
+        },
+        {
+          "location": "RIO6",
+          "destinations": [
+            {
+              "location": "RIO7",
+              "assignments": [
+                {
+                  "ref": "RIOclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "RIO6",
+          "destinations": [
+            {
+              "location": "RIO9",
+              "assignments": [
+                {
+                  "ref": "RIOclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "RIO7",
+          "guard": {
+            "op": "=",
+            "left": "RIOclk",
+            "right": 70
+          },
+          "destinations": [
+            {
+              "location": "RIO8",
+              "assignments": [
+                {
+                  "ref": "zz",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "RIO8",
+          "guard": {
+            "op": "=",
+            "left": "zz",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "RIO6"
+            }
+          ]
+        },
+        {
+          "location": "RIO9",
+          "guard": {
+            "op": "=",
+            "left": "RIOclk",
+            "right": 70
+          },
+          "destinations": [
+            {
+              "location": "RIO10",
+              "assignments": [
+                {
+                  "ref": "zz",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "RIO10",
+          "guard": {
+            "op": "=",
+            "left": "zz",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "RIO6"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ENV",
+      "locations": [
+        {
+          "name": "ENVinit"
+        },
+        {
+          "name": "ENV1"
+        },
+        {
+          "name": "ENV2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "SIGmrt",
+              "right": "ENVclk"
+            }
+          }
+        },
+        {
+          "name": "ENV4",
+          "time-progress": {
+            "exp": {
+              "op": "=",
+              "left": "yy",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "ENV5",
+          "time-progress": {
+            "exp": {
+              "op": "=",
+              "left": "yy",
+              "right": 0
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "ENVinit"
+      ],
+      "edges": [
+        {
+          "location": "ENVinit",
+          "destinations": [
+            {
+              "location": "ENV1"
+            }
+          ]
+        },
+        {
+          "location": "ENV1",
+          "destinations": [
+            {
+              "location": "ENV2",
+              "assignments": [
+                {
+                  "ref": "ENVclk",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "ENV1",
+          "destinations": [
+            {
+              "location": "ENV1"
+            }
+          ]
+        },
+        {
+          "location": "ENV2",
+          "destinations": [
+            {
+              "location": "ENV2"
+            }
+          ]
+        },
+        {
+          "location": "ENV2",
+          "destinations": [
+            {
+              "location": "ENV4",
+              "assignments": [
+                {
+                  "ref": "yy",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "ENV2",
+          "guard": {
+            "op": "=",
+            "left": "SIGmrt",
+            "right": "ENVclk"
+          },
+          "destinations": [
+            {
+              "location": "ENV5",
+              "assignments": [
+                {
+                  "ref": "yy",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "PLC"
+      },
+      {
+        "automaton": "COM"
+      },
+      {
+        "automaton": "NET"
+      },
+      {
+        "automaton": "RIO"
+      },
+      {
+        "automaton": "ENV"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "PLCbeg",
+          "PLCbeg",
+          null,
+          null,
+          null
+        ],
+        "result": "PLCbeg"
+      },
+      {
+        "synchronise": [
+          "COMin0",
+          "COMin0",
+          null,
+          null,
+          null
+        ],
+        "result": "COMin0"
+      },
+      {
+        "synchronise": [
+          "COMin1",
+          "COMin1",
+          null,
+          null,
+          null
+        ],
+        "result": "COMin1"
+      },
+      {
+        "synchronise": [
+          "PLCout0",
+          "PLCout0",
+          null,
+          null,
+          null
+        ],
+        "result": "PLCout0"
+      },
+      {
+        "synchronise": [
+          "PLCout1",
+          "PLCout1",
+          null,
+          null,
+          null
+        ],
+        "result": "PLCout1"
+      },
+      {
+        "synchronise": [
+          null,
+          "CNreq0",
+          "CNreq0",
+          null,
+          null
+        ],
+        "result": "CNreq0"
+      },
+      {
+        "synchronise": [
+          null,
+          "CNreq1",
+          "CNreq1",
+          null,
+          null
+        ],
+        "result": "CNreq1"
+      },
+      {
+        "synchronise": [
+          null,
+          "NCrep0",
+          "NCrep0",
+          null,
+          null
+        ],
+        "result": "NCrep0"
+      },
+      {
+        "synchronise": [
+          null,
+          "NCrep1",
+          "NCrep1",
+          null,
+          null
+        ],
+        "result": "NCrep1"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "NRreq0",
+          "NRreq0",
+          null
+        ],
+        "result": "NRreq0"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "NRreq1",
+          "NRreq1",
+          null
+        ],
+        "result": "NRreq1"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "RNrep0",
+          "RNrep0",
+          null
+        ],
+        "result": "RNrep0"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "RNrep1",
+          "RNrep1",
+          null
+        ],
+        "result": "RNrep1"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          "SIGout0",
+          "SIGout0"
+        ],
+        "result": "SIGout0"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          "SIGin1",
+          "SIGin1"
+        ],
+        "result": "SIGin1"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          "SIGout1",
+          "SIGout1"
+        ],
+        "result": "SIGout1"
+      }
+    ]
+  }
+}

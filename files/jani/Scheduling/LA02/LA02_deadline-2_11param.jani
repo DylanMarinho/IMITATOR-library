@@ -1,0 +1,3868 @@
+{
+  "jani-version": 1,
+  "name": "Scheduling/LA02/LA02_deadline-2_11param.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "m_0_job_1_beginning"
+    },
+    {
+      "name": "m_0_job_1_finishing"
+    },
+    {
+      "name": "m_3_job_1_beginning"
+    },
+    {
+      "name": "m_3_job_1_finishing"
+    },
+    {
+      "name": "m_1_job_1_beginning"
+    },
+    {
+      "name": "m_1_job_1_finishing"
+    },
+    {
+      "name": "m_4_job_1_beginning"
+    },
+    {
+      "name": "m_4_job_1_finishing"
+    },
+    {
+      "name": "m_2_job_1_beginning"
+    },
+    {
+      "name": "m_2_job_1_finishing"
+    },
+    {
+      "name": "m_4_job_2_beginning"
+    },
+    {
+      "name": "m_4_job_2_finishing"
+    },
+    {
+      "name": "m_2_job_2_beginning"
+    },
+    {
+      "name": "m_2_job_2_finishing"
+    },
+    {
+      "name": "m_0_job_2_beginning"
+    },
+    {
+      "name": "m_0_job_2_finishing"
+    },
+    {
+      "name": "m_1_job_2_beginning"
+    },
+    {
+      "name": "m_1_job_2_finishing"
+    },
+    {
+      "name": "m_3_job_2_beginning"
+    },
+    {
+      "name": "m_3_job_2_finishing"
+    },
+    {
+      "name": "DEADLINE"
+    }
+  ],
+  "variables": [
+    {
+      "name": "c_2",
+      "type": "continuous",
+      "initial_value": 0
+    },
+    {
+      "name": "c_1",
+      "type": "continuous",
+      "initial_value": 0
+    },
+    {
+      "name": "time",
+      "type": "continuous",
+      "initial_value": 0
+    },
+    {
+      "name": "wcet_m_4_job_2",
+      "type": "real"
+    },
+    {
+      "name": "wcet_m_2_job_2",
+      "type": "real"
+    },
+    {
+      "name": "wcet_m_0_job_2",
+      "type": "real"
+    },
+    {
+      "name": "wcet_m_1_job_2",
+      "type": "real"
+    },
+    {
+      "name": "wcet_m_3_job_2",
+      "type": "real"
+    },
+    {
+      "name": "wcet_m_0_job_1",
+      "type": "real"
+    },
+    {
+      "name": "wcet_m_1_job_1",
+      "type": "real"
+    },
+    {
+      "name": "wcet_m_2_job_1",
+      "type": "real"
+    },
+    {
+      "name": "wcet_m_3_job_1",
+      "type": "real"
+    },
+    {
+      "name": "wcet_m_4_job_1",
+      "type": "real"
+    },
+    {
+      "name": "deadline",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "checker",
+      "locations": [
+        {
+          "name": "check_1",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "deadline",
+                "right": "time"
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_2"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "∧",
+                  "left": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "c_1"
+                    },
+                    "right": 1
+                  },
+                  "right": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "time"
+                    },
+                    "right": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "check_2",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "deadline",
+                "right": "time"
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_2"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "∧",
+                  "left": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "c_1"
+                    },
+                    "right": 1
+                  },
+                  "right": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "time"
+                    },
+                    "right": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "success",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "deadline",
+                "right": "time"
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_2"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "∧",
+                  "left": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "c_1"
+                    },
+                    "right": 1
+                  },
+                  "right": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "time"
+                    },
+                    "right": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "error",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "deadline",
+                "right": "time"
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_2"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "∧",
+                  "left": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "c_1"
+                    },
+                    "right": 1
+                  },
+                  "right": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "time"
+                    },
+                    "right": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "check_1"
+      ],
+      "edges": [
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "destinations": [
+            {
+              "location": "check_1"
+            }
+          ]
+        },
+        {
+          "location": "check_1",
+          "guard": {
+            "op": "=",
+            "left": "deadline",
+            "right": "time"
+          },
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "success"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "success"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "destinations": [
+            {
+              "location": "check_2"
+            }
+          ]
+        },
+        {
+          "location": "check_2",
+          "guard": {
+            "op": "=",
+            "left": "deadline",
+            "right": "time"
+          },
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "job_1",
+      "locations": [
+        {
+          "name": "m_0_waiting",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_0_running",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "wcet_m_0_job_1",
+                "right": "c_1"
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_2"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "∧",
+                  "left": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "c_1"
+                    },
+                    "right": 1
+                  },
+                  "right": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "time"
+                    },
+                    "right": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_0_preempted",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_3_waiting",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_3_running",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "wcet_m_3_job_1",
+                "right": "c_1"
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_2"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "∧",
+                  "left": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "c_1"
+                    },
+                    "right": 1
+                  },
+                  "right": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "time"
+                    },
+                    "right": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_3_preempted",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_1_waiting",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_1_running",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "wcet_m_1_job_1",
+                "right": "c_1"
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_2"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "∧",
+                  "left": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "c_1"
+                    },
+                    "right": 1
+                  },
+                  "right": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "time"
+                    },
+                    "right": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_1_preempted",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_4_waiting",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_4_running",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "wcet_m_4_job_1",
+                "right": "c_1"
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_2"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "∧",
+                  "left": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "c_1"
+                    },
+                    "right": 1
+                  },
+                  "right": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "time"
+                    },
+                    "right": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_4_preempted",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_2_waiting",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_2_running",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "wcet_m_2_job_1",
+                "right": "c_1"
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_2"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "∧",
+                  "left": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "c_1"
+                    },
+                    "right": 1
+                  },
+                  "right": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "time"
+                    },
+                    "right": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_2_preempted",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "success",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "m_0_waiting"
+      ],
+      "edges": [
+        {
+          "location": "m_0_waiting",
+          "destinations": [
+            {
+              "location": "m_0_running",
+              "assignments": [
+                {
+                  "ref": "c_1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "m_0_waiting",
+          "destinations": [
+            {
+              "location": "m_0_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_0_waiting",
+          "destinations": [
+            {
+              "location": "m_0_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_0_waiting",
+          "destinations": [
+            {
+              "location": "m_0_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_0_waiting",
+          "destinations": [
+            {
+              "location": "m_0_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_0_waiting",
+          "destinations": [
+            {
+              "location": "m_0_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_0_running",
+          "guard": {
+            "op": "=",
+            "left": "wcet_m_0_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_3_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_0_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_0_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_0_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_0_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_0_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_0_running"
+            }
+          ]
+        },
+        {
+          "location": "m_0_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_0_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_0_running"
+            }
+          ]
+        },
+        {
+          "location": "m_0_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_0_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_0_running"
+            }
+          ]
+        },
+        {
+          "location": "m_0_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_0_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_0_running"
+            }
+          ]
+        },
+        {
+          "location": "m_0_preempted",
+          "destinations": [
+            {
+              "location": "m_0_running"
+            }
+          ]
+        },
+        {
+          "location": "m_0_preempted",
+          "destinations": [
+            {
+              "location": "m_0_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_0_preempted",
+          "destinations": [
+            {
+              "location": "m_0_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_0_preempted",
+          "destinations": [
+            {
+              "location": "m_0_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_0_preempted",
+          "destinations": [
+            {
+              "location": "m_0_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_0_preempted",
+          "destinations": [
+            {
+              "location": "m_0_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_3_waiting",
+          "destinations": [
+            {
+              "location": "m_3_running",
+              "assignments": [
+                {
+                  "ref": "c_1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "m_3_waiting",
+          "destinations": [
+            {
+              "location": "m_3_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_3_waiting",
+          "destinations": [
+            {
+              "location": "m_3_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_3_waiting",
+          "destinations": [
+            {
+              "location": "m_3_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_3_waiting",
+          "destinations": [
+            {
+              "location": "m_3_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_3_waiting",
+          "destinations": [
+            {
+              "location": "m_3_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_3_running",
+          "guard": {
+            "op": "=",
+            "left": "wcet_m_3_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_1_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_3_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_3_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_3_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_3_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_3_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_3_running"
+            }
+          ]
+        },
+        {
+          "location": "m_3_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_3_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_3_running"
+            }
+          ]
+        },
+        {
+          "location": "m_3_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_3_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_3_running"
+            }
+          ]
+        },
+        {
+          "location": "m_3_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_3_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_3_running"
+            }
+          ]
+        },
+        {
+          "location": "m_3_preempted",
+          "destinations": [
+            {
+              "location": "m_3_running"
+            }
+          ]
+        },
+        {
+          "location": "m_3_preempted",
+          "destinations": [
+            {
+              "location": "m_3_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_3_preempted",
+          "destinations": [
+            {
+              "location": "m_3_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_3_preempted",
+          "destinations": [
+            {
+              "location": "m_3_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_3_preempted",
+          "destinations": [
+            {
+              "location": "m_3_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_3_preempted",
+          "destinations": [
+            {
+              "location": "m_3_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_1_waiting",
+          "destinations": [
+            {
+              "location": "m_1_running",
+              "assignments": [
+                {
+                  "ref": "c_1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "m_1_waiting",
+          "destinations": [
+            {
+              "location": "m_1_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_1_waiting",
+          "destinations": [
+            {
+              "location": "m_1_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_1_waiting",
+          "destinations": [
+            {
+              "location": "m_1_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_1_waiting",
+          "destinations": [
+            {
+              "location": "m_1_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_1_waiting",
+          "destinations": [
+            {
+              "location": "m_1_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_1_running",
+          "guard": {
+            "op": "=",
+            "left": "wcet_m_1_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_4_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_1_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_1_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_1_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_1_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_1_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_1_running"
+            }
+          ]
+        },
+        {
+          "location": "m_1_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_1_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_1_running"
+            }
+          ]
+        },
+        {
+          "location": "m_1_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_1_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_1_running"
+            }
+          ]
+        },
+        {
+          "location": "m_1_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_1_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_1_running"
+            }
+          ]
+        },
+        {
+          "location": "m_1_preempted",
+          "destinations": [
+            {
+              "location": "m_1_running"
+            }
+          ]
+        },
+        {
+          "location": "m_1_preempted",
+          "destinations": [
+            {
+              "location": "m_1_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_1_preempted",
+          "destinations": [
+            {
+              "location": "m_1_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_1_preempted",
+          "destinations": [
+            {
+              "location": "m_1_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_1_preempted",
+          "destinations": [
+            {
+              "location": "m_1_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_1_preempted",
+          "destinations": [
+            {
+              "location": "m_1_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_4_waiting",
+          "destinations": [
+            {
+              "location": "m_4_running",
+              "assignments": [
+                {
+                  "ref": "c_1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "m_4_waiting",
+          "destinations": [
+            {
+              "location": "m_4_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_4_waiting",
+          "destinations": [
+            {
+              "location": "m_4_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_4_waiting",
+          "destinations": [
+            {
+              "location": "m_4_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_4_waiting",
+          "destinations": [
+            {
+              "location": "m_4_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_4_waiting",
+          "destinations": [
+            {
+              "location": "m_4_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_4_running",
+          "guard": {
+            "op": "=",
+            "left": "wcet_m_4_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_2_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_4_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_4_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_4_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_4_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_4_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_4_running"
+            }
+          ]
+        },
+        {
+          "location": "m_4_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_4_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_4_running"
+            }
+          ]
+        },
+        {
+          "location": "m_4_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_4_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_4_running"
+            }
+          ]
+        },
+        {
+          "location": "m_4_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_4_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_4_running"
+            }
+          ]
+        },
+        {
+          "location": "m_4_preempted",
+          "destinations": [
+            {
+              "location": "m_4_running"
+            }
+          ]
+        },
+        {
+          "location": "m_4_preempted",
+          "destinations": [
+            {
+              "location": "m_4_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_4_preempted",
+          "destinations": [
+            {
+              "location": "m_4_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_4_preempted",
+          "destinations": [
+            {
+              "location": "m_4_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_4_preempted",
+          "destinations": [
+            {
+              "location": "m_4_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_4_preempted",
+          "destinations": [
+            {
+              "location": "m_4_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_2_waiting",
+          "destinations": [
+            {
+              "location": "m_2_running",
+              "assignments": [
+                {
+                  "ref": "c_1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "m_2_waiting",
+          "destinations": [
+            {
+              "location": "m_2_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_2_waiting",
+          "destinations": [
+            {
+              "location": "m_2_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_2_waiting",
+          "destinations": [
+            {
+              "location": "m_2_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_2_waiting",
+          "destinations": [
+            {
+              "location": "m_2_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_2_waiting",
+          "destinations": [
+            {
+              "location": "m_2_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_2_running",
+          "guard": {
+            "op": "=",
+            "left": "wcet_m_2_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "success"
+            }
+          ]
+        },
+        {
+          "location": "m_2_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_2_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_2_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_2_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_2_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_2_running"
+            }
+          ]
+        },
+        {
+          "location": "m_2_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_2_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_2_running"
+            }
+          ]
+        },
+        {
+          "location": "m_2_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_2_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_2_running"
+            }
+          ]
+        },
+        {
+          "location": "m_2_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_2_job_1",
+            "right": "c_1"
+          },
+          "destinations": [
+            {
+              "location": "m_2_running"
+            }
+          ]
+        },
+        {
+          "location": "m_2_preempted",
+          "destinations": [
+            {
+              "location": "m_2_running"
+            }
+          ]
+        },
+        {
+          "location": "m_2_preempted",
+          "destinations": [
+            {
+              "location": "m_2_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_2_preempted",
+          "destinations": [
+            {
+              "location": "m_2_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_2_preempted",
+          "destinations": [
+            {
+              "location": "m_2_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_2_preempted",
+          "destinations": [
+            {
+              "location": "m_2_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_2_preempted",
+          "destinations": [
+            {
+              "location": "m_2_preempted"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "job_2",
+      "locations": [
+        {
+          "name": "m_4_waiting",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_4_running",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "wcet_m_4_job_2",
+                "right": "c_2"
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_2"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "∧",
+                  "left": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "c_1"
+                    },
+                    "right": 1
+                  },
+                  "right": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "time"
+                    },
+                    "right": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_4_preempted",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_2_waiting",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_2_running",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "wcet_m_2_job_2",
+                "right": "c_2"
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_2"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "∧",
+                  "left": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "c_1"
+                    },
+                    "right": 1
+                  },
+                  "right": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "time"
+                    },
+                    "right": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_2_preempted",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_0_waiting",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_0_running",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "wcet_m_0_job_2",
+                "right": "c_2"
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_2"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "∧",
+                  "left": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "c_1"
+                    },
+                    "right": 1
+                  },
+                  "right": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "time"
+                    },
+                    "right": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_0_preempted",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_1_waiting",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_1_running",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "wcet_m_1_job_2",
+                "right": "c_2"
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_2"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "∧",
+                  "left": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "c_1"
+                    },
+                    "right": 1
+                  },
+                  "right": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "time"
+                    },
+                    "right": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_1_preempted",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_3_waiting",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_3_running",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": "wcet_m_3_job_2",
+                "right": "c_2"
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_2"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "∧",
+                  "left": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "c_1"
+                    },
+                    "right": 1
+                  },
+                  "right": {
+                    "op": "=",
+                    "left": {
+                      "op": "der",
+                      "var": "time"
+                    },
+                    "right": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "m_3_preempted",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "success",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": "=",
+                "left": {
+                  "op": "der",
+                  "var": "c_2"
+                },
+                "right": 1
+              },
+              "right": {
+                "op": "∧",
+                "left": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "c_1"
+                  },
+                  "right": 1
+                },
+                "right": {
+                  "op": "=",
+                  "left": {
+                    "op": "der",
+                    "var": "time"
+                  },
+                  "right": 1
+                }
+              }
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "m_4_waiting"
+      ],
+      "edges": [
+        {
+          "location": "m_4_waiting",
+          "destinations": [
+            {
+              "location": "m_4_running",
+              "assignments": [
+                {
+                  "ref": "c_2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "m_4_waiting",
+          "destinations": [
+            {
+              "location": "m_4_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_4_waiting",
+          "destinations": [
+            {
+              "location": "m_4_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_4_waiting",
+          "destinations": [
+            {
+              "location": "m_4_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_4_waiting",
+          "destinations": [
+            {
+              "location": "m_4_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_4_waiting",
+          "destinations": [
+            {
+              "location": "m_4_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_4_running",
+          "guard": {
+            "op": "=",
+            "left": "wcet_m_4_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_2_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_4_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_4_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_4_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_4_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_4_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_4_running"
+            }
+          ]
+        },
+        {
+          "location": "m_4_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_4_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_4_running"
+            }
+          ]
+        },
+        {
+          "location": "m_4_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_4_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_4_running"
+            }
+          ]
+        },
+        {
+          "location": "m_4_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_4_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_4_running"
+            }
+          ]
+        },
+        {
+          "location": "m_4_preempted",
+          "destinations": [
+            {
+              "location": "m_4_running"
+            }
+          ]
+        },
+        {
+          "location": "m_4_preempted",
+          "destinations": [
+            {
+              "location": "m_4_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_4_preempted",
+          "destinations": [
+            {
+              "location": "m_4_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_4_preempted",
+          "destinations": [
+            {
+              "location": "m_4_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_4_preempted",
+          "destinations": [
+            {
+              "location": "m_4_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_4_preempted",
+          "destinations": [
+            {
+              "location": "m_4_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_2_waiting",
+          "destinations": [
+            {
+              "location": "m_2_running",
+              "assignments": [
+                {
+                  "ref": "c_2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "m_2_waiting",
+          "destinations": [
+            {
+              "location": "m_2_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_2_waiting",
+          "destinations": [
+            {
+              "location": "m_2_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_2_waiting",
+          "destinations": [
+            {
+              "location": "m_2_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_2_waiting",
+          "destinations": [
+            {
+              "location": "m_2_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_2_waiting",
+          "destinations": [
+            {
+              "location": "m_2_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_2_running",
+          "guard": {
+            "op": "=",
+            "left": "wcet_m_2_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_0_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_2_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_2_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_2_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_2_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_2_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_2_running"
+            }
+          ]
+        },
+        {
+          "location": "m_2_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_2_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_2_running"
+            }
+          ]
+        },
+        {
+          "location": "m_2_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_2_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_2_running"
+            }
+          ]
+        },
+        {
+          "location": "m_2_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_2_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_2_running"
+            }
+          ]
+        },
+        {
+          "location": "m_2_preempted",
+          "destinations": [
+            {
+              "location": "m_2_running"
+            }
+          ]
+        },
+        {
+          "location": "m_2_preempted",
+          "destinations": [
+            {
+              "location": "m_2_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_2_preempted",
+          "destinations": [
+            {
+              "location": "m_2_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_2_preempted",
+          "destinations": [
+            {
+              "location": "m_2_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_2_preempted",
+          "destinations": [
+            {
+              "location": "m_2_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_2_preempted",
+          "destinations": [
+            {
+              "location": "m_2_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_0_waiting",
+          "destinations": [
+            {
+              "location": "m_0_running",
+              "assignments": [
+                {
+                  "ref": "c_2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "m_0_waiting",
+          "destinations": [
+            {
+              "location": "m_0_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_0_waiting",
+          "destinations": [
+            {
+              "location": "m_0_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_0_waiting",
+          "destinations": [
+            {
+              "location": "m_0_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_0_waiting",
+          "destinations": [
+            {
+              "location": "m_0_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_0_waiting",
+          "destinations": [
+            {
+              "location": "m_0_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_0_running",
+          "guard": {
+            "op": "=",
+            "left": "wcet_m_0_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_1_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_0_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_0_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_0_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_0_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_0_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_0_running"
+            }
+          ]
+        },
+        {
+          "location": "m_0_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_0_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_0_running"
+            }
+          ]
+        },
+        {
+          "location": "m_0_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_0_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_0_running"
+            }
+          ]
+        },
+        {
+          "location": "m_0_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_0_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_0_running"
+            }
+          ]
+        },
+        {
+          "location": "m_0_preempted",
+          "destinations": [
+            {
+              "location": "m_0_running"
+            }
+          ]
+        },
+        {
+          "location": "m_0_preempted",
+          "destinations": [
+            {
+              "location": "m_0_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_0_preempted",
+          "destinations": [
+            {
+              "location": "m_0_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_0_preempted",
+          "destinations": [
+            {
+              "location": "m_0_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_0_preempted",
+          "destinations": [
+            {
+              "location": "m_0_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_0_preempted",
+          "destinations": [
+            {
+              "location": "m_0_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_1_waiting",
+          "destinations": [
+            {
+              "location": "m_1_running",
+              "assignments": [
+                {
+                  "ref": "c_2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "m_1_waiting",
+          "destinations": [
+            {
+              "location": "m_1_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_1_waiting",
+          "destinations": [
+            {
+              "location": "m_1_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_1_waiting",
+          "destinations": [
+            {
+              "location": "m_1_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_1_waiting",
+          "destinations": [
+            {
+              "location": "m_1_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_1_waiting",
+          "destinations": [
+            {
+              "location": "m_1_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_1_running",
+          "guard": {
+            "op": "=",
+            "left": "wcet_m_1_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_3_running"
+            }
+          ]
+        },
+        {
+          "location": "m_1_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_1_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_1_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_1_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_1_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_1_running"
+            }
+          ]
+        },
+        {
+          "location": "m_1_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_1_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_1_running"
+            }
+          ]
+        },
+        {
+          "location": "m_1_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_1_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_1_running"
+            }
+          ]
+        },
+        {
+          "location": "m_1_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_1_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_1_running"
+            }
+          ]
+        },
+        {
+          "location": "m_1_preempted",
+          "destinations": [
+            {
+              "location": "m_1_running"
+            }
+          ]
+        },
+        {
+          "location": "m_1_preempted",
+          "destinations": [
+            {
+              "location": "m_1_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_1_preempted",
+          "destinations": [
+            {
+              "location": "m_1_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_1_preempted",
+          "destinations": [
+            {
+              "location": "m_1_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_1_preempted",
+          "destinations": [
+            {
+              "location": "m_1_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_1_preempted",
+          "destinations": [
+            {
+              "location": "m_1_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_3_waiting",
+          "destinations": [
+            {
+              "location": "m_3_running",
+              "assignments": [
+                {
+                  "ref": "c_2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "m_3_waiting",
+          "destinations": [
+            {
+              "location": "m_3_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_3_waiting",
+          "destinations": [
+            {
+              "location": "m_3_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_3_waiting",
+          "destinations": [
+            {
+              "location": "m_3_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_3_waiting",
+          "destinations": [
+            {
+              "location": "m_3_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_3_waiting",
+          "destinations": [
+            {
+              "location": "m_3_waiting"
+            }
+          ]
+        },
+        {
+          "location": "m_3_running",
+          "guard": {
+            "op": "=",
+            "left": "wcet_m_3_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "success"
+            }
+          ]
+        },
+        {
+          "location": "m_3_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_3_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_3_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_3_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_3_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_3_running"
+            }
+          ]
+        },
+        {
+          "location": "m_3_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_3_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_3_running"
+            }
+          ]
+        },
+        {
+          "location": "m_3_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_3_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_3_running"
+            }
+          ]
+        },
+        {
+          "location": "m_3_running",
+          "guard": {
+            "op": "≥",
+            "left": "wcet_m_3_job_2",
+            "right": "c_2"
+          },
+          "destinations": [
+            {
+              "location": "m_3_running"
+            }
+          ]
+        },
+        {
+          "location": "m_3_preempted",
+          "destinations": [
+            {
+              "location": "m_3_running"
+            }
+          ]
+        },
+        {
+          "location": "m_3_preempted",
+          "destinations": [
+            {
+              "location": "m_3_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_3_preempted",
+          "destinations": [
+            {
+              "location": "m_3_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_3_preempted",
+          "destinations": [
+            {
+              "location": "m_3_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_3_preempted",
+          "destinations": [
+            {
+              "location": "m_3_preempted"
+            }
+          ]
+        },
+        {
+          "location": "m_3_preempted",
+          "destinations": [
+            {
+              "location": "m_3_preempted"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "checker"
+      },
+      {
+        "automaton": "job_1"
+      },
+      {
+        "automaton": "job_2"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "m_0_job_1_beginning",
+          "m_0_job_1_beginning",
+          "m_0_job_1_beginning"
+        ],
+        "result": "m_0_job_1_beginning"
+      },
+      {
+        "synchronise": [
+          "m_0_job_1_finishing",
+          "m_0_job_1_finishing",
+          null
+        ],
+        "result": "m_0_job_1_finishing"
+      },
+      {
+        "synchronise": [
+          "m_3_job_1_beginning",
+          "m_3_job_1_beginning",
+          "m_3_job_1_beginning"
+        ],
+        "result": "m_3_job_1_beginning"
+      },
+      {
+        "synchronise": [
+          "m_3_job_1_finishing",
+          "m_3_job_1_finishing",
+          null
+        ],
+        "result": "m_3_job_1_finishing"
+      },
+      {
+        "synchronise": [
+          "m_1_job_1_beginning",
+          "m_1_job_1_beginning",
+          "m_1_job_1_beginning"
+        ],
+        "result": "m_1_job_1_beginning"
+      },
+      {
+        "synchronise": [
+          "m_1_job_1_finishing",
+          "m_1_job_1_finishing",
+          null
+        ],
+        "result": "m_1_job_1_finishing"
+      },
+      {
+        "synchronise": [
+          "m_4_job_1_beginning",
+          "m_4_job_1_beginning",
+          "m_4_job_1_beginning"
+        ],
+        "result": "m_4_job_1_beginning"
+      },
+      {
+        "synchronise": [
+          "m_4_job_1_finishing",
+          "m_4_job_1_finishing",
+          null
+        ],
+        "result": "m_4_job_1_finishing"
+      },
+      {
+        "synchronise": [
+          "m_2_job_1_beginning",
+          "m_2_job_1_beginning",
+          "m_2_job_1_beginning"
+        ],
+        "result": "m_2_job_1_beginning"
+      },
+      {
+        "synchronise": [
+          "m_2_job_1_finishing",
+          "m_2_job_1_finishing",
+          null
+        ],
+        "result": "m_2_job_1_finishing"
+      },
+      {
+        "synchronise": [
+          "m_4_job_2_beginning",
+          "m_4_job_2_beginning",
+          "m_4_job_2_beginning"
+        ],
+        "result": "m_4_job_2_beginning"
+      },
+      {
+        "synchronise": [
+          "m_4_job_2_finishing",
+          null,
+          "m_4_job_2_finishing"
+        ],
+        "result": "m_4_job_2_finishing"
+      },
+      {
+        "synchronise": [
+          "m_2_job_2_beginning",
+          "m_2_job_2_beginning",
+          "m_2_job_2_beginning"
+        ],
+        "result": "m_2_job_2_beginning"
+      },
+      {
+        "synchronise": [
+          "m_2_job_2_finishing",
+          null,
+          "m_2_job_2_finishing"
+        ],
+        "result": "m_2_job_2_finishing"
+      },
+      {
+        "synchronise": [
+          "m_0_job_2_beginning",
+          "m_0_job_2_beginning",
+          "m_0_job_2_beginning"
+        ],
+        "result": "m_0_job_2_beginning"
+      },
+      {
+        "synchronise": [
+          "m_0_job_2_finishing",
+          null,
+          "m_0_job_2_finishing"
+        ],
+        "result": "m_0_job_2_finishing"
+      },
+      {
+        "synchronise": [
+          "m_1_job_2_beginning",
+          "m_1_job_2_beginning",
+          "m_1_job_2_beginning"
+        ],
+        "result": "m_1_job_2_beginning"
+      },
+      {
+        "synchronise": [
+          "m_1_job_2_finishing",
+          null,
+          "m_1_job_2_finishing"
+        ],
+        "result": "m_1_job_2_finishing"
+      },
+      {
+        "synchronise": [
+          "m_3_job_2_beginning",
+          "m_3_job_2_beginning",
+          "m_3_job_2_beginning"
+        ],
+        "result": "m_3_job_2_beginning"
+      },
+      {
+        "synchronise": [
+          "m_3_job_2_finishing",
+          null,
+          "m_3_job_2_finishing"
+        ],
+        "result": "m_3_job_2_finishing"
+      },
+      {
+        "synchronise": [
+          "DEADLINE",
+          null,
+          null
+        ],
+        "result": "DEADLINE"
+      }
+    ]
+  }
+}

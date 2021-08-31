@@ -1,0 +1,535 @@
+{
+  "jani-version": 1,
+  "name": "Fischer/Fischer2/fischer_2.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "tau"
+    },
+    {
+      "name": "start1"
+    },
+    {
+      "name": "set1"
+    },
+    {
+      "name": "enter1"
+    },
+    {
+      "name": "abort1"
+    },
+    {
+      "name": "release1"
+    },
+    {
+      "name": "start2"
+    },
+    {
+      "name": "set2"
+    },
+    {
+      "name": "enter2"
+    },
+    {
+      "name": "abort2"
+    },
+    {
+      "name": "release2"
+    }
+  ],
+  "variables": [
+    {
+      "name": "x1",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "x2",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "k",
+      "type": "int",
+      "initial_value": 0
+    },
+    {
+      "name": "a",
+      "type": "real"
+    },
+    {
+      "name": "b",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "proc1",
+      "locations": [
+        {
+          "name": "idle"
+        },
+        {
+          "name": "start",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "a",
+              "right": "x1"
+            }
+          }
+        },
+        {
+          "name": "check"
+        },
+        {
+          "name": "CS"
+        }
+      ],
+      "initial_locations": [
+        "idle"
+      ],
+      "edges": [
+        {
+          "location": "idle",
+          "guard": {
+            "op": "=",
+            "left": "k",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "start",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "idle",
+          "destinations": [
+            {
+              "location": "idle"
+            }
+          ]
+        },
+        {
+          "location": "start",
+          "destinations": [
+            {
+              "location": "check",
+              "assignments": [
+                {
+                  "ref": "x1",
+                  "value": 0
+                },
+                {
+                  "ref": "k",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "start",
+          "destinations": [
+            {
+              "location": "start"
+            }
+          ]
+        },
+        {
+          "location": "check",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "=",
+              "left": "k",
+              "right": 1
+            },
+            "right": {
+              "op": ">",
+              "left": "x1",
+              "right": "b"
+            }
+          },
+          "destinations": [
+            {
+              "location": "CS"
+            }
+          ]
+        },
+        {
+          "location": "check",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "<>",
+              "left": "k",
+              "right": 1
+            },
+            "right": {
+              "op": ">",
+              "left": "x1",
+              "right": "b"
+            }
+          },
+          "destinations": [
+            {
+              "location": "idle"
+            }
+          ]
+        },
+        {
+          "location": "check",
+          "destinations": [
+            {
+              "location": "check"
+            }
+          ]
+        },
+        {
+          "location": "CS",
+          "destinations": [
+            {
+              "location": "idle",
+              "assignments": [
+                {
+                  "ref": "k",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "CS",
+          "destinations": [
+            {
+              "location": "CS"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "proc2",
+      "locations": [
+        {
+          "name": "idle"
+        },
+        {
+          "name": "start",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "a",
+              "right": "x2"
+            }
+          }
+        },
+        {
+          "name": "check"
+        },
+        {
+          "name": "CS"
+        }
+      ],
+      "initial_locations": [
+        "idle"
+      ],
+      "edges": [
+        {
+          "location": "idle",
+          "guard": {
+            "op": "=",
+            "left": "k",
+            "right": 0
+          },
+          "destinations": [
+            {
+              "location": "start",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "idle",
+          "destinations": [
+            {
+              "location": "idle"
+            }
+          ]
+        },
+        {
+          "location": "start",
+          "destinations": [
+            {
+              "location": "check",
+              "assignments": [
+                {
+                  "ref": "x2",
+                  "value": 0
+                },
+                {
+                  "ref": "k",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "start",
+          "destinations": [
+            {
+              "location": "start"
+            }
+          ]
+        },
+        {
+          "location": "check",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "=",
+              "left": "k",
+              "right": 2
+            },
+            "right": {
+              "op": ">",
+              "left": "x2",
+              "right": "b"
+            }
+          },
+          "destinations": [
+            {
+              "location": "CS"
+            }
+          ]
+        },
+        {
+          "location": "check",
+          "guard": {
+            "op": "∧",
+            "left": {
+              "op": "<>",
+              "left": "k",
+              "right": 2
+            },
+            "right": {
+              "op": ">",
+              "left": "x2",
+              "right": "b"
+            }
+          },
+          "destinations": [
+            {
+              "location": "idle"
+            }
+          ]
+        },
+        {
+          "location": "check",
+          "destinations": [
+            {
+              "location": "check"
+            }
+          ]
+        },
+        {
+          "location": "CS",
+          "destinations": [
+            {
+              "location": "idle",
+              "assignments": [
+                {
+                  "ref": "k",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "CS",
+          "destinations": [
+            {
+              "location": "CS"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "arbitrer",
+      "locations": [
+        {
+          "name": "loc_arbitrer"
+        }
+      ],
+      "initial_locations": [
+        "loc_arbitrer"
+      ],
+      "edges": [
+        {
+          "location": "loc_arbitrer",
+          "destinations": [
+            {
+              "location": "loc_arbitrer"
+            }
+          ]
+        },
+        {
+          "location": "loc_arbitrer",
+          "destinations": [
+            {
+              "location": "loc_arbitrer"
+            }
+          ]
+        },
+        {
+          "location": "loc_arbitrer",
+          "destinations": [
+            {
+              "location": "loc_arbitrer"
+            }
+          ]
+        },
+        {
+          "location": "loc_arbitrer",
+          "destinations": [
+            {
+              "location": "loc_arbitrer"
+            }
+          ]
+        },
+        {
+          "location": "loc_arbitrer",
+          "destinations": [
+            {
+              "location": "loc_arbitrer"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "proc1"
+      },
+      {
+        "automaton": "proc2"
+      },
+      {
+        "automaton": "arbitrer"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "tau",
+          "tau",
+          "tau"
+        ],
+        "result": "tau"
+      },
+      {
+        "synchronise": [
+          "start1",
+          null,
+          null
+        ],
+        "result": "start1"
+      },
+      {
+        "synchronise": [
+          "set1",
+          null,
+          "set1"
+        ],
+        "result": "set1"
+      },
+      {
+        "synchronise": [
+          "enter1",
+          null,
+          null
+        ],
+        "result": "enter1"
+      },
+      {
+        "synchronise": [
+          "abort1",
+          null,
+          null
+        ],
+        "result": "abort1"
+      },
+      {
+        "synchronise": [
+          "release1",
+          null,
+          "release1"
+        ],
+        "result": "release1"
+      },
+      {
+        "synchronise": [
+          null,
+          "start2",
+          null
+        ],
+        "result": "start2"
+      },
+      {
+        "synchronise": [
+          null,
+          "set2",
+          "set2"
+        ],
+        "result": "set2"
+      },
+      {
+        "synchronise": [
+          null,
+          "enter2",
+          null
+        ],
+        "result": "enter2"
+      },
+      {
+        "synchronise": [
+          null,
+          "abort2",
+          null
+        ],
+        "result": "abort2"
+      },
+      {
+        "synchronise": [
+          null,
+          "release2",
+          "release2"
+        ],
+        "result": "release2"
+      }
+    ]
+  }
+}

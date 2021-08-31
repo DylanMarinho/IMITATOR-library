@@ -1,0 +1,2380 @@
+{
+  "jani-version": 1,
+  "name": "Hardware/Flipflop/flipflop-4D.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "dUp"
+    },
+    {
+      "name": "dDown"
+    },
+    {
+      "name": "ckUp"
+    },
+    {
+      "name": "ckDown"
+    },
+    {
+      "name": "qG2Up"
+    },
+    {
+      "name": "qG2Down"
+    },
+    {
+      "name": "qG1Up"
+    },
+    {
+      "name": "qG1Down"
+    },
+    {
+      "name": "qUp"
+    },
+    {
+      "name": "qDown"
+    },
+    {
+      "name": "qG3Up"
+    },
+    {
+      "name": "qG3Down"
+    }
+  ],
+  "variables": [
+    {
+      "name": "s",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "ckG1",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "ckG2",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "ckG3",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "ckG4",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "dG1_u",
+      "type": "real"
+    },
+    {
+      "name": "dG2_u",
+      "type": "real"
+    },
+    {
+      "name": "dG3_u",
+      "type": "real"
+    },
+    {
+      "name": "dG4_u",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "input",
+      "locations": [
+        {
+          "name": "Input0",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 5,
+              "right": "s"
+            }
+          }
+        },
+        {
+          "name": "Input1",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 15,
+              "right": "s"
+            }
+          }
+        },
+        {
+          "name": "Input2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 32,
+              "right": "s"
+            }
+          }
+        },
+        {
+          "name": "Input3",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 39,
+              "right": "s"
+            }
+          }
+        },
+        {
+          "name": "Input4"
+        }
+      ],
+      "initial_locations": [
+        "Input0"
+      ],
+      "edges": [
+        {
+          "location": "Input0",
+          "guard": {
+            "op": "=",
+            "left": "s",
+            "right": 5
+          },
+          "destinations": [
+            {
+              "location": "Input1"
+            }
+          ]
+        },
+        {
+          "location": "Input1",
+          "guard": {
+            "op": "=",
+            "left": "s",
+            "right": 15
+          },
+          "destinations": [
+            {
+              "location": "Input2"
+            }
+          ]
+        },
+        {
+          "location": "Input2",
+          "guard": {
+            "op": "=",
+            "left": "s",
+            "right": 32
+          },
+          "destinations": [
+            {
+              "location": "Input3"
+            }
+          ]
+        },
+        {
+          "location": "Input3",
+          "guard": {
+            "op": "=",
+            "left": "s",
+            "right": 39
+          },
+          "destinations": [
+            {
+              "location": "Input4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "g1",
+      "locations": [
+        {
+          "name": "G10000",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG1_u",
+              "right": "ckG1"
+            }
+          }
+        },
+        {
+          "name": "G10001",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG1",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G10010",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG1_u",
+              "right": "ckG1"
+            }
+          }
+        },
+        {
+          "name": "G10011",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG1",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G10100",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG1_u",
+              "right": "ckG1"
+            }
+          }
+        },
+        {
+          "name": "G10101",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG1",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G10110",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG1",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G10111",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG1_u",
+              "right": "ckG1"
+            }
+          }
+        },
+        {
+          "name": "G11000",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG1_u",
+              "right": "ckG1"
+            }
+          }
+        },
+        {
+          "name": "G11001",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG1",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G11010",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG1",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G11011",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG1_u",
+              "right": "ckG1"
+            }
+          }
+        },
+        {
+          "name": "G11100",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG1_u",
+              "right": "ckG1"
+            }
+          }
+        },
+        {
+          "name": "G11101",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG1",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G11110",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG1",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G11111",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG1_u",
+              "right": "ckG1"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "G10011"
+      ],
+      "edges": [
+        {
+          "location": "G10000",
+          "destinations": [
+            {
+              "location": "G11000",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G10000",
+          "destinations": [
+            {
+              "location": "G10100",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G10000",
+          "destinations": [
+            {
+              "location": "G10010",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G10000",
+          "guard": {
+            "op": ">",
+            "left": "ckG1",
+            "right": 7
+          },
+          "destinations": [
+            {
+              "location": "G10001"
+            }
+          ]
+        },
+        {
+          "location": "G10001",
+          "destinations": [
+            {
+              "location": "G11001"
+            }
+          ]
+        },
+        {
+          "location": "G10001",
+          "destinations": [
+            {
+              "location": "G10101"
+            }
+          ]
+        },
+        {
+          "location": "G10001",
+          "destinations": [
+            {
+              "location": "G10011"
+            }
+          ]
+        },
+        {
+          "location": "G10010",
+          "destinations": [
+            {
+              "location": "G11010"
+            }
+          ]
+        },
+        {
+          "location": "G10010",
+          "destinations": [
+            {
+              "location": "G10110"
+            }
+          ]
+        },
+        {
+          "location": "G10010",
+          "destinations": [
+            {
+              "location": "G10000",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G10010",
+          "guard": {
+            "op": ">",
+            "left": "ckG1",
+            "right": 7
+          },
+          "destinations": [
+            {
+              "location": "G10011"
+            }
+          ]
+        },
+        {
+          "location": "G10011",
+          "destinations": [
+            {
+              "location": "G11011",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G10011",
+          "destinations": [
+            {
+              "location": "G10111",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G10011",
+          "destinations": [
+            {
+              "location": "G10001"
+            }
+          ]
+        },
+        {
+          "location": "G10100",
+          "destinations": [
+            {
+              "location": "G11100",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G10100",
+          "destinations": [
+            {
+              "location": "G10000",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G10100",
+          "destinations": [
+            {
+              "location": "G10110"
+            }
+          ]
+        },
+        {
+          "location": "G10100",
+          "guard": {
+            "op": ">",
+            "left": "ckG1",
+            "right": 7
+          },
+          "destinations": [
+            {
+              "location": "G10101"
+            }
+          ]
+        },
+        {
+          "location": "G10101",
+          "destinations": [
+            {
+              "location": "G11101"
+            }
+          ]
+        },
+        {
+          "location": "G10101",
+          "destinations": [
+            {
+              "location": "G10001"
+            }
+          ]
+        },
+        {
+          "location": "G10101",
+          "destinations": [
+            {
+              "location": "G10111",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G10110",
+          "destinations": [
+            {
+              "location": "G11110"
+            }
+          ]
+        },
+        {
+          "location": "G10110",
+          "destinations": [
+            {
+              "location": "G10010",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G10110",
+          "destinations": [
+            {
+              "location": "G10100",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G10111",
+          "destinations": [
+            {
+              "location": "G11111",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G10111",
+          "destinations": [
+            {
+              "location": "G10011"
+            }
+          ]
+        },
+        {
+          "location": "G10111",
+          "destinations": [
+            {
+              "location": "G10101"
+            }
+          ]
+        },
+        {
+          "location": "G10111",
+          "guard": {
+            "op": ">",
+            "left": "ckG1",
+            "right": 7
+          },
+          "destinations": [
+            {
+              "location": "G10110"
+            }
+          ]
+        },
+        {
+          "location": "G11000",
+          "destinations": [
+            {
+              "location": "G10000",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G11000",
+          "destinations": [
+            {
+              "location": "G11100",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G11000",
+          "destinations": [
+            {
+              "location": "G11010"
+            }
+          ]
+        },
+        {
+          "location": "G11000",
+          "guard": {
+            "op": ">",
+            "left": "ckG1",
+            "right": 7
+          },
+          "destinations": [
+            {
+              "location": "G11001"
+            }
+          ]
+        },
+        {
+          "location": "G11001",
+          "destinations": [
+            {
+              "location": "G10001"
+            }
+          ]
+        },
+        {
+          "location": "G11001",
+          "destinations": [
+            {
+              "location": "G11101"
+            }
+          ]
+        },
+        {
+          "location": "G11001",
+          "destinations": [
+            {
+              "location": "G11011",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G11010",
+          "destinations": [
+            {
+              "location": "G10010",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G11010",
+          "destinations": [
+            {
+              "location": "G11110"
+            }
+          ]
+        },
+        {
+          "location": "G11010",
+          "destinations": [
+            {
+              "location": "G11000",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G11011",
+          "destinations": [
+            {
+              "location": "G10011"
+            }
+          ]
+        },
+        {
+          "location": "G11011",
+          "destinations": [
+            {
+              "location": "G11111",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G11011",
+          "destinations": [
+            {
+              "location": "G11001"
+            }
+          ]
+        },
+        {
+          "location": "G11011",
+          "guard": {
+            "op": ">",
+            "left": "ckG1",
+            "right": 7
+          },
+          "destinations": [
+            {
+              "location": "G11010"
+            }
+          ]
+        },
+        {
+          "location": "G11100",
+          "destinations": [
+            {
+              "location": "G10100",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G11100",
+          "destinations": [
+            {
+              "location": "G11000",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G11100",
+          "destinations": [
+            {
+              "location": "G11110"
+            }
+          ]
+        },
+        {
+          "location": "G11100",
+          "guard": {
+            "op": ">",
+            "left": "ckG1",
+            "right": 7
+          },
+          "destinations": [
+            {
+              "location": "G11101"
+            }
+          ]
+        },
+        {
+          "location": "G11101",
+          "destinations": [
+            {
+              "location": "G10101"
+            }
+          ]
+        },
+        {
+          "location": "G11101",
+          "destinations": [
+            {
+              "location": "G11001"
+            }
+          ]
+        },
+        {
+          "location": "G11101",
+          "destinations": [
+            {
+              "location": "G11111",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G11110",
+          "destinations": [
+            {
+              "location": "G10110"
+            }
+          ]
+        },
+        {
+          "location": "G11110",
+          "destinations": [
+            {
+              "location": "G11010"
+            }
+          ]
+        },
+        {
+          "location": "G11110",
+          "destinations": [
+            {
+              "location": "G11100",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G11111",
+          "destinations": [
+            {
+              "location": "G10111",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G11111",
+          "destinations": [
+            {
+              "location": "G11011",
+              "assignments": [
+                {
+                  "ref": "ckG1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G11111",
+          "destinations": [
+            {
+              "location": "G11101"
+            }
+          ]
+        },
+        {
+          "location": "G11111",
+          "guard": {
+            "op": ">",
+            "left": "ckG1",
+            "right": 7
+          },
+          "destinations": [
+            {
+              "location": "G11110"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "g2",
+      "locations": [
+        {
+          "name": "G2001",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG2",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G2000",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG2_u",
+              "right": "ckG2"
+            }
+          }
+        },
+        {
+          "name": "G2011",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG2",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G2010",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG2_u",
+              "right": "ckG2"
+            }
+          }
+        },
+        {
+          "name": "G2101",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG2",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G2100",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG2_u",
+              "right": "ckG2"
+            }
+          }
+        },
+        {
+          "name": "G2111",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG2_u",
+              "right": "ckG2"
+            }
+          }
+        },
+        {
+          "name": "G2110",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG2",
+              "right": 0
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "G2101"
+      ],
+      "edges": [
+        {
+          "location": "G2001",
+          "destinations": [
+            {
+              "location": "G2101"
+            }
+          ]
+        },
+        {
+          "location": "G2001",
+          "destinations": [
+            {
+              "location": "G2011"
+            }
+          ]
+        },
+        {
+          "location": "G2000",
+          "destinations": [
+            {
+              "location": "G2100",
+              "assignments": [
+                {
+                  "ref": "ckG2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G2000",
+          "destinations": [
+            {
+              "location": "G2010",
+              "assignments": [
+                {
+                  "ref": "ckG2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G2000",
+          "guard": {
+            "op": ">",
+            "left": "ckG2",
+            "right": 5
+          },
+          "destinations": [
+            {
+              "location": "G2001"
+            }
+          ]
+        },
+        {
+          "location": "G2011",
+          "destinations": [
+            {
+              "location": "G2111",
+              "assignments": [
+                {
+                  "ref": "ckG2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G2011",
+          "destinations": [
+            {
+              "location": "G2001"
+            }
+          ]
+        },
+        {
+          "location": "G2010",
+          "destinations": [
+            {
+              "location": "G2110"
+            }
+          ]
+        },
+        {
+          "location": "G2010",
+          "destinations": [
+            {
+              "location": "G2000",
+              "assignments": [
+                {
+                  "ref": "ckG2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G2010",
+          "guard": {
+            "op": ">",
+            "left": "ckG2",
+            "right": 5
+          },
+          "destinations": [
+            {
+              "location": "G2011"
+            }
+          ]
+        },
+        {
+          "location": "G2101",
+          "destinations": [
+            {
+              "location": "G2001"
+            }
+          ]
+        },
+        {
+          "location": "G2101",
+          "destinations": [
+            {
+              "location": "G2111",
+              "assignments": [
+                {
+                  "ref": "ckG2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G2100",
+          "destinations": [
+            {
+              "location": "G2000",
+              "assignments": [
+                {
+                  "ref": "ckG2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G2100",
+          "destinations": [
+            {
+              "location": "G2110"
+            }
+          ]
+        },
+        {
+          "location": "G2100",
+          "guard": {
+            "op": ">",
+            "left": "ckG2",
+            "right": 5
+          },
+          "destinations": [
+            {
+              "location": "G2101"
+            }
+          ]
+        },
+        {
+          "location": "G2111",
+          "destinations": [
+            {
+              "location": "G2011"
+            }
+          ]
+        },
+        {
+          "location": "G2111",
+          "destinations": [
+            {
+              "location": "G2101"
+            }
+          ]
+        },
+        {
+          "location": "G2111",
+          "guard": {
+            "op": ">",
+            "left": "ckG2",
+            "right": 5
+          },
+          "destinations": [
+            {
+              "location": "G2110"
+            }
+          ]
+        },
+        {
+          "location": "G2110",
+          "destinations": [
+            {
+              "location": "G2010",
+              "assignments": [
+                {
+                  "ref": "ckG2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G2110",
+          "destinations": [
+            {
+              "location": "G2100",
+              "assignments": [
+                {
+                  "ref": "ckG2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "g3",
+      "locations": [
+        {
+          "name": "G30000",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG3_u",
+              "right": "ckG3"
+            }
+          }
+        },
+        {
+          "name": "G30001",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG3",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G30010",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG3_u",
+              "right": "ckG3"
+            }
+          }
+        },
+        {
+          "name": "G30011",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG3",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G30100",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG3_u",
+              "right": "ckG3"
+            }
+          }
+        },
+        {
+          "name": "G30101",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG3",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G30110",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG3",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G30111",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG3_u",
+              "right": "ckG3"
+            }
+          }
+        },
+        {
+          "name": "G31000",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG3_u",
+              "right": "ckG3"
+            }
+          }
+        },
+        {
+          "name": "G31001",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG3",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G31010",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG3",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G31011",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG3_u",
+              "right": "ckG3"
+            }
+          }
+        },
+        {
+          "name": "G31100",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG3_u",
+              "right": "ckG3"
+            }
+          }
+        },
+        {
+          "name": "G31101",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG3",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G31110",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG3",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G31111",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG3_u",
+              "right": "ckG3"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "G30011"
+      ],
+      "edges": [
+        {
+          "location": "G30000",
+          "destinations": [
+            {
+              "location": "G31000",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G30000",
+          "destinations": [
+            {
+              "location": "G30100",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G30000",
+          "destinations": [
+            {
+              "location": "G30010",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G30000",
+          "guard": {
+            "op": ">",
+            "left": "ckG3",
+            "right": 8
+          },
+          "destinations": [
+            {
+              "location": "G30001"
+            }
+          ]
+        },
+        {
+          "location": "G30001",
+          "destinations": [
+            {
+              "location": "G31001"
+            }
+          ]
+        },
+        {
+          "location": "G30001",
+          "destinations": [
+            {
+              "location": "G30101"
+            }
+          ]
+        },
+        {
+          "location": "G30001",
+          "destinations": [
+            {
+              "location": "G30011"
+            }
+          ]
+        },
+        {
+          "location": "G30010",
+          "destinations": [
+            {
+              "location": "G31010"
+            }
+          ]
+        },
+        {
+          "location": "G30010",
+          "destinations": [
+            {
+              "location": "G30110"
+            }
+          ]
+        },
+        {
+          "location": "G30010",
+          "destinations": [
+            {
+              "location": "G30000",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G30010",
+          "guard": {
+            "op": ">",
+            "left": "ckG3",
+            "right": 8
+          },
+          "destinations": [
+            {
+              "location": "G30011"
+            }
+          ]
+        },
+        {
+          "location": "G30011",
+          "destinations": [
+            {
+              "location": "G31011",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G30011",
+          "destinations": [
+            {
+              "location": "G30111",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G30011",
+          "destinations": [
+            {
+              "location": "G30001"
+            }
+          ]
+        },
+        {
+          "location": "G30100",
+          "destinations": [
+            {
+              "location": "G31100",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G30100",
+          "destinations": [
+            {
+              "location": "G30000",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G30100",
+          "destinations": [
+            {
+              "location": "G30110"
+            }
+          ]
+        },
+        {
+          "location": "G30100",
+          "guard": {
+            "op": ">",
+            "left": "ckG3",
+            "right": 8
+          },
+          "destinations": [
+            {
+              "location": "G30101"
+            }
+          ]
+        },
+        {
+          "location": "G30101",
+          "destinations": [
+            {
+              "location": "G31101"
+            }
+          ]
+        },
+        {
+          "location": "G30101",
+          "destinations": [
+            {
+              "location": "G30001"
+            }
+          ]
+        },
+        {
+          "location": "G30101",
+          "destinations": [
+            {
+              "location": "G30111",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G30110",
+          "destinations": [
+            {
+              "location": "G31110"
+            }
+          ]
+        },
+        {
+          "location": "G30110",
+          "destinations": [
+            {
+              "location": "G30010",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G30110",
+          "destinations": [
+            {
+              "location": "G30100",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G30111",
+          "destinations": [
+            {
+              "location": "G31111",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G30111",
+          "destinations": [
+            {
+              "location": "G30011"
+            }
+          ]
+        },
+        {
+          "location": "G30111",
+          "destinations": [
+            {
+              "location": "G30101"
+            }
+          ]
+        },
+        {
+          "location": "G30111",
+          "guard": {
+            "op": ">",
+            "left": "ckG3",
+            "right": 8
+          },
+          "destinations": [
+            {
+              "location": "G30110"
+            }
+          ]
+        },
+        {
+          "location": "G31000",
+          "destinations": [
+            {
+              "location": "G30000",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G31000",
+          "destinations": [
+            {
+              "location": "G31100",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G31000",
+          "destinations": [
+            {
+              "location": "G31010"
+            }
+          ]
+        },
+        {
+          "location": "G31000",
+          "guard": {
+            "op": ">",
+            "left": "ckG3",
+            "right": 8
+          },
+          "destinations": [
+            {
+              "location": "G31001"
+            }
+          ]
+        },
+        {
+          "location": "G31001",
+          "destinations": [
+            {
+              "location": "G30001"
+            }
+          ]
+        },
+        {
+          "location": "G31001",
+          "destinations": [
+            {
+              "location": "G31101"
+            }
+          ]
+        },
+        {
+          "location": "G31001",
+          "destinations": [
+            {
+              "location": "G31011",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G31010",
+          "destinations": [
+            {
+              "location": "G30010",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G31010",
+          "destinations": [
+            {
+              "location": "G31110"
+            }
+          ]
+        },
+        {
+          "location": "G31010",
+          "destinations": [
+            {
+              "location": "G31000",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G31011",
+          "destinations": [
+            {
+              "location": "G30011"
+            }
+          ]
+        },
+        {
+          "location": "G31011",
+          "destinations": [
+            {
+              "location": "G31111",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G31011",
+          "destinations": [
+            {
+              "location": "G31001"
+            }
+          ]
+        },
+        {
+          "location": "G31011",
+          "guard": {
+            "op": ">",
+            "left": "ckG3",
+            "right": 8
+          },
+          "destinations": [
+            {
+              "location": "G31010"
+            }
+          ]
+        },
+        {
+          "location": "G31100",
+          "destinations": [
+            {
+              "location": "G30100",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G31100",
+          "destinations": [
+            {
+              "location": "G31000",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G31100",
+          "destinations": [
+            {
+              "location": "G31110"
+            }
+          ]
+        },
+        {
+          "location": "G31100",
+          "guard": {
+            "op": ">",
+            "left": "ckG3",
+            "right": 8
+          },
+          "destinations": [
+            {
+              "location": "G31101"
+            }
+          ]
+        },
+        {
+          "location": "G31101",
+          "destinations": [
+            {
+              "location": "G30101"
+            }
+          ]
+        },
+        {
+          "location": "G31101",
+          "destinations": [
+            {
+              "location": "G31001"
+            }
+          ]
+        },
+        {
+          "location": "G31101",
+          "destinations": [
+            {
+              "location": "G31111",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G31110",
+          "destinations": [
+            {
+              "location": "G30110"
+            }
+          ]
+        },
+        {
+          "location": "G31110",
+          "destinations": [
+            {
+              "location": "G31010"
+            }
+          ]
+        },
+        {
+          "location": "G31110",
+          "destinations": [
+            {
+              "location": "G31100",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G31111",
+          "destinations": [
+            {
+              "location": "G30111",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G31111",
+          "destinations": [
+            {
+              "location": "G31011",
+              "assignments": [
+                {
+                  "ref": "ckG3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G31111",
+          "destinations": [
+            {
+              "location": "G31101"
+            }
+          ]
+        },
+        {
+          "location": "G31111",
+          "guard": {
+            "op": ">",
+            "left": "ckG3",
+            "right": 8
+          },
+          "destinations": [
+            {
+              "location": "G31110"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "g4",
+      "locations": [
+        {
+          "name": "G401",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG4",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G411",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG4_u",
+              "right": "ckG4"
+            }
+          }
+        },
+        {
+          "name": "G410",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "ckG4",
+              "right": 0
+            }
+          }
+        },
+        {
+          "name": "G400",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "dG4_u",
+              "right": "ckG4"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "G410"
+      ],
+      "edges": [
+        {
+          "location": "G401",
+          "destinations": [
+            {
+              "location": "G411",
+              "assignments": [
+                {
+                  "ref": "ckG4",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G411",
+          "destinations": [
+            {
+              "location": "G401"
+            }
+          ]
+        },
+        {
+          "location": "G411",
+          "guard": {
+            "op": ">",
+            "left": "ckG4",
+            "right": 3
+          },
+          "destinations": [
+            {
+              "location": "G410"
+            }
+          ]
+        },
+        {
+          "location": "G410",
+          "destinations": [
+            {
+              "location": "G400",
+              "assignments": [
+                {
+                  "ref": "ckG4",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "G400",
+          "destinations": [
+            {
+              "location": "G410"
+            }
+          ]
+        },
+        {
+          "location": "G400",
+          "guard": {
+            "op": ">",
+            "left": "ckG4",
+            "right": 3
+          },
+          "destinations": [
+            {
+              "location": "G401"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "input"
+      },
+      {
+        "automaton": "g1"
+      },
+      {
+        "automaton": "g2"
+      },
+      {
+        "automaton": "g3"
+      },
+      {
+        "automaton": "g4"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "dUp",
+          "dUp",
+          null,
+          null,
+          null
+        ],
+        "result": "dUp"
+      },
+      {
+        "synchronise": [
+          "dDown",
+          "dDown",
+          null,
+          null,
+          null
+        ],
+        "result": "dDown"
+      },
+      {
+        "synchronise": [
+          "ckUp",
+          "ckUp",
+          "ckUp",
+          "ckUp",
+          null
+        ],
+        "result": "ckUp"
+      },
+      {
+        "synchronise": [
+          "ckDown",
+          "ckDown",
+          "ckDown",
+          "ckDown",
+          null
+        ],
+        "result": "ckDown"
+      },
+      {
+        "synchronise": [
+          null,
+          "qG2Up",
+          "qG2Up",
+          "qG2Up",
+          null
+        ],
+        "result": "qG2Up"
+      },
+      {
+        "synchronise": [
+          null,
+          "qG2Down",
+          "qG2Down",
+          "qG2Down",
+          null
+        ],
+        "result": "qG2Down"
+      },
+      {
+        "synchronise": [
+          null,
+          "qG1Up",
+          "qG1Up",
+          null,
+          null
+        ],
+        "result": "qG1Up"
+      },
+      {
+        "synchronise": [
+          null,
+          "qG1Down",
+          "qG1Down",
+          null,
+          null
+        ],
+        "result": "qG1Down"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          "qUp",
+          "qUp"
+        ],
+        "result": "qUp"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          "qDown",
+          "qDown"
+        ],
+        "result": "qDown"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          "qG3Up",
+          "qG3Up"
+        ],
+        "result": "qG3Up"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          null,
+          "qG3Down",
+          "qG3Down"
+        ],
+        "result": "qG3Down"
+      }
+    ]
+  }
+}

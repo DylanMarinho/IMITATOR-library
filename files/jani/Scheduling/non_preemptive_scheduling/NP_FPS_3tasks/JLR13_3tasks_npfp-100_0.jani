@@ -1,0 +1,960 @@
+{
+  "jani-version": 1,
+  "name": "Scheduling/non_preemptive_scheduling/NP_FPS_3tasks/JLR13_3tasks_npfp-100_0.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [
+    {
+      "name": "r1"
+    },
+    {
+      "name": "r2"
+    },
+    {
+      "name": "r3"
+    }
+  ],
+  "variables": [
+    {
+      "name": "p1",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "p2",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "p3",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "c1",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "c2",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "c3",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "b",
+      "type": "real"
+    },
+    {
+      "name": "C3_WORST",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "act1",
+      "locations": [
+        {
+          "name": "waiting1",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 100,
+              "right": "p1"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "waiting1"
+      ],
+      "edges": [
+        {
+          "location": "waiting1",
+          "guard": {
+            "op": ">",
+            "left": "p1",
+            "right": 100
+          },
+          "destinations": [
+            {
+              "location": "waiting1",
+              "assignments": [
+                {
+                  "ref": "p1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "act2",
+      "locations": [
+        {
+          "name": "waiting2",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 200,
+              "right": "p2"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "waiting2"
+      ],
+      "edges": [
+        {
+          "location": "waiting2",
+          "guard": {
+            "op": ">",
+            "left": "p2",
+            "right": 200
+          },
+          "destinations": [
+            {
+              "location": "waiting2",
+              "assignments": [
+                {
+                  "ref": "p2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "act3",
+      "locations": [
+        {
+          "name": "waiting3",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 300,
+              "right": "p3"
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "waiting3"
+      ],
+      "edges": [
+        {
+          "location": "waiting3",
+          "guard": {
+            "op": ">",
+            "left": "p3",
+            "right": 300
+          },
+          "destinations": [
+            {
+              "location": "waiting3",
+              "assignments": [
+                {
+                  "ref": "p3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sched",
+      "locations": [
+        {
+          "name": "idle"
+        },
+        {
+          "name": "x1R",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "b",
+              "right": "c1"
+            }
+          }
+        },
+        {
+          "name": "x2R",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 28,
+              "right": "c2"
+            }
+          }
+        },
+        {
+          "name": "x3R",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "C3_WORST",
+              "right": "c3"
+            }
+          }
+        },
+        {
+          "name": "x1R2W",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "b",
+              "right": "c1"
+            }
+          }
+        },
+        {
+          "name": "x1R3W",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "b",
+              "right": "c1"
+            }
+          }
+        },
+        {
+          "name": "x1W2R",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 28,
+              "right": "c2"
+            }
+          }
+        },
+        {
+          "name": "x2R3W",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 28,
+              "right": "c2"
+            }
+          }
+        },
+        {
+          "name": "x1W3R",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "C3_WORST",
+              "right": "c3"
+            }
+          }
+        },
+        {
+          "name": "x2W3R",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "C3_WORST",
+              "right": "c3"
+            }
+          }
+        },
+        {
+          "name": "x1R2W3W",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "b",
+              "right": "c1"
+            }
+          }
+        },
+        {
+          "name": "x1W2R3W",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": 28,
+              "right": "c2"
+            }
+          }
+        },
+        {
+          "name": "x1W2W3R",
+          "time-progress": {
+            "exp": {
+              "op": ">",
+              "left": "C3_WORST",
+              "right": "c3"
+            }
+          }
+        },
+        {
+          "name": "error"
+        }
+      ],
+      "initial_locations": [
+        "idle"
+      ],
+      "edges": [
+        {
+          "location": "idle",
+          "destinations": [
+            {
+              "location": "x1R",
+              "assignments": [
+                {
+                  "ref": "c1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "idle",
+          "destinations": [
+            {
+              "location": "x2R",
+              "assignments": [
+                {
+                  "ref": "c2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "idle",
+          "destinations": [
+            {
+              "location": "x3R",
+              "assignments": [
+                {
+                  "ref": "c3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "x1R",
+          "guard": {
+            "op": ">",
+            "left": "c1",
+            "right": 10
+          },
+          "destinations": [
+            {
+              "location": "idle"
+            }
+          ]
+        },
+        {
+          "location": "x1R",
+          "guard": {
+            "op": "≥",
+            "left": "b",
+            "right": "c1"
+          },
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1R",
+          "destinations": [
+            {
+              "location": "x1R2W"
+            }
+          ]
+        },
+        {
+          "location": "x1R",
+          "destinations": [
+            {
+              "location": "x1R3W"
+            }
+          ]
+        },
+        {
+          "location": "x2R",
+          "guard": {
+            "op": ">",
+            "left": "c2",
+            "right": 18
+          },
+          "destinations": [
+            {
+              "location": "idle"
+            }
+          ]
+        },
+        {
+          "location": "x2R",
+          "guard": {
+            "op": "≥",
+            "left": 28,
+            "right": "c2"
+          },
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x2R",
+          "destinations": [
+            {
+              "location": "x1W2R"
+            }
+          ]
+        },
+        {
+          "location": "x2R",
+          "destinations": [
+            {
+              "location": "x2R3W"
+            }
+          ]
+        },
+        {
+          "location": "x3R",
+          "guard": {
+            "op": ">",
+            "left": "c3",
+            "right": 20
+          },
+          "destinations": [
+            {
+              "location": "idle"
+            }
+          ]
+        },
+        {
+          "location": "x3R",
+          "guard": {
+            "op": "≥",
+            "left": "C3_WORST",
+            "right": "c3"
+          },
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x3R",
+          "destinations": [
+            {
+              "location": "x1W3R"
+            }
+          ]
+        },
+        {
+          "location": "x3R",
+          "destinations": [
+            {
+              "location": "x2W3R"
+            }
+          ]
+        },
+        {
+          "location": "x1R2W",
+          "guard": {
+            "op": ">",
+            "left": "c1",
+            "right": 10
+          },
+          "destinations": [
+            {
+              "location": "x2R",
+              "assignments": [
+                {
+                  "ref": "c2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "x1R2W",
+          "guard": {
+            "op": "≥",
+            "left": "b",
+            "right": "c1"
+          },
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1R2W",
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1R2W",
+          "destinations": [
+            {
+              "location": "x1R2W3W"
+            }
+          ]
+        },
+        {
+          "location": "x1R3W",
+          "guard": {
+            "op": ">",
+            "left": "c1",
+            "right": 10
+          },
+          "destinations": [
+            {
+              "location": "x3R",
+              "assignments": [
+                {
+                  "ref": "c3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "x1R3W",
+          "guard": {
+            "op": "≥",
+            "left": "b",
+            "right": "c1"
+          },
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1R3W",
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1R3W",
+          "destinations": [
+            {
+              "location": "x1R2W3W"
+            }
+          ]
+        },
+        {
+          "location": "x1W2R",
+          "guard": {
+            "op": ">",
+            "left": "c2",
+            "right": 18
+          },
+          "destinations": [
+            {
+              "location": "x1R",
+              "assignments": [
+                {
+                  "ref": "c1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "x1W2R",
+          "guard": {
+            "op": "≥",
+            "left": 28,
+            "right": "c2"
+          },
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1W2R",
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1W2R",
+          "destinations": [
+            {
+              "location": "x1W2R3W"
+            }
+          ]
+        },
+        {
+          "location": "x2R3W",
+          "guard": {
+            "op": ">",
+            "left": "c2",
+            "right": 18
+          },
+          "destinations": [
+            {
+              "location": "x3R",
+              "assignments": [
+                {
+                  "ref": "c3",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "x2R3W",
+          "guard": {
+            "op": "≥",
+            "left": 28,
+            "right": "c2"
+          },
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x2R3W",
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x2R3W",
+          "destinations": [
+            {
+              "location": "x1W2R3W"
+            }
+          ]
+        },
+        {
+          "location": "x1W3R",
+          "guard": {
+            "op": ">",
+            "left": "c3",
+            "right": 20
+          },
+          "destinations": [
+            {
+              "location": "x1R",
+              "assignments": [
+                {
+                  "ref": "c1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "x1W3R",
+          "guard": {
+            "op": "≥",
+            "left": "C3_WORST",
+            "right": "c3"
+          },
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1W3R",
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1W3R",
+          "destinations": [
+            {
+              "location": "x1W2W3R"
+            }
+          ]
+        },
+        {
+          "location": "x2W3R",
+          "guard": {
+            "op": ">",
+            "left": "c3",
+            "right": 20
+          },
+          "destinations": [
+            {
+              "location": "x1R",
+              "assignments": [
+                {
+                  "ref": "c1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "x2W3R",
+          "guard": {
+            "op": "≥",
+            "left": "C3_WORST",
+            "right": "c3"
+          },
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x2W3R",
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x2W3R",
+          "destinations": [
+            {
+              "location": "x1W2W3R"
+            }
+          ]
+        },
+        {
+          "location": "x1R2W3W",
+          "guard": {
+            "op": ">",
+            "left": "c1",
+            "right": 10
+          },
+          "destinations": [
+            {
+              "location": "x2R3W",
+              "assignments": [
+                {
+                  "ref": "c2",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "x1R2W3W",
+          "guard": {
+            "op": "≥",
+            "left": "b",
+            "right": "c1"
+          },
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1R2W3W",
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1R2W3W",
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1W2R3W",
+          "guard": {
+            "op": ">",
+            "left": "c2",
+            "right": 18
+          },
+          "destinations": [
+            {
+              "location": "x1R3W",
+              "assignments": [
+                {
+                  "ref": "c1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "x1W2R3W",
+          "guard": {
+            "op": "≥",
+            "left": 28,
+            "right": "c2"
+          },
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1W2R3W",
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1W2R3W",
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1W2W3R",
+          "guard": {
+            "op": ">",
+            "left": "c3",
+            "right": 20
+          },
+          "destinations": [
+            {
+              "location": "x1R2W",
+              "assignments": [
+                {
+                  "ref": "c1",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "location": "x1W2W3R",
+          "guard": {
+            "op": "≥",
+            "left": "C3_WORST",
+            "right": "c3"
+          },
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1W2W3R",
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        },
+        {
+          "location": "x1W2W3R",
+          "destinations": [
+            {
+              "location": "error"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "act1"
+      },
+      {
+        "automaton": "act2"
+      },
+      {
+        "automaton": "act3"
+      },
+      {
+        "automaton": "sched"
+      }
+    ],
+    "syncs": [
+      {
+        "synchronise": [
+          "r1",
+          null,
+          null,
+          "r1"
+        ],
+        "result": "r1"
+      },
+      {
+        "synchronise": [
+          null,
+          "r2",
+          null,
+          "r2"
+        ],
+        "result": "r2"
+      },
+      {
+        "synchronise": [
+          null,
+          null,
+          "r3",
+          "r3"
+        ],
+        "result": "r3"
+      }
+    ]
+  }
+}

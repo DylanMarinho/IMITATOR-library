@@ -1,0 +1,83 @@
+{
+  "jani-version": 1,
+  "name": "Unsolvable/Cycles/Cycles_noSolution/infinite-noSolution.imi",
+  "type": "sha",
+  "features": [
+    "derived-operators"
+  ],
+  "actions": [],
+  "variables": [
+    {
+      "name": "x",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "y",
+      "type": "clock",
+      "initial_value": 0
+    },
+    {
+      "name": "p",
+      "type": "real"
+    }
+  ],
+  "properties": [],
+  "automata": [
+    {
+      "name": "pta",
+      "locations": [
+        {
+          "name": "l0",
+          "time-progress": {
+            "exp": {
+              "op": "∧",
+              "left": {
+                "op": ">",
+                "left": 1,
+                "right": "x"
+              },
+              "right": {
+                "op": ">",
+                "left": "p",
+                "right": "y"
+              }
+            }
+          }
+        }
+      ],
+      "initial_locations": [
+        "l0"
+      ],
+      "edges": [
+        {
+          "location": "l0",
+          "guard": {
+            "op": ">",
+            "left": "x",
+            "right": 1
+          },
+          "destinations": [
+            {
+              "location": "l0",
+              "assignments": [
+                {
+                  "ref": "x",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "system": {
+    "elements": [
+      {
+        "automaton": "pta"
+      }
+    ],
+    "syncs": []
+  }
+}
