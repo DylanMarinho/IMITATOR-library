@@ -1,6 +1,6 @@
 (*******************************************************************************
- *                                IMITATOR MODEL
- *
+ *                                IMITATOR MODEL                               
+ * 
  * Title            : synth3N
  * Description      : Toy benchmark for which the result is "p = 3i | i \in N" but IMITATOR cannot find it because the accumulated constraints grow forever
  * Correctness      : Reachability
@@ -9,15 +9,15 @@
  * Categories       : Academic ; Toy ; Unsolvable
  * Source           : Göller, S., & Hilaire, M. (2021). Reachability in two-parametric timed automata with one parameter is EXPSPACE-complete.
  * bibkey           : GH21
- * Author           :
+ * Author           : 
  * Modeling         : Dylan Marinho
  * Input by         : Dylan Marinho
  * License          : Creative Commons Attribution 4.0 International (CC BY 4.0)
- *
+ * 
  * Created          : 2021/09/16
  * Last modified    : 2021/09/19
- * Model version    :
- *
+ * Model version    : 
+ * 
  * IMITATOR version : 3.1
  ******************************************************************************)
 
