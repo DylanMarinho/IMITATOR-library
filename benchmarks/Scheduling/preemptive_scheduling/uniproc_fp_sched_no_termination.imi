@@ -1,23 +1,23 @@
 (*******************************************************************************
- *                                IMITATOR MODEL
- *
+ *                                IMITATOR MODEL                               
+ * 
  * Title            : uniproc_fp_sched_no_termination
- * Description      :
- * Correctness      :
- * Scalable         :
- * Generated        :
- * Categories       :
+ * Description      : 
+ * Correctness      : 
+ * Scalable         : 
+ * Generated        : 
+ * Categories       : 
  * Source           : ''Toward Parametric Timed Interfaces for Real-Time Components'' (2014) by Youcheng Sun, Giuseppe Lipari, Étienne André and Laurent Fribourg
- * bibkey           :
+ * bibkey           : 
  * Author           : Giuseppe Lipari
- * Modeling         :
- * Input by         :
- * License          :
- *
+ * Modeling         : 
+ * Input by         : 
+ * License          : 
+ * 
  * Created          : 2020/08/18
  * Last modified    : 2020/08/18
- * Model version    :
- *
+ * Model version    : 
+ * 
  * IMITATOR version : 3
  ******************************************************************************)
 
