@@ -18,6 +18,8 @@ researcher;researcher-AGnot;Researcher;
 researcher;researcher-pattern2;Researcher;
 researcher;researcher-pattern3;Researcher;
 researcher_globaltime;researcher_globaltime-EFtmin;Researcher;
+crossing_signals-20;crossing_signals-EF;Merging/crossing_signals;
+crossing_signals-200;crossing_signals-EF;Merging/crossing_signals;
 Pipeline_KP12_2_5;Pipeline_KP12_2_5-EF;ProdCons;
 Pipeline_KP12_2_3;Pipeline_KP12_2_3-EF;ProdCons;
 Pipeline_KP12_3_3;Pipeline_KP12_3_3-EF;ProdCons;
