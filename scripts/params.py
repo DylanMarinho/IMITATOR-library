@@ -12,7 +12,7 @@ gitURL = "https://raw.githubusercontent.com/imitator-model-checker/imitator/feat
 filesURL = ""
 colsHTML = ["Benchmark", "Jani", "Source", "Categories", "Metrics", "Properties"]
 metadata_to_print = ["Scalable", "Generated"]
-libraryVersion = "V2.0"
+libraryVersion = "v2.1"
 
 ############################
 # Imitator
