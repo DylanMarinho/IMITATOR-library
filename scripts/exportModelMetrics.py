@@ -71,7 +71,6 @@ def writePDF(imi_path):
 
     try:
         open(path_to_pdf, "r")
-        print("Foud {}".format(path_to_pdf))
         # found pdf file
         return path_to_pdf
     except FileNotFoundError:
