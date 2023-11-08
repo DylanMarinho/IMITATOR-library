@@ -57,7 +57,7 @@ var
 (************************************************************)
   automaton ATM_1
 (************************************************************)
-synclabs:
+actions:
 	(* Controllable: system *)
 	askPassword_1, finish, start_1,
 	(* Controllable: user (i.e., that can be disabled by removing the choice in the system) *)
@@ -147,7 +147,7 @@ end (* ATM *)
 (************************************************************)
   automaton ATM_2
 (************************************************************)
-synclabs:
+actions:
 	(* Controllable: system *)
 	askPassword_2, finish, start_2,
 	(* Controllable: user (i.e., that can be disabled by removing the choice in the system) *)
