@@ -71,6 +71,7 @@ def writePDF(imi_path):
 
     try:
         open(path_to_pdf, "r")
+        print("Foud {}".format(path_to_pdf))
         # found pdf file
         return path_to_pdf
     except FileNotFoundError:
@@ -211,12 +212,12 @@ def export_model_metrics(list_of_models):
 
         print(" * Begin export of Model metrics with {} models".format(len(list_of_models)))
         for model in list_of_models:
+            index = list_of_models.index(model)
+            print("   ** Run of model {} ({}/{})".format(model, index + 1, len(list_of_models)))
             if args.pdf:
                 # write pdf
                 writePDF(model)
             # extract metrics
-            index = list_of_models.index(model)
-            print("   ** Run of model {} ({}/{})".format(model, index + 1, len(list_of_models)))
             res_file = execute_model_run(model, generate=args.generateRes, overwrite=args.overwriteRes, checksyntax=args.checksyntax)
             metrics = parse_model_res(res_file)
             metrics["Name"] = os.path.basename(os.path.splitext(model)[0])
