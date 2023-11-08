@@ -1,7 +1,7 @@
-(************************************************************
- *                      IMITATOR MODEL
- *
- * Title            : model from "Protecting Smart Homes from Unintended Application Actions"
+(*******************************************************************************
+ *                                IMITATOR MODEL                               
+ * 
+ * Title            : KSA22_4
  * Description      : model from "Protecting Smart Homes from Unintended Application Actions"
  * Correctness      : TODO
  * Scalable         : no
@@ -13,11 +13,13 @@
  * Modeling         : Aqsa Kashaf, Vyas Sekar, Yuvraj Agarwal
  * Input by         : Aqsa Kashaf, Vyas Sekar, Yuvraj Agarwal, Dylan Marinho
  * License          : Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+ * 
  * Created          : <2022/08
  * Last modified    : 2023/05/11
- * IMITATOR version	: 3.4
  * Model version    : 1.1
- ************************************************************)
+ * 
+ * IMITATOR version : 3.4
+ ******************************************************************************)
 
 (* The default output should be  True. The observer model checks if garage door is closed with delta time after being opened *)
 
