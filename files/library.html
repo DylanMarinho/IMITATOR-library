@@ -4,14 +4,15 @@
 <title>The IMITATOR benchmark library (V2.0)</title>
 <meta charset="UTF-8">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" media="screen" href="styleLibrary.css"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.imitator.fr/imitator.css"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.imitator.fr/library.css"/>
 </head>
 <body>
 <div id="header"><h1>The IMITATOR benchmarks library (V2.0)</h1></div>
 <div class='content'>
 	<p>This page presents the official IMITATOR benchmarks library. These models have been accumulated over the years from scientific publications, and from industrial collaborations.</p>
-	<p>In its V2.0 version, the library contains 63 benchmarks with 130 different models and 228 properties.</p>
-</div><!-- <div class="content"><p><span style="color:red;font-size:15;"><b>PAGE WRITTEN ON: 19/07/2022 17:01:33</b></span></p></div> --><ul id='listOfBenchmarks'>
+	<p>In its V2.0 version, the library contains 64 benchmarks with 132 different models and 230 properties.</p>
+</div><!-- <div class="content"><p><span style="color:red;font-size:15;"><b>PAGE WRITTEN ON: 03/11/2023 11:05:27</b></span></p></div> --><ul id='listOfBenchmarks'>
 	<li><a href="#accel">accel</a></li>
 	<li><a href="#ALR15_fig1">ALR15_fig1</a></li>
 	<li><a href="#ALR15_fig2a">ALR15_fig2a</a></li>
@@ -24,6 +25,7 @@
 	<li><a href="#BRPDKRT97">BRPDKRT97</a></li>
 	<li><a href="#Coffee">Coffee</a></li>
 	<li><a href="#CoffeeDrinker">CoffeeDrinker</a></li>
+	<li><a href="#crossing_signals">crossing_signals</a></li>
 	<li><a href="#CSMACD">CSMACD</a></li>
 	<li><a href="#Cycle1">Cycle1</a></li>
 	<li><a href="#Cycles_2">Cycles_2</a></li>
@@ -786,7 +788,7 @@
 	<th rowspan=1 class='model'><a href='https://raw.githubusercontent.com/imitator-model-checker/imitator/feature/library-2.1/benchmarks/Security/ATM_PTO/ATM_PTO.imi' target='blank'>ATM_PTO</a></th>
 	<td rowspan=1></td>
 	<td rowspan=1></td>
-	<td rowspan=1>[ABLM2x]</td>
+	<td rowspan=1>[ABLM22]</td>
 	<!--Categories-->
 		<td class='no' rowspan=1 title='Academic'></td>
 		<td class='no' rowspan=1 title='Automotive'></td>
@@ -1560,6 +1562,91 @@
 		<td rowspan=1 title='Average transitions per IPTA'>6.5</td>
 	<!--Properties-->
 		<td class='property'><a href='https://raw.githubusercontent.com/imitator-model-checker/imitator/feature/library-2.1/benchmarks/Coffee/CoffeeDrinker/coffeeDrinker_unbounded-AGnot.imiprop' target='blank'>AGnot</a></td>
+		<td></td>
+		<td title='Not executed' class='TO' colspan=3>TO (Term.)</td>
+</tr><tr>
+	<th rowspan=2 class='benchmark' id='crossing_signals'>crossing_signals</th>
+	<th rowspan=1 class='model'><a href='https://raw.githubusercontent.com/imitator-model-checker/imitator/feature/library-2.1/benchmarks/Merging/crossing_signals/crossing_signals-20.imi' target='blank'>crossing_signals-20</a></th>
+	<td rowspan=1></td>
+	<td rowspan=1></td>
+	<td rowspan=1>AWUH22</td>
+	<!--Categories-->
+		<td class='no' rowspan=1 title='Academic'></td>
+		<td class='no' rowspan=1 title='Automotive'></td>
+		<td class='no' rowspan=1 title='Education'></td>
+		<td class='no' rowspan=1 title='Hardware'></td>
+		<td class='no' rowspan=1 title='Industrial'></td>
+		<td class='no' rowspan=1 title='Monitoring'></td>
+		<td class='no' rowspan=1 title='ProdCons'></td>
+		<td class='no' rowspan=1 title='Protocol'></td>
+		<td class='no' rowspan=1 title='RTS'></td>
+		<td class='no' rowspan=1 title='Scheduling'></td>
+		<td class='no' rowspan=1 title='Security'></td>
+		<td class='yes' rowspan=1 title='Toy'>Toy</td>
+		<td class='no' rowspan=1 title='Unsolvable'></td>
+	<!--Metadata-->
+		<td rowspan=1  class='yes' title='Scalable'>yes</td>
+		<td rowspan=1 title='Generated'>no</td>
+	<!--Metrics-->
+		<td rowspan=1 title='Number of IPTAs'></td>
+		<td rowspan=1 title='Number of clocks'></td>
+		<td rowspan=1 title='Has invariants?'></td>
+		<td rowspan=1 title='Has clocks with rate <>1?'></td>
+		<td rowspan=1 title='L/U subclass'></td>
+		<td rowspan=1 title='Bounded parameters?'></td>
+		<td rowspan=1 title='Has silent actions?'></td>
+		<td rowspan=1 title='Is strongly deterministic?'></td>
+		<td rowspan=1 title='Number of parameters'></td>
+		<td rowspan=1 title='Number of discrete variables'></td>
+		<td rowspan=1 title='Number of actions'></td>
+		<td rowspan=1 title='Total number of locations'></td>
+		<td rowspan=1 title='Average locations per IPTA'></td>
+		<td rowspan=1 title='Total number of transitions'></td>
+		<td rowspan=1 title='Average transitions per IPTA'></td>
+	<!--Properties-->
+		<td class='property'><a href='https://raw.githubusercontent.com/imitator-model-checker/imitator/feature/library-2.1/benchmarks/Merging/crossing_signals/crossing_signals-EF.imiprop' target='blank'>EF</a></td>
+		<td></td>
+		<td title='Not executed' class='TO' colspan=3>TO (Term.)</td>
+</tr><tr>
+	<th rowspan=1 class='model'><a href='https://raw.githubusercontent.com/imitator-model-checker/imitator/feature/library-2.1/benchmarks/Merging/crossing_signals/crossing_signals-200.imi' target='blank'>crossing_signals-200</a></th>
+	<td rowspan=1></td>
+	<td rowspan=1></td>
+	<td rowspan=1>AWUH22</td>
+	<!--Categories-->
+		<td class='no' rowspan=1 title='Academic'></td>
+		<td class='no' rowspan=1 title='Automotive'></td>
+		<td class='no' rowspan=1 title='Education'></td>
+		<td class='no' rowspan=1 title='Hardware'></td>
+		<td class='no' rowspan=1 title='Industrial'></td>
+		<td class='no' rowspan=1 title='Monitoring'></td>
+		<td class='no' rowspan=1 title='ProdCons'></td>
+		<td class='no' rowspan=1 title='Protocol'></td>
+		<td class='no' rowspan=1 title='RTS'></td>
+		<td class='no' rowspan=1 title='Scheduling'></td>
+		<td class='no' rowspan=1 title='Security'></td>
+		<td class='yes' rowspan=1 title='Toy'>Toy</td>
+		<td class='no' rowspan=1 title='Unsolvable'></td>
+	<!--Metadata-->
+		<td rowspan=1  class='yes' title='Scalable'>yes</td>
+		<td rowspan=1 title='Generated'>no</td>
+	<!--Metrics-->
+		<td rowspan=1 title='Number of IPTAs'></td>
+		<td rowspan=1 title='Number of clocks'></td>
+		<td rowspan=1 title='Has invariants?'></td>
+		<td rowspan=1 title='Has clocks with rate <>1?'></td>
+		<td rowspan=1 title='L/U subclass'></td>
+		<td rowspan=1 title='Bounded parameters?'></td>
+		<td rowspan=1 title='Has silent actions?'></td>
+		<td rowspan=1 title='Is strongly deterministic?'></td>
+		<td rowspan=1 title='Number of parameters'></td>
+		<td rowspan=1 title='Number of discrete variables'></td>
+		<td rowspan=1 title='Number of actions'></td>
+		<td rowspan=1 title='Total number of locations'></td>
+		<td rowspan=1 title='Average locations per IPTA'></td>
+		<td rowspan=1 title='Total number of transitions'></td>
+		<td rowspan=1 title='Average transitions per IPTA'></td>
+	<!--Properties-->
+		<td class='property'><a href='https://raw.githubusercontent.com/imitator-model-checker/imitator/feature/library-2.1/benchmarks/Merging/crossing_signals/crossing_signals-EF.imiprop' target='blank'>EF</a></td>
 		<td></td>
 		<td title='Not executed' class='TO' colspan=3>TO (Term.)</td>
 </tr><tr>
