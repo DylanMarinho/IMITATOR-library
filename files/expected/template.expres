@@ -1,5 +1,0 @@
-BEGIN EXPECTED CONSTRAINT
-TODO
-END EXPECTED CONSTRAINT
-
-(* This constraint is an expected result, and was manually written since IMITATOR is not able to infer a result on this model. This expected result is provided without any warranty. *)
