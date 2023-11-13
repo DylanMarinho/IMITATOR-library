@@ -1,0 +1,121 @@
+/**********************************************************
+ HEADER
+**********************************************************/
+
+div#header {
+	padding-left: 20px;
+	height: 75px;
+	background-color: #7040FF;
+	margin: 0;
+}
+
+#header h1{
+	padding-top: 25px;
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+/**********************************************************
+ CONTENT
+**********************************************************/
+.fas {
+	font-size: 1.2em;
+}
+body {
+	width: 95%;
+	font-size: 9pt;
+}
+body .content {
+	background-color: #E6E6E6;
+	border: 1px solid black;
+	border-radius: 0 1px 0 1px;
+	padding: 1em;
+	margin: 1em;
+	font-size: inherit;
+}
+body p {
+	padding: .5em;
+}
+
+/************** list of benchmarks */
+body ul#listOfBenchmarks {
+  list-style-type: none;
+  margin: 1em;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+body ul#listOfBenchmarks li {
+  float: left;
+	text-transform: capitalize;
+}
+body ul#listOfBenchmarks li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+body ul#listOfBenchmarks li a:hover {
+  background-color: #111;
+}
+
+
+/************** library table */
+body table.library {
+	border-collapse:collapse;
+	table-layout:fixed;
+	/* width:100%; */
+	font-size: .6em;
+	min-width: 100%;
+}
+body table.library thead th {
+	/* background:#F5F5F5; */
+	background-color: #585858;
+	color: white;
+	text-align: center;
+	font-size: 1.3em;
+}
+body table.library th.benchmark {
+	/* background:#F5F5F5; */
+	background-color: #848484;
+	color: black;
+	text-align: center;
+}
+body table.library th.model, body table.library td.property {
+	/* background:#F5F5F5; */
+	background-color: #A4A4A4;
+	color: black;
+	text-align: left;
+	width: auto;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	overflow: hidden;
+}
+
+body table.library td, body table.library th {
+  border:1px solid #DDD;
+	padding:5px 3px;
+}
+body table.library td {
+	text-align: center;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+body table.library td.yes {
+	background-color: #A0FFA0;
+}
+body table.library td.no {
+	background-color: #E6E6E6;
+}
+body table.library td.TO {
+	background-color: #F5A9A9;
+}
+body table.library td.NE {
+	background-color: #D1D1D1;
+}
+body table.library a {
+	color: inherit;
+}
