@@ -67,7 +67,7 @@ def export_library():
                         dict["Extra-command"] += " -no-cumulative-pruning"
                     if "BRPAAPP21" in base_model(dict["Model"]):
                         if base_model(dict["Model"]) == "BRPAAPP21_RC" and property == "BRPAAPP21_RC-AGnot.imiprop":
-                            dict["Extra-command"] += " -mergeq -comparison inclusion"
+                            dict["Extra-command"] += " -merge-candidates queue -comparison inclusion"
                         elif base_model(dict[
                                            "Model"]) == "BRPAAPP21_GFSinRC" and property == "BRPAAPP21_GFSinRC-CycleThrough.imiprop":
                             dict["Extra-command"] += " -no-subsumption -comparison inclusion"
