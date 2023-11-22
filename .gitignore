@@ -3,3 +3,5 @@
 files/*
 **/*.dot
 scripts/__pycache__/*
+
+!files/expected
