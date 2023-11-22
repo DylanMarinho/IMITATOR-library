@@ -23,7 +23,7 @@ imitator_cmd = "imitator"
 imitatorTimeoutForModels = 0  # timeout for imitator in second, 0 disables it. Used for model metrics
 imitatorTimeoutForModelsToPDF = 3600 * 7  # timeout for imitator -imi2PDF in second, 0 disables it. Used for model
 # translation
-imitatorTimeoutForProps = 1 #3600 * 7  # timeout for imitator in second, 0 disables it. Used for property metrics
+imitatorTimeoutForProps = 3600 * 7  # timeout for imitator in second, 0 disables it. Used for property metrics
 imitatorTimeoutForUnsolvable = 5  # time-limit for imitator in second as extra-command for unsolvable
 
 ############################
@@ -84,12 +84,6 @@ modelIntroduction = "IMITATOR MODEL"
 beginLine = " * "  # on each header line for beginning
 categoriesSepHeadImi = " ; "  # separator between two category tags
 exitingHeadImi = " " + "*" * (maxNumberOfPrints - 2) + ")"  # last line of header
-
-########## IMITATOR res keywords
-keyword_res_termination = "Termination"
-
-########## Manual res keywords
-output_res_timeout = "TO"
 
 # Keys as in the input csv file, in the order to be written
 # "" to have an empty line in the imitator model head
@@ -347,10 +341,10 @@ time_metric = "Total computation time"
 unsolvable_timeout_text = "NE (Uns.)"
 
 termination_keyword = "Termination"
-timeout_mention = "time limit"
-termination_timeout_text = "TO (Term.)"
+timeout_mention = "TO"
 
-not_executed_text = "TO (Term.)"
+termination_timeout_text = "TO"
+not_executed_text = "NE"
 
 
 def files_URL_for_html(file_path):
@@ -393,21 +387,33 @@ def extract_value(file, key):
     # if no value
     return ""
 
+def get_timeout_from_res_text(res_text):
+    """
+    From a res text (value of Termination:), get the timeout
+    :param res_text: value of Termination
+    :return: Number of seconds of timeout
+    """
+    return res_text.split("(")[1].split(")")[0].replace("\s", "").replace("s", "")
 
 def is_timed_out(res_file):
     """
     Check if a (model,property) was TO
     :param res_file: res file of the execution (with path)
-    :return: 0 if good execution, 1 if no exist, timeout_text otherwise
+    :return: -1 if good execution, 0 if not executed (no res file), #s of timeout, timeout_text otherwise
     """
     try:
         open(res_file, "r")
     except FileNotFoundError:  # execution not done
-        return 1
+        return 0
 
-    if timeout_mention in extract_value(res_file, "Termination"):
-        return termination_timeout_text
     if is_unsolvable("", res_file):
         return unsolvable_timeout_text
+
+    termination_value = extract_value(res_file, "Termination")
+    if timeout_mention in termination_value:
+        return int(get_timeout_from_res_text(termination_value))
+    else:
+        return -1
+
     # every case is False, so return 0
     return 0

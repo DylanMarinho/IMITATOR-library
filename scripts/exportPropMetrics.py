@@ -71,7 +71,7 @@ def write_TO_res(model, res_file_with_path, cmd, timeout):
     :return: True if the output file is created
     """
     try:
-        open(res_file_with_path, "w")
+        file = open(res_file_with_path, "w")
 
         content = "(************************************************************" + "\n"
         content += "* Result by: IMITATOR library maintainer script" + "\n"
@@ -81,8 +81,11 @@ def write_TO_res(model, res_file_with_path, cmd, timeout):
         content += "************************************************************)" + "\n"
         content += "\n"
         content += "------------------------------------------------------------" + "\n"
-        content += "{} : {}".format(keyword_res_termination, "{} ({}s)".format(output_res_timeout, timeout)) + "\n"
+        content += "{} : {}".format(termination_keyword, "{} ({}s)".format(timeout_mention, timeout)) + "\n"
         content += "------------------------------------------------------------" + "\n"
+
+        file.write(content)
+        file.close()
 
         return True
     except FileNotFoundError:
@@ -138,7 +141,7 @@ def execute_model_prop_run(model_path, property_path, timeout=imitatorTimeoutFor
             if "Command" in line:
                 res_command = line.split(": ")[1]
                 seen += 1
-            if keyword_res_termination in line:
+            if termination_keyword in line:
                 res_termination = line.split(": ")[1]
                 seen += 1
             if seen == 2:
@@ -150,8 +153,8 @@ def execute_model_prop_run(model_path, property_path, timeout=imitatorTimeoutFor
             print("     *** Res file exist for model {}".format(model_name))
             to_execute = False
 
-        if output_res_timeout in res_termination:  # If res file specifies a TO
-            TO_value = int(res_termination.split("(")[1].split(")")[1].replace("\s", "").replace("s", ""))
+        if timeout_mention in res_termination:  # If res file specifies a TO
+            TO_value = int(get_timeout_from_res_text(res_termination))
             if TO_value < timeout:
                 to_execute = True
 
@@ -177,7 +180,7 @@ def execute_model_prop_run(model_path, property_path, timeout=imitatorTimeoutFor
 
         try:
             open(res_file_with_path , "r")  # if res file exists -> execution ended
-            print("a")
+
             # clean res file: delete absolute path
             cmd = "sed -i 's#{}##g' {}".format(benchmarksDirectory, res_file_with_path)
             os.system(cmd)
@@ -186,7 +189,6 @@ def execute_model_prop_run(model_path, property_path, timeout=imitatorTimeoutFor
             cmd = "sed -i 's#{}#{}#g' {}".format(imitator_cmd, "imitator", res_file_with_path)
             os.system(cmd)
         except FileNotFoundError:  # if res file does not exist -> execution reached the TO
-            print("b")
             write_TO_res(model_path, res_file_with_path, cmd, timeout)
     return res_file_with_path
 

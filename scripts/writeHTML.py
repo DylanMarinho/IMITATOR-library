@@ -394,7 +394,7 @@ def write_html_model(model_name, data, cat_names, model_met_names, prop_met_name
                 timed_out = unsolvable_timeout_text  # if expected is provided, the model is associated to unsolvable
             else:
                 timed_out = is_timed_out(res_file)
-            if timed_out == 0:  # good execution
+            if timed_out == -1:  # good execution
                 for met in prop_met_names:
                     try:
                         L.append("\t\t<td title='{}'>{}</td>".format(met, reduce_HTML(metrics[met])))
@@ -403,13 +403,15 @@ def write_html_model(model_name, data, cat_names, model_met_names, prop_met_name
             elif isUnsolvable(data[model_name]["Path"], prop):
                 L.append("\t\t<td title='Unsolvable' class='NE' colspan={}>{}</td>".format(len(prop_met_names),
                                                                                            unsolvable_timeout_text))
-            elif timed_out == 1:  # No execution
+            elif timed_out == 0:  # No execution
                 L.append(
                     "\t\t<td title='Not executed' class='TO' colspan={}>{}</td>".format(len(prop_met_names),
                                                                                         not_executed_text))
             else:
-                L.append("\t\t<td title='Termination' class='TO' colspan={}>{}</td>".format(len(prop_met_names),
-                                                                                            termination_timeout_text))
+                L.append(
+                    "\t\t<td title='TO Termination' class='TO' colspan={}>{} ({}s)</td>".format(len(prop_met_names),
+                                                                                                termination_timeout_text,
+                                                                                                timed_out))
             # if it is not the last property: add a line
             if number_of_deal_props != len((data[model_name])["properties"].keys()):
                 L.append("</tr><tr>")
