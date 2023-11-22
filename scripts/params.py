@@ -23,7 +23,7 @@ imitator_cmd = "imitator"
 imitatorTimeoutForModels = 0  # timeout for imitator in second, 0 disables it. Used for model metrics
 imitatorTimeoutForModelsToPDF = 3600 * 7  # timeout for imitator -imi2PDF in second, 0 disables it. Used for model
 # translation
-imitatorTimeoutForProps = 3600 * 7  # timeout for imitator in second, 0 disables it. Used for property metrics
+imitatorTimeoutForProps = 1 #3600 * 7  # timeout for imitator in second, 0 disables it. Used for property metrics
 imitatorTimeoutForUnsolvable = 5  # time-limit for imitator in second as extra-command for unsolvable
 
 ############################
@@ -84,6 +84,12 @@ modelIntroduction = "IMITATOR MODEL"
 beginLine = " * "  # on each header line for beginning
 categoriesSepHeadImi = " ; "  # separator between two category tags
 exitingHeadImi = " " + "*" * (maxNumberOfPrints - 2) + ")"  # last line of header
+
+########## IMITATOR res keywords
+keyword_res_termination = "Termination"
+
+########## Manual res keywords
+output_res_timeout = "TO"
 
 # Keys as in the input csv file, in the order to be written
 # "" to have an empty line in the imitator model head

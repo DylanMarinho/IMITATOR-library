@@ -3,6 +3,7 @@
 
 import argparse
 import csv
+import datetime
 
 from params import *
 
@@ -60,6 +61,33 @@ def list_of_properties():
             ])
     return L
 
+def write_TO_res(model, res_file_with_path, cmd, timeout):
+    """
+    Write a res file if an execution reaches the TO
+    :param model: executed model
+    :param res_file_with_path: path to the res file
+    :param cmd: IMITATOR command used
+    :param timeout: timeout set for the IMITATOR run
+    :return: True if the output file is created
+    """
+    try:
+        open(res_file_with_path, "w")
+
+        content = "(************************************************************" + "\n"
+        content += "* Result by: IMITATOR library maintainer script" + "\n"
+        content += "* Model    : '{}'".format(model) + "\n"
+        content += "* Generated: {}".format(datetime.datetime.now().strftime("%a %b %d, %X")) + "\n"
+        content += "* Command  : {}".format(cmd) + "\n"
+        content += "************************************************************)" + "\n"
+        content += "\n"
+        content += "------------------------------------------------------------" + "\n"
+        content += "{} : {}".format(keyword_res_termination, "{} ({}s)".format(output_res_timeout, timeout)) + "\n"
+        content += "------------------------------------------------------------" + "\n"
+
+        return True
+    except FileNotFoundError:
+        print("\t[ERROR] Impossible to write in {}".format(res_file_with_path))
+        return False
 
 def execute_model_prop_run(model_path, property_path, timeout=imitatorTimeoutForProps, extra="", generate=False,
                            overwrite=False):
@@ -104,14 +132,30 @@ def execute_model_prop_run(model_path, property_path, timeout=imitatorTimeoutFor
         f = open(res_file_with_path, "r")
         lines = f.read().split("\n")
         res_command = ""
+        res_termination = ""
+        seen = 0
         for line in lines:
             if "Command" in line:
                 res_command = line.split(": ")[1]
+                seen += 1
+            if keyword_res_termination in line:
+                res_termination = line.split(": ")[1]
+                seen += 1
+            if seen == 2:
                 break
         to_compare_cmd = cmd.replace(benchmarksDirectory, "").replace(resFilesDirectory + "/", "").replace(imitator_cmd,
                                                                                                            "imitator")
-        if to_compare_cmd == res_command or not overwrite:
+        to_execute = True
+        if to_compare_cmd == res_command and not overwrite:
             print("     *** Res file exist for model {}".format(model_name))
+            to_execute = False
+
+        if output_res_timeout in res_termination:  # If res file specifies a TO
+            TO_value = int(res_termination.split("(")[1].split(")")[1].replace("\s", "").replace("s", ""))
+            if TO_value < timeout:
+                to_execute = True
+
+        if not to_execute:
             return res_file_with_path
     except FileNotFoundError:  # if exception, we need to compute it
         pass
@@ -131,13 +175,19 @@ def execute_model_prop_run(model_path, property_path, timeout=imitatorTimeoutFor
         os.system("mkdir -p {}".format(os.path.dirname(res_file_with_path)))  # create the path to res if needed
         os.system(cmd + " > /dev/null")
 
-        # clean res file: delete absolute path
-        cmd = "sed -i 's#{}##g' {}".format(benchmarksDirectory, res_file_with_path)
-        os.system(cmd)
-        cmd = "sed -i 's#{}##g' {}".format(resFilesDirectory + "/", res_file_with_path)
-        os.system(cmd)
-        cmd = "sed -i 's#{}#{}#g' {}".format(imitator_cmd, "imitator", res_file_with_path)
-        os.system(cmd)
+        try:
+            open(res_file_with_path , "r")  # if res file exists -> execution ended
+            print("a")
+            # clean res file: delete absolute path
+            cmd = "sed -i 's#{}##g' {}".format(benchmarksDirectory, res_file_with_path)
+            os.system(cmd)
+            cmd = "sed -i 's#{}##g' {}".format(resFilesDirectory + "/", res_file_with_path)
+            os.system(cmd)
+            cmd = "sed -i 's#{}#{}#g' {}".format(imitator_cmd, "imitator", res_file_with_path)
+            os.system(cmd)
+        except FileNotFoundError:  # if res file does not exist -> execution reached the TO
+            print("b")
+            write_TO_res(model_path, res_file_with_path, cmd, timeout)
     return res_file_with_path
 
 
