@@ -23,7 +23,7 @@ imitator_cmd = "imitator"
 imitatorTimeoutForModels = 0  # timeout for imitator in second, 0 disables it. Used for model metrics
 imitatorTimeoutForModelsToPDF = 3600 * 7  # timeout for imitator -imi2PDF in second, 0 disables it. Used for model
 # translation
-imitatorTimeoutForProps = 3600 * 7  # timeout for imitator in second, 0 disables it. Used for property metrics
+imitatorTimeoutForProps = 3600  # timeout for imitator in second, 0 disables it. Used for property metrics
 imitatorTimeoutForUnsolvable = 5  # time-limit for imitator in second as extra-command for unsolvable
 
 ############################
