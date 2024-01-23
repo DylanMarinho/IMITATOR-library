@@ -13,9 +13,9 @@
  # Script authors  : Michal Knapick, Étienne André
  #
  # Created         : 2015/05/15
- # Last modified   : 2021/09/01
+ # Last modified   : 2024/01/16
  #
- # IMITATOR version: 3.1
+ # IMITATOR version: 3.4
  ############################################################
 
 import sys
