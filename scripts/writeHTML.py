@@ -315,7 +315,7 @@ def write_html_model(model_name, data, cat_names, model_met_names, prop_met_name
     if "Source" in colsHTML:
         L.append("\t<td rowspan={}>{}</td>".format(size_model,
                                                    data[model_name]["metadata"]["bibkey"].replace(sourcesSep,
-                                                                                                  "<br />")))
+                                                                                                  "<br>")))
     if "Categories" in colsHTML:
         L.append("\t<!--Categories-->")
         for cat in cat_names:
